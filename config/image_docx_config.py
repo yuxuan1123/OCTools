@@ -1,5 +1,5 @@
 """
-octool/config/image_docx_config.py
+OCTools/config/image_docx_config.py
 ───────────────────────────────────────────────
 图片 → DOCX 排版配置（最小功能单元）：ImageDocxConfig
 

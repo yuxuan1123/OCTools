@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/app_base.py
+OCTools/ui/tabs/translation/apps/app_base.py
 ──────────────────────────────────────────
 最终应用 · 公共基类（挂载 UI）
 

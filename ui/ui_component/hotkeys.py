@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/hotkeys.py
+OCTools/ui/ui_component/hotkeys.py
 ─────────────────────────────────────────
 可拓展业务层 · 热键绑定
 

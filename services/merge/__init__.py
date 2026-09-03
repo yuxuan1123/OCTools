@@ -1,5 +1,5 @@
 """
-octool/services/merger/__init__.py
+OCTools/services/merge/__init__.py
 ───────────────────────────────────────────────
 文件合并业务层（全互通 + 星型并存）：
   - base_merger.py        合并抽象接口

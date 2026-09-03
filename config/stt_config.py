@@ -1,5 +1,5 @@
 """
-octool/config/stt_config.py
+OCTools/config/stt_config.py
 ───────────────────────────────────────────────
 语音识别（STT）配置模型，支持保存 / 加载。
 

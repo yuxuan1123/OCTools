@@ -26,7 +26,7 @@ def main():
     st = presets.load_app_settings() or {}
     apply_theme(app, st, notify=False)
 
-    tmp = tempfile.mkdtemp(prefix="octool_probe_")
+    tmp = tempfile.mkdtemp(prefix="OCTools_probe_")
     tmp_plugins = os.path.join(tmp, "plugins")
     tmp_manifests = os.path.join(tmp_plugins, "manifests")
     os.makedirs(tmp_manifests, exist_ok=True)

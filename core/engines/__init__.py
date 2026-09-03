@@ -1,5 +1,5 @@
 """
-octool/core/engines/__init__.py
+OCTools/core/engines/__init__.py
 ───────────────────────────────────────────────
 核心引擎层：各类格式与算法的底层能力封装。
 

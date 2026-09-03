@@ -1,5 +1,5 @@
 """
-octool/services/converter/registry.py
+OCTools/services/conversion/registry.py
 ───────────────────────────────────────────────
 转换注册表（业务逻辑层）：把「(源格式 → 目标格式) 的直达转换函数 + 需要的配置类型」
 声明成一条条 ConversionSpec。

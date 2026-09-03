@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/split_titlebar.py
+OCTools/ui/ui_component/split_titlebar.py
 ───────────────────────────────────────────────
 组合窗口：两个标题栏 + 两栏分割布局
 - 顶部标题栏：窗口名称、最小化、最大化/还原、关闭（无托盘）
@@ -279,7 +279,7 @@ class TestWindow(QMainWindow):
 
             # 存为临时 .ico 文件（Windows 任务栏对 .ico 支持最好）
             ico_path = os.path.join(tempfile.gettempdir(),
-                                    "octool_taskbar_icon.ico")
+                                    "OCTools_taskbar_icon.ico")
             px.toImage().save(ico_path, "ICO")
 
             # --- 方法 1: Qt 标准方法 ---

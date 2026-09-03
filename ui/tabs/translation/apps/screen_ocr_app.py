@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/screen_ocr_app.py
+OCTools/ui/tabs/translation/apps/screen_ocr_app.py
 ───────────────────────────────────────────────
 最终应用 · 屏幕OCR应用 = 屏幕OCR + 悬浮显示框
 

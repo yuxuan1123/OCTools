@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_conversion.py
+OCTools/ui/tabs/tab_conversion.py
 ───────────────────────────────────────────────
 转换页（板块一：文件转换）—— 单文件 / 多文件（逐个转换）
 

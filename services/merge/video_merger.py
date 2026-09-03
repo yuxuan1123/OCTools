@@ -1,5 +1,5 @@
 """
-octool/services/merger/video_merger.py
+OCTools/services/merge/video_merger.py
 ───────────────────────────────────────────────
 视频合并器（业务逻辑层）：星型架构 —— 统一为 mp4 后合并
 

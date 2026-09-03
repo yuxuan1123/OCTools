@@ -1,5 +1,5 @@
 """
-octool/core/formats/registry.py
+OCTools/core/formats/registry.py
 ───────────────────────────────────────────────
 格式注册表本体（最小功能单元）
 

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_plugin.py
+OCTools/ui/tabs/tab_plugin.py
 ───────────────────────────────────────────────
 插件管理页：导入 / 重载 / 卸载本地 tab 插件。
 
@@ -640,7 +640,7 @@ class TabPlugin(QWidget):
         init = os.path.join(plugin_dir, "__init__.py")
         if not os.path.exists(init):
             with open(init, "w", encoding="utf-8") as f:
-                f.write(f'"""octool 插件包：{name}"""\n')
+                f.write(f'"""OCTools 插件包：{name}"""\n')
 
         # ── 写入清单（含文件清单，供已安装卡片展示）──
         settings = data.get("settings")

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/app_hooks.py
+OCTools/ui/tabs/translation/app_hooks.py
 ──────────────────────────────────────────────────
 应用行构建：按注册表 key 生成应用行（启动/停止 切换按钮 + 名称 + 说明 + 状态标签），
 登记到 page 的 _app_btns / _app_status。

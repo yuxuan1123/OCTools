@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_tts.py
+OCTools/ui/options/set_tts.py
 ───────────────────────────────────────────────
 TTS 语音参数设置窗口（PySide6 版，txt / md → 音频）
 

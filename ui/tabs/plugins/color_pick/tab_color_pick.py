@@ -1,4 +1,5 @@
 """
+OCTools/ui/tabs/plugins/color_pick/tab_color_pick.py
 color_pick.py — 颜色选择与多格式转换（带一键复制 + 右下角提示）
 """
 import sys
@@ -11,6 +12,9 @@ from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
     QLabel, QLineEdit, QColorDialog, QGridLayout, QGroupBox, QFrame,
 )
+
+# ── 引入统一 toast 组件 ──
+from ....toast import show_toast
 
 
 # ── 颜色转换工具函数（保持不变） ──
@@ -84,7 +88,6 @@ class TabColorPick(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.selected_color = "#3498DB"
-        self._tooltip_label = None          # 用于右下角提示
         self._install_translators()
         self._build_ui()
 
@@ -262,43 +265,11 @@ class TabColorPick(QWidget):
                 pass
         return None
 
-    # ── 复制到剪贴板 + 右下角提示 ──
+    # ── 复制到剪贴板 + 右下角提示（使用统一 toast） ──
     def _copy_to_clipboard(self, line_edit: QLineEdit):
         clipboard = QApplication.clipboard()
         clipboard.setText(line_edit.text())
-        self._show_tooltip("复制成功")
-
-    def _show_tooltip(self, message: str):
-        # 清除之前的提示
-        if self._tooltip_label is not None:
-            self._tooltip_label.deleteLater()
-            self._tooltip_label = None
-
-        label = QLabel(message, self)
-        label.setObjectName("copyTooltip")
-        label.setStyleSheet("""
-            QLabel {
-                background-color: rgba(0, 0, 0, 180);
-                color: white;
-                padding: 8px 16px;
-                border-radius: 6px;
-                font-size: 13px;
-            }
-        """)
-        label.adjustSize()
-        # 放置在父窗口右下角，偏移 20px
-        parent_rect = self.rect()
-        x = parent_rect.width() - label.width() - 20
-        y = parent_rect.height() - label.height() - 20
-        label.move(x, y)
-        label.show()
-        label.raise_()
-        self._tooltip_label = label
-
-        # 1.5 秒后自动删除
-        QTimer.singleShot(1500, label.deleteLater)
-        # 延迟后将引用置空（避免悬挂指针）
-        QTimer.singleShot(1500, lambda: setattr(self, '_tooltip_label', None))
+        show_toast(self, "复制成功", duration_ms=1500, kind="info")
 
 
 # ── 独立测试 ──
@@ -310,7 +281,7 @@ if __name__ == "__main__":
             app.setStyleSheet(APP_STYLESHEET)
     except ImportError:
         pass
-    w = ColorPick()
+    w = TabColorPick()
     w.setWindowTitle("颜色选择")
     w.resize(580, 460)
     w.show()

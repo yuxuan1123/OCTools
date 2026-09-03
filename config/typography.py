@@ -1,5 +1,5 @@
 """
-octool/config/typography.py
+OCTools/config/typography.py
 ───────────────────────────────────────────────
 字体与排版配置（最小功能单元）：Typography
 

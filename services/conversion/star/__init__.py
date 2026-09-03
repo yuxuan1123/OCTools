@@ -1,5 +1,5 @@
 """
-octool/services/converter/star/__init__.py
+OCTools/services/conversion/star/__init__.py
 ───────────────────────────────────────────────
 星型保底转换（独立子包）：hubs / router / runner
 

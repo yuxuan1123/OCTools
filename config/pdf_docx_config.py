@@ -1,5 +1,5 @@
 """
-octool/config/pdf_docx_config.py
+OCTools/config/pdf_docx_config.py
 ───────────────────────────────────────────────
 PDF → DOCX 转换方式配置（唯一配置层）
 

@@ -1,5 +1,5 @@
 """
-octool/services/converter/batch.py
+OCTools/services/conversion/batch.py
 ───────────────────────────────────────────────
 多文件「批量转换」引擎（业务逻辑层）
 

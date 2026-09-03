@@ -1,5 +1,5 @@
 """
-octool/mvp/tree/tree_core.py
+OCTools/ui/tabs/plugins/tree/tree_core.py
 ───────────────────────────────────────────────
 目录树生成核心逻辑（纯函数，无 UI 依赖）。
 

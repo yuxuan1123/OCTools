@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/registry.py
+OCTools/ui/tabs/translation/registry.py
 ────────────────────────────────────────────────
 翻译页的常量注册表与共享引用：
   - _APP_ROWS          最终应用注册表（key → 应用类 / 行标签 / 图标 / 提示 / 热键属性）

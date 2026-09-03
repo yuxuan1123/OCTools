@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/__init__.py
+OCTools/ui/ui_component/__init__.py
 ───────────────────────────────────
 通用 UI 组件包（原 services/components 已迁入，与既有组件共存）。
 

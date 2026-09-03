@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/card_output.py
+OCTools/ui/tabs/conversion/card_output.py
 ────────────────────────────────────────
 输出卡片：输出文件夹选择（转换模式专用）。
 

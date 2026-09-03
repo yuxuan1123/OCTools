@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/card_output.py
+OCTools/ui/tabs/merge/card_output.py
 ───────────────────────────────────
 输出卡片：输出文件选择（拼接模式：合并后的单个文件）。
 """

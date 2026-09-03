@@ -1,5 +1,5 @@
 """
-octool/core/engines/screenshot_engine.py
+OCTools/core/engines/screenshot_engine.py
 ───────────────────────────────────────────────
 截图引擎 · 屏幕区域 → PIL Image —— 核心引擎层（原子能力）
 

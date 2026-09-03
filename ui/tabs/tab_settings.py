@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_settings.py
+OCTools/ui/tabs/tab_settings.py
 ───────────────────────────────────────────────
 设置页：聚合各标签页参数设置 + 应用级配置。
 
@@ -185,7 +185,7 @@ class TabSettings(QWidget):
         # ---- 应用级设置 ----
         general = _Section("通用")
         self.log_dir_edit = QLineEdit(self._settings.get("log_dir", ""))
-        self.log_dir_edit.setPlaceholderText("例如：D:/logs/octool")
+        self.log_dir_edit.setPlaceholderText("例如：D:/logs/OCTools")
         browse_btn = QPushButton("浏览…")
         browse_btn.setObjectName("ghost")
         browse_btn.clicked.connect(self._pick_log_dir)

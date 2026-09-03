@@ -1,5 +1,5 @@
 """
-ui/tabs/translation/
+OCTools/ui/tabs/translation/
 ────────────────────────
 翻译功能页子包（由 translation_tab.py 拆分而来）：
   - registry.py         应用注册表常量与翻译引擎常量引用
@@ -18,5 +18,5 @@ ui/tabs/translation/
   - app_controller.py     最终应用 启动/停止/状态 控制
 
 注：本子包的入口页面类 TabTranslation 统一定义在 ui/tabs/tab_translation.py，
-由 octool 主程序按 manifests/translation.json 动态加载。
+由 OCTools 主程序按 manifests/translation.json 动态加载。
 """

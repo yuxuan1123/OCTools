@@ -1,5 +1,5 @@
 """
-octool/config/page_layout.py
+OCTools/config/page_layout.py
 ───────────────────────────────────────────────
 页面布局配置（最小功能单元）：PageLayout
 

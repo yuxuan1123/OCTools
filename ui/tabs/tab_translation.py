@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_translation.py
+OCTools/ui/tabs/tab_translation.py
 ────────────────────────────────────────────
 翻译页（板块三：翻译与屏幕 / 语音工具）—— 由 translation_tab.py 拆分而来，
 原 class TranslatePage 更名为 class TabTranslation。

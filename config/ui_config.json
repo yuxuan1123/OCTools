@@ -142,7 +142,7 @@
     "toast_success": "#10B981",
     "toast_info": "#3B82F6",
     "toast_warning": "#F59E0B",
-    "toast_text": "#FFFFFF",
+    "toast_text": "#000000",
     "screen_border": "#3B82F6",
     "screen_mask": "#50000000",
     "screen_hint_bg": "#DC0F172A",
@@ -514,7 +514,7 @@
   },
   "sidebar": {
     "window": {
-      "title": "octool",
+      "title": "OCTools",
       "min_width": 100,
       "min_height": 100
     },

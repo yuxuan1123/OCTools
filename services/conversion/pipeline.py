@@ -1,5 +1,5 @@
 """
-octool/services/converter/pipeline.py
+OCTools/services/conversion/pipeline.py
 ───────────────────────────────────────────────
 统一转换入口（业务逻辑层）：直达 → 星型保底自动寻路
 

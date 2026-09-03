@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/card_target.py
+OCTools/ui/tabs/conversion/card_target.py
 ────────────────────────────────────────
 目标格式卡片：二级格式选择器 + 预设区（md→docx 排版 / 图片→docx 预设 /
 TXT·MD→音频 语音引擎 / 音频→TXT 语音识别 / 占位提示）。

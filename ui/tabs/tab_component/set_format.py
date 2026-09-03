@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_component/set_format.py
+OCTools/ui/tabs/tab_component/set_format.py
 ───────────────────────────────────────────────
 MD → DOCX 格式控制面板（PySide6 版）
 

@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_translator.py
+OCTools/ui/options/set_translator.py
 ───────────────────────────────────────────────
 翻译引擎参数设置窗口（PySide6 版）
 

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/worker_bridge.py
+OCTools/ui/tabs/translation/apps/worker_bridge.py
 ──────────────────────────────────────────────
 最终应用 · 工作线程 → 主线程 信号桥
 

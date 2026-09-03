@@ -1,5 +1,5 @@
 """
-octool/config/ui_config.py
+OCTools/config/ui_config.py
 ───────────────────────────────────────────────
 UI 配置加载器：读取 config/ui_config.json，提供统一访问接口。
 

@@ -1,5 +1,5 @@
 """
-octool/mvp/tab_tree.py
+OCTools/ui/tabs/plugins/tree/tab_tree.py
 ───────────────────────────────────────────────
 目录树页：根据所选根目录与过滤选项，生成文件目录树文本。
 
@@ -30,7 +30,7 @@ except ImportError:
     from tree.card_output import build_output_card
     from tree.tree_core import build_tree, parse_exclude_ext, parse_keywords
 
-# 独立运行（python mvp/tab_tree.py）时，保证 octool 项目根目录可导入 config/ui
+# 独立运行（python mvp/tab_tree.py）时，保证 OCTools 项目根目录可导入 config/ui
 _ROOT = Path(__file__).resolve().parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))

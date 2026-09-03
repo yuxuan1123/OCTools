@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/realtime_screen_translate_app.py
+OCTools/ui/tabs/translation/apps/realtime_screen_translate_app.py
 ──────────────────────────────────────────────────────────────
 最终应用 · 屏幕实时翻译应用 = 图翻译 + 悬浮显示框 + 自动区域截图
 

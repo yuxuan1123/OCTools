@@ -1,5 +1,5 @@
 """
-octool/services/converter/star/runner.py
+OCTools/services/conversion/star/runner.py
 ───────────────────────────────────────────────
 星型路径执行器（保底转换的「手」）—— 业务逻辑层
 

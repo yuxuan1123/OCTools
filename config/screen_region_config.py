@@ -1,5 +1,5 @@
 """
-octool/config/screen_region_config.py
+OCTools/config/screen_region_config.py
 ───────────────────────────────────────────────
 截图框（OCR 识别区域）配置（唯一配置层）
 

@@ -1,5 +1,5 @@
 """
-octool/services/recipes/one_shot_screen_translate.py
+OCTools/services/recipes/one_shot_screen_translate.py
 ────────────────────────────────────────────────────────
 拼接配方 · 一次性屏幕翻译 = 截图 + 图翻译
 

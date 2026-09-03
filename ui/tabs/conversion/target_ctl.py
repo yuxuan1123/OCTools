@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/target_ctl.py
+OCTools/ui/tabs/conversion/target_ctl.py
 ────────────────────────────────────────
 目标格式（二级选择器）与预设区联动控制：
   - reachable_targets / update_picker_available / select_format / refresh_target_combo

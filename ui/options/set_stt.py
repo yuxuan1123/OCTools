@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_stt.py
+OCTools/ui/options/set_stt.py
 ───────────────────────────────────────────────
 STT 语音识别参数设置窗口（PySide6 版，音频 → TXT）
 

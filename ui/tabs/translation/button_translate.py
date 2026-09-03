@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/button_translate.py
+OCTools/ui/tabs/translation/button_translate.py
 ────────────────────────────────────────────────────────
 「开始翻译」主按钮：objectName convertBtn，图标 globe，高度 cta_h。
 """

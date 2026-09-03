@@ -1,5 +1,5 @@
 """
-octool/core/engines/ocr_engine.py
+OCTools/core/engines/ocr_engine.py
 ───────────────────────────────────────────────
 OCR 文字识别引擎（图片 / PDF → 文本）—— 核心引擎层
 

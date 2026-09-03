@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/card_screen.py
+OCTools/ui/tabs/translation/card_screen.py
 ────────────────────────────────────────────────────
 屏幕翻译卡片：标题「屏幕翻译」+ 屏幕OCR / 屏幕翻译 / 屏幕实时翻译 三个应用行。
 

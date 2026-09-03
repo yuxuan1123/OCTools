@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/actions.py
+OCTools/ui/tabs/conversion/actions.py
 ────────────────────────────────────
 转换页的交互动作与状态联动：
   - 浏览源文件 / 源文件夹 / 输出文件夹

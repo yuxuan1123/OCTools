@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/card_direction.py
+OCTools/ui/tabs/translation/card_direction.py
 ───────────────────────────────────────────────────────
 翻译方向卡片：方向下拉 + 翻译引擎行（下拉 + 「模型参数…」+ 提示）+ 缺模型警告。
 

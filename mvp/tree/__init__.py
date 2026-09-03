@@ -1,5 +1,5 @@
 """
-octool/mvp/tree/__init__.py
+OCTools/mvp/tree/__init__.py
 ────────────────────────────────
 目录树 tab 的引用模块子包（插件导入时作为「引用文件夹」选中）：
   - tree_core.py     目录树生成核心逻辑（无 UI 依赖）

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/button_convert.py
+OCTools/ui/tabs/conversion/button_convert.py
 ────────────────────────────────────────────
 「开始转换」主按钮：objectName convertBtn，图标 transfer，高度 cta_h。
 """

@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_screen_region.py
+OCTools/ui/options/set_screen_region.py
 ───────────────────────────────────────────────
 截图框（OCR 识别区域）选项窗口
 

@@ -1,5 +1,5 @@
 """
-octool/services/recipes/image_translate.py
+OCTools/services/recipes/image_translate.py
 ──────────────────────────────────────────────
 拼接配方 · 图翻译 = 图像识别 + 文字翻译
 

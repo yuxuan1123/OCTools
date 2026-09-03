@@ -1,5 +1,5 @@
 """
-octool/core/engines/md_docx_engine.py
+OCTools/core/engines/md_docx_engine.py
 ───────────────────────────────────────────────
 MD → DOCX 高级格式控制引擎 —— 核心引擎层
 

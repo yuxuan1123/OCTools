@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/one_shot_screen_translate_app.py
+OCTools/ui/tabs/translation/apps/one_shot_screen_translate_app.py
 ────────────────────────────────────────────────────────────
 最终应用 · 一次性屏幕翻译应用 = 一次性屏幕翻译 + 悬浮显示框
 

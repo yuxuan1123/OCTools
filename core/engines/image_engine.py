@@ -1,5 +1,5 @@
 """
-octool/core/engines/image_engine.py
+OCTools/core/engines/image_engine.py
 ───────────────────────────────────────────────
 图像引擎（核心引擎层）：图像格式互转（Pillow / cairosvg / vtracer）
 

@@ -1,5 +1,5 @@
 """
-octool/core/engines/audio_capture_engine.py
+OCTools/core/engines/audio_capture_engine.py
 ───────────────────────────────────────────────
 音频采集（录音）引擎——核心引擎层，只封装第三方库，不写业务。
 

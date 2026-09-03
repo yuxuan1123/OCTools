@@ -521,28 +521,30 @@ QLabel#badge[ok="0"] {
     padding: 4px 12px;
 }
 
+
 /* ══════════ 轻提示 toast（ui/toast.py） ══════════ */
-QLabel#toast[kind="success"] {
+QLabel#toast_success {
     background: #10B981;
-    color: #FFFFFF;
+    color: #000000;
     border-radius: 8px;
     padding: 10px 18px;
     font-size: 12px;
     font-weight: 600;
 }
-QLabel#toast[kind="info"] {
+QLabel#toast_info {
     background: #3B82F6;
-    color: #FFFFFF;
+    color: #000000;
     border-radius: 8px;
     padding: 10px 18px;
     font-size: 12px;
     font-weight: 600;
 }
-QLabel#toast[kind="warn"] {
+QLabel#toast_warning {
     background: #F59E0B;
-    color: #FFFFFF;
+    color: #000000;
     border-radius: 8px;
     padding: 10px 18px;
     font-size: 12px;
     font-weight: 600;
 }
+

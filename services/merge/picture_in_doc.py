@@ -1,5 +1,5 @@
 """
-octool/services/merger/picture_in_doc.py
+OCTools/services/merge/picture_in_doc.py
 ───────────────────────────────────────────────
 图片合并进文档（业务逻辑层）：图片以表格形式插入 docx / pdf
 

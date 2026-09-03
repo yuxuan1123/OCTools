@@ -1,5 +1,5 @@
 """
-octool/services/merger/audio_merger.py
+OCTools/services/merge/audio_merger.py
 ───────────────────────────────────────────────
 音频合并器（业务逻辑层）：星型架构 —— 统一为 wav 后合并
 

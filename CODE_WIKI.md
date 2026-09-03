@@ -1,8 +1,8 @@
-# octool 代码维基（CODE WIKI）
+# OCTools 代码维基（CODE WIKI）
 
 > 版本：v2（对齐 P0/P1 整改后的代码现状）
 > 生成日期：2026-08-29
-> 适用范围：d:\Project\PythonProject\octool（Python 3.12 / PySide6 / Windows）
+> 适用范围：d:\Project\PythonProject\OCTools（Python 3.12 / PySide6 / Windows）
 
 ***
 
@@ -29,7 +29,7 @@
 
 ### 1.1 定位与功能
 
-octool 是一个 **PySide6 桌面工具集**，目前包含四大板块：
+OCTools 是一个 **PySide6 桌面工具集**，目前包含四大板块：
 
 | 板块 | tab              | 功能                                        |
 | -- | ---------------- | ----------------------------------------- |
@@ -59,7 +59,7 @@ octool 是一个 **PySide6 桌面工具集**，目前包含四大板块：
 ### 1.3 目录总览
 
 ```
-octool/
+OCTools/
 ├── main.py                        # 启动入口
 ├── requirements.txt               # 依赖清单
 ├── apps/                          # 最终应用（5 个悬浮窗应用 + 基类 + 信号桥）
@@ -716,7 +716,7 @@ python -m ui.main_window
 
 * **P0 架构收口**：删除 `host/` 双入口，`main.py + MainApp` 唯一入口；tab 注册统一走 `tab_json`（新增 `module_path`）；新增 `tab_settings.py` 最小设置页；UI 参数收敛进 `config/ui_config.json`。
 
-* **P1 规范化**：硬编码路径（模型/ffmpeg/logo）外部化到 `ui_config.json paths` 段（含默认与回退）；删除 shim 文件（config\_manager、core/engines 的 ocr/speech/translation 兼容层）；文档头统一 `octool/<相对路径>`；生成分组 `requirements.txt`；图标路径归一化到 `resources/statics/icon`。
+* **P1 规范化**：硬编码路径（模型/ffmpeg/logo）外部化到 `ui_config.json paths` 段（含默认与回退）；删除 shim 文件（config\_manager、core/engines 的 ocr/speech/translation 兼容层）；文档头统一 `OCTools/<相对路径>`；生成分组 `requirements.txt`；图标路径归一化到 `resources/statics/icon`。
 
 * **P1.1 残余清理**：删除 `core/engines/screenshot.py` / `audio_capture.py` 两个漏删的 `import *` 转发 shim（全库 grep 无引用，`compileall` 验证通过）；此后 `core/engines/` 目录 shim 清零、命名统一为 `*_engine.py` 后缀。
 
@@ -761,7 +761,7 @@ python -m ui.main_window
 > 上述 P2-P4 的落点最终收敛为下面这张目标目录图；`←` 表示"迁移来源"，`★` 表示整改目标态**新增**。`ui/options/`（配置对话框）位置不变，仅内部新增基类。
 
 ```text
-octool/
+OCTools/
 ├── main.py                         # 启动入口（去掉双 sys.path 后唯一注入项目根）
 │
 ├── config/                         # 配置层 = UI 配置 + 全部配置模型 + 预设

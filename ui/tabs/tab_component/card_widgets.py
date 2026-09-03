@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_component/card_widgets.py
+OCTools/ui/tabs/tab_component/card_widgets.py
 ────────────────────────────────────────────────────
 通用卡片构建小工具：
   - make_card(parent)       创建一张标准卡片（QFrame#card + QVBoxLayout）

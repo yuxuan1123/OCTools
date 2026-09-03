@@ -1,5 +1,5 @@
 """
-octool/ui/theme.py
+OCTools/ui/theme.py
 ───────────────────────────────────────────────
 PySide6 全局主题：从 ui/ui_config.json 读取所有 UI 参数并生成全局 QSS 样式表。
 
@@ -583,8 +583,9 @@ QLabel#badge[ok="0"] {{
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
 }}
 
+
 /* ══════════ 轻提示 toast（ui/toast.py） ══════════ */
-QLabel#toast[kind="success"] {{
+QLabel#toast_success {{
     background: {_c('toast_success')};
     color: {_c('toast_text')};
     border-radius: {_s('radius_toast')}px;
@@ -592,7 +593,7 @@ QLabel#toast[kind="success"] {{
     font-size: {_f('toast_font')}px;
     font-weight: 600;
 }}
-QLabel#toast[kind="info"] {{
+QLabel#toast_info {{
     background: {_c('toast_info')};
     color: {_c('toast_text')};
     border-radius: {_s('radius_toast')}px;
@@ -600,7 +601,7 @@ QLabel#toast[kind="info"] {{
     font-size: {_f('toast_font')}px;
     font-weight: 600;
 }}
-QLabel#toast[kind="warn"] {{
+QLabel#toast_warning {{
     background: {_c('toast_warning')};
     color: {_c('toast_text')};
     border-radius: {_s('radius_toast')}px;
@@ -608,6 +609,7 @@ QLabel#toast[kind="warn"] {{
     font-size: {_f('toast_font')}px;
     font-weight: 600;
 }}
+
 """
 
 

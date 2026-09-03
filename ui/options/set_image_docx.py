@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_image_docx.py
+OCTools/ui/options/set_image_docx.py
 ───────────────────────────────────────────────
 图片 → DOCX 排版选项窗口（PySide6 版）
 

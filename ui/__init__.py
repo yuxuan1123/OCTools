@@ -1,5 +1,5 @@
 """
-octool/ui/__init__.py
+OCTools/ui/__init__.py
 ───────────────────────────────────────────────
 表示层（PySide6 界面）：
   - main_window.py          主窗口：导航 + 页面堆栈（组合根）

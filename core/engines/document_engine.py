@@ -1,5 +1,5 @@
 """
-octool/core/engines/document_engine.py
+OCTools/core/engines/document_engine.py
 ───────────────────────────────────────────────
 文档引擎（核心引擎层）：文本类文档处理（md / docx / pdf / txt / 图片→文档）
 

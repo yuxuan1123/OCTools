@@ -1,5 +1,5 @@
 """
-ui/tabs/conversion/
+OCTools/ui/tabs/conversion/
 ────────────────────
 转换功能页子包（由 tab_conversion.py 拆分而来）：
   - registry.py         常量注册表与共享引用（formats / engines / helpers）
@@ -14,5 +14,5 @@ ui/tabs/conversion/
   - runner.py           转换执行（后台线程）
 
 注：本子包的入口页面类 TabConversion 统一定义在 ui/tabs/tab_conversion.py，
-由 octool 主程序按 manifests/conversion.json 动态加载。
+由 OCTools 主程序按 manifests/conversion.json 动态加载。
 """

@@ -1,5 +1,5 @@
 """
-octool/services/converter/planner.py
+OCTools/services/conversion/planner.py
 ───────────────────────────────────────────────
 统一可达性规划：判断 (源 → 目标) 是否可转换 / 可批量 / 可拼接 —— 业务逻辑层
 

@@ -1,5 +1,5 @@
 """
-octool/ui/main_window.py
+OCTools/ui/main_window.py
 ───────────────────────────────────────────────
 主窗口组装与 tab 动态加载。
 

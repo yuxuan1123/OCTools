@@ -1,5 +1,5 @@
 """
-octool/config/heading.py
+OCTools/config/heading.py
 ───────────────────────────────────────────────
 标题样式（最小功能单元）：HeadingStyle
 

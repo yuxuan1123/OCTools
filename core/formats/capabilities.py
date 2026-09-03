@@ -1,5 +1,5 @@
 """
-octool/core/formats/capabilities.py
+OCTools/core/formats/capabilities.py
 ───────────────────────────────────────────────
 能力位常量（最小功能单元）
 

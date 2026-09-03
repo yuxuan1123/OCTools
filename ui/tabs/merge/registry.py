@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/registry.py
+OCTools/ui/tabs/merge/registry.py
 ────────────────────────────────
 拼接页的常量注册表与共享引用：
   - 格式相关常量（ALL_FORMATS / ALL_SOURCE_FORMATS / 预设项 / _actual_ext 等）

@@ -1,5 +1,5 @@
 """
-octool/ui/options/__init__.py
+OCTools/ui/options/__init__.py
 ───────────────────────────────────────────────
 各 tab 的设置弹窗子包（命名规范 set_xxx）：
   - _base.py              设置弹窗基类（OptionsDialogBase）

@@ -1,5 +1,5 @@
 """
-octool/core/formats/model.py
+OCTools/core/formats/model.py
 ───────────────────────────────────────────────
 格式元数据模型（最小功能单元）：Format
 

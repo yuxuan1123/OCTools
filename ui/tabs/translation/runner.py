@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/runner.py
+OCTools/ui/tabs/translation/runner.py
 ───────────────────────────────────────────────
 翻译执行：后台线程调用 TRANSLATOR.translate，完成后通过 page 的信号发回主线程。
 

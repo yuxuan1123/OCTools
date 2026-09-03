@@ -1,5 +1,5 @@
 """
-octool/config/content.py
+OCTools/config/content.py
 ───────────────────────────────────────────────
 内容样式映射配置（最小功能单元）：ContentStyles
 

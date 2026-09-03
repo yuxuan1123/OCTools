@@ -1,5 +1,5 @@
 """
-octool/mvp/tree/card_options.py
+OCTools/mvp/tree/card_options.py
 ───────────────────────────────────────────────
 目录树 tab 的「根目录 + 选项」卡片。
 

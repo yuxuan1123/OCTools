@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/target_ctl.py
+OCTools/ui/tabs/merge/target_ctl.py
 ─────────────────────────────────
 目标格式（二级选择器）与预设区联动控制（拼接模式）：
   - reachable_targets / batch_reachable_targets / update_picker_available /

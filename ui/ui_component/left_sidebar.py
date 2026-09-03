@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/left_sidebar.py
+OCTools/ui/ui_component/left_sidebar.py
 ───────────────────────────────────────────────
 左侧功能导航栏：按 manifests 目录动态生成入口按钮。
 
@@ -61,7 +61,7 @@ class LeftSidebar(StyleHookMixin, QWidget):
 
         # ---------- 窗口设置 ----------
         win_cfg = self.cfg.get("window", {})
-        self.setWindowTitle(win_cfg.get("title", "octool"))
+        self.setWindowTitle(win_cfg.get("title", "OCTools"))
 
         # ---------- 主布局 ----------
         layout_cfg = self.cfg.get("layout", {})
@@ -72,7 +72,7 @@ class LeftSidebar(StyleHookMixin, QWidget):
 
         # ---------- 标题 ----------
         title_cfg = self.cfg.get("title", {})
-        self._title_label = QLabel(title_cfg.get("text", "octool"))
+        self._title_label = QLabel(title_cfg.get("text", "OCTools"))
         self._title_label.setAlignment(_align(title_cfg.get("alignment", "center")))
         main_layout.addWidget(self._title_label)
 

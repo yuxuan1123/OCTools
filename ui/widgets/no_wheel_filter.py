@@ -1,5 +1,5 @@
 """
-octool/ui/widgets/no_wheel_filter.py
+OCTools/ui/widgets/no_wheel_filter.py
 ───────────────────────────────────────────────
 全局滚轮阻断：通过 monkey-patch 直接覆盖 wheelEvent，
 阻止 QComboBox / QRadioButton / QCheckBox / QSpinBox / QDoubleSpinBox / QSlider

@@ -1,1 +1,1 @@
-"""octool 插件包：terminal"""
+"""OCTools 插件包：terminal"""

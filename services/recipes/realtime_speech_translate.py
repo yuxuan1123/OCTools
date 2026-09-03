@@ -1,5 +1,5 @@
 """
-octool/services/recipes/realtime_speech_translate.py
+OCTools/services/recipes/realtime_speech_translate.py
 ────────────────────────────────────────────────────────
 拼接配方 · 实时语音翻译 = 录音 + 语音识别 + 文字翻译
 

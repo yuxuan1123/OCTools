@@ -1,5 +1,5 @@
 """
-octool/services/recipes/screen_ocr.py
+OCTools/services/recipes/screen_ocr.py
 ─────────────────────────────────────────
 拼接配方 · 屏幕 OCR = 截图 + 图像识别
 

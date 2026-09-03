@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/region_box.py
+OCTools/ui/ui_component/region_box.py
 ────────────────────────────────────────────────
 可拓展业务层 · 区域框选（UI）
 

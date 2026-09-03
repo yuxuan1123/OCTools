@@ -1,5 +1,5 @@
 """
-octool/services/converter/star/hubs.py
+OCTools/services/conversion/star/hubs.py
 ───────────────────────────────────────────────
 星型枢纽声明（保底转换的「中心」）—— 业务逻辑层
 

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/card_source.py
+OCTools/ui/tabs/translation/card_source.py
 ────────────────────────────────────────────────────
 原文卡片：标题「原文」+ 输入 QTextEdit + 载入文件 / 清空 按钮。
 

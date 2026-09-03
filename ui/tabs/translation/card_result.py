@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/card_result.py
+OCTools/ui/tabs/translation/card_result.py
 ────────────────────────────────────────────────────
 译文卡片：标题「译文」+ 只读 QTextEdit + 复制译文 / 保存译文 按钮。
 

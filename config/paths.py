@@ -1,12 +1,12 @@
 """
-octool/config/paths.py
+OCTools/config/paths.py
 ───────────────────────────────────────────────
 配置存储路径（最小功能单元）
 
 集中定义 preset 目录、last 配置、图片预设目录等所有路径常量。
 
 打包兼容（PyInstaller）：
-  - 源码运行时：ROOT = 项目根目录（octool/），配置写进 config/presets/；
+  - 源码运行时：ROOT = 项目根目录（OCTools/），配置写进 config/presets/；
   - 打包后（sys.frozen）：sys._MEIPASS 是临时解压目录，退出即被清空，
     因此 ROOT 指向可执行文件所在目录，用户配置持久化到 exe 同目录
     config/presets/，重打包/升级不会丢配置。

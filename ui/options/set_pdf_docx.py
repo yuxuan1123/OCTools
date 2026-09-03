@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_pdf_docx.py
+OCTools/ui/options/set_pdf_docx.py
 ───────────────────────────────────────────────
 PDF → DOCX 转换方式选项窗口
 

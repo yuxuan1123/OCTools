@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/engine_ctl.py
+OCTools/ui/tabs/translation/engine_ctl.py
 ───────────────────────────────────────────────────
 翻译引擎（预选模型 + 参数）下拉控制：
   - refresh_tr_engine_combo(page)  按当前配置刷新「翻译引擎」下拉

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/plugins/style_lab/tab_style_lab.py
+OCTools/ui/tabs/plugins/style_lab/tab_style_lab.py
 ───────────────────────────────────────────────
 全局 QSS 样式实验室页面。按类别展示 theme.py 里所有已定义的
 objectName / selector，并直接渲染对应控件给出真实预览。

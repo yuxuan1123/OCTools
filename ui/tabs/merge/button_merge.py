@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/button_merge.py
+OCTools/ui/tabs/merge/button_merge.py
 ────────────────────────────────────
 「开始拼接」主按钮：objectName convertBtn，图标 transfer，高度 cta_h。
 """

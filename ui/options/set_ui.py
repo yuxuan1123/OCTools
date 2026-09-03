@@ -1,5 +1,5 @@
 """
-octool/ui/options/set_ui.py
+OCTools/ui/options/set_ui.py
 ───────────────────────────────────────────────
 全局 UI 风格设置窗口（Setui）
 

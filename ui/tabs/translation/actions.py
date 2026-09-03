@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/actions.py
+OCTools/ui/tabs/translation/actions.py
 ────────────────────────────────────────────────
 页面交互动作：载入文件 / 清空输入 / 复制译文 / 保存译文。
 

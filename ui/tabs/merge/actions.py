@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/actions.py
+OCTools/ui/tabs/merge/actions.py
 ──────────────────────────────
 拼接页的交互动作与状态联动：
   - 浏览源文件 / 源文件夹 / 输出文件

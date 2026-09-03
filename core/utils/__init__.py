@@ -1,5 +1,5 @@
 """
-octool/core/utils/__init__.py
+OCTools/core/utils/__init__.py
 ───────────────────────────────────────────────
 核心工具层（无业务、无 UI）：
   - file_handler.py    文件扫描、读写、后缀识别

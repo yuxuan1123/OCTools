@@ -1,5 +1,5 @@
 """
-octool/config/advanced.py
+OCTools/config/advanced.py
 ───────────────────────────────────────────────
 高级排版特性配置（最小功能单元）：AdvancedFeatures
 

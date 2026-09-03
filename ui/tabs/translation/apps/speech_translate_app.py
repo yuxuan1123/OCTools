@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/speech_translate_app.py
+OCTools/ui/tabs/translation/apps/speech_translate_app.py
 ──────────────────────────────────────────────────────
 最终应用 · 语音翻译应用 = 实时语音翻译 + 悬浮显示框
 

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/runner.py
+OCTools/ui/tabs/conversion/runner.py
 ────────────────────────────────────
 转换执行：单文件 / 多文件（逐个转换），后台线程调用 services.conversion.convert。
 所有日志通过 page.log（_LogBridge 跨线程桥）安全落盘，完成后复位按钮。

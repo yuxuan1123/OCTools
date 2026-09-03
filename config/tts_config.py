@@ -1,5 +1,5 @@
 """
-octool/config/tts_config.py
+OCTools/config/tts_config.py
 ───────────────────────────────────────────────
 TTS 配置模型：引擎选择 + 各引擎参数，支持保存 / 加载。
 

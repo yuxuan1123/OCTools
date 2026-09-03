@@ -1,5 +1,5 @@
 """
-octool/core/engines/translation_engine.py
+OCTools/core/engines/translation_engine.py
 ───────────────────────────────────────────────
 中英互译引擎（完全离线）—— 核心引擎层，支持两种模型后端，可配置并持久化：
 

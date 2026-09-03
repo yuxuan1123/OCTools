@@ -1,5 +1,5 @@
 """
-octool/tests/smoke_test.py
+OCTools/tests/smoke_test.py
 ───────────────────────────────────────────────
 一键回归冒烟测试（无窗口 / offscreen 平台）
 

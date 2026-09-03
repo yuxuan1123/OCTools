@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/split_window.py
+OCTools/ui/ui_component/split_window.py
 ───────────────────────────────────────────────
 JSON 驱动的 PySide6 两栏分割窗口组件（纯分割，无按钮）。
 

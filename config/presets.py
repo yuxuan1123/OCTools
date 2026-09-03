@@ -1,5 +1,5 @@
 """
-octool/config/presets.py
+OCTools/config/presets.py
 ───────────────────────────────────────────────
 预设 / 上次配置管理器（最小功能单元）
 

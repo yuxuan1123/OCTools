@@ -1,5 +1,5 @@
 """
-octool/mvp/tree/card_output.py
+OCTools/mvp/tree/card_output.py
 ───────────────────────────────────────────────
 目录树 tab 的「生成 + 输出」卡片。
 

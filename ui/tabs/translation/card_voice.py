@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/card_voice.py
+OCTools/ui/tabs/translation/card_voice.py
 ────────────────────────────────────────────────────
 语音翻译卡片：标题「语音翻译」+ 屏幕字幕 / 语音翻译 两个应用行 + 底部字幕设置提示。
 """

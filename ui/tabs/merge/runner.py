@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/runner.py
+OCTools/ui/tabs/merge/runner.py
 ─────────────────────────────
 拼接执行：单文件 / 多文件（合并为单个文件），后台线程调用
 services.merge.concat.concat（多文件）或 services.conversion.convert（单文件）。

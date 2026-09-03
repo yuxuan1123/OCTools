@@ -1,5 +1,5 @@
 """
-octool/services/recipes/__init__.py
+OCTools/services/recipes/__init__.py
 ──────────────────────────────────
 拼接配方层：纯逻辑组合 原子能力引擎（core/engines）与 通用组件
 （services/components），不可增减功能。

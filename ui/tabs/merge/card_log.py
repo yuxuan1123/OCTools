@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/card_log.py
+OCTools/ui/tabs/merge/card_log.py
 ────────────────────────────────
 日志卡片：标题「拼接日志」+ 只读 QTextEdit#log。
 """

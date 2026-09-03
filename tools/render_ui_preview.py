@@ -1,5 +1,5 @@
 """
-octool/tools/render_ui_preview.py
+OCTools/tools/render_ui_preview.py
 ───────────────────────────────────────────────
 离屏渲染 UI 预览图（无需显示器，用于视觉走查 / 回归对比）
 

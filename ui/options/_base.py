@@ -1,5 +1,5 @@
 """
-octool/ui/options/_base.py
+OCTools/ui/options/_base.py
 ───────────────────────────────────────────────
 设置弹窗公共骨架（OptionsDialogBase）
 

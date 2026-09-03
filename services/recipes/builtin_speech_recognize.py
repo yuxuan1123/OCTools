@@ -1,5 +1,5 @@
 """
-octool/services/recipes/builtin_speech_recognize.py
+OCTools/services/recipes/builtin_speech_recognize.py
 ───────────────────────────────────────────────────────
 拼接配方 · 内置语音识别 = 录音 + 语音识别
 

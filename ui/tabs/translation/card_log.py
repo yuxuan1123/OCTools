@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/card_log.py
+OCTools/ui/tabs/translation/card_log.py
 ────────────────────────────────────────────────
 日志卡片：标题「翻译日志」+ 只读 QTextEdit#log。
 """

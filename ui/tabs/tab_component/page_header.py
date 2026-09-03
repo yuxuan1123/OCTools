@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_component/page_header.py
+OCTools/ui/tabs/tab_component/page_header.py
 ───────────────────────────────────────────────
 通用页头部件：标题 + 副标题。
 

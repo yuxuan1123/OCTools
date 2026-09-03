@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/screen_subtitle_app.py
+OCTools/ui/tabs/translation/apps/screen_subtitle_app.py
 ─────────────────────────────────────────────────────
 最终应用 · 屏幕字幕 = 内置语音识别 + 悬浮显示框
 

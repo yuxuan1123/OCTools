@@ -1,5 +1,5 @@
 """
-octool/ui/widgets/__init__.py
+OCTools/ui/widgets/__init__.py
 ───────────────────────────────────────────────
 可复用自定义控件：
   - format_select_widget.py  源/目标格式选择控件（FormatPicker + 格式元数据）

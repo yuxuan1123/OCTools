@@ -1,5 +1,5 @@
 """
-octool/config/format_config.py
+OCTools/config/format_config.py
 ───────────────────────────────────────────────
 MD → DOCX 完整格式配置（最小功能单元）：FormatConfig
 

@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/app_controller.py
+OCTools/ui/tabs/translation/app_controller.py
 ──────────────────────────────────────────────────────
 最终应用控制：创建应用实例、启动/停止/切换、状态更新、日志追加、退出清理。
 

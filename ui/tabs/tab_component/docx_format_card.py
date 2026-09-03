@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/tab_component/docx_format_card.py
+OCTools/ui/tabs/tab_component/docx_format_card.py
 ───────────────────────────────────────────────
 MD → DOCX 排版卡片（紧凑头部栏）
 

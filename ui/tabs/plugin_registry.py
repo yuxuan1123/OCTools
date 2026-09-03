@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/plugin_registry.py
+OCTools/ui/tabs/plugin_registry.py
 ───────────────────────────────────────────────
 插件注册表：统一提供插件目录 / 清单目录 / 模块前缀 / sys.path 挂载与模块清理。
 
@@ -18,14 +18,14 @@ import sys
 # 是否处于打包（PyInstaller）环境
 IS_FROZEN = bool(getattr(sys, "frozen", False))
 
-_HERE = os.path.dirname(os.path.abspath(__file__))   # octool/ui/tabs
+_HERE = os.path.dirname(os.path.abspath(__file__))   # OCTools/ui/tabs
 
 
 def _mount_dir() -> str:
     """插件挂载点：加入 sys.path 的目录（按此目录解析插件包）。"""
     if IS_FROZEN:
         return os.path.dirname(sys.executable)
-    return os.path.normpath(os.path.join(_HERE, "..", ".."))   # octool 根目录
+    return os.path.normpath(os.path.join(_HERE, "..", ".."))   # OCTools 根目录
 
 
 def _plugins_pkg() -> str:
@@ -110,4 +110,4 @@ def ensure_plugin_dirs():
     init = os.path.join(root, "__init__.py")
     if not os.path.exists(init):
         with open(init, "w", encoding="utf-8") as f:
-            f.write('"""octool 用户导入的本地 tab 插件包。"""\n')
+            f.write('"""OCTools 用户导入的本地 tab 插件包。"""\n')

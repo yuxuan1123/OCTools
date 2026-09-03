@@ -1,5 +1,5 @@
 """
-octool/tests/test_model_path_migration.py
+OCTools/tests/test_model_path_migration.py
 ───────────────────────────────────────────────
 模型路径外部化与历史配置迁移的回归测试。
 

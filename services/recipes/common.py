@@ -1,5 +1,5 @@
 """
-octool/services/recipes/common.py
+OCTools/services/recipes/common.py
 ──────────────────────────────────────
 拼接配方层共享工具（非 UI）：
 

@@ -1,5 +1,5 @@
 """
-octool/services/converter/direct_table.py
+OCTools/services/conversion/direct_table.py
 ───────────────────────────────────────────────
 直达转换表（业务逻辑层）：把引擎层的转换函数组装为 (源扩展名 → 目标扩展名) 路由表
 

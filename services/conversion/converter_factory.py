@@ -1,5 +1,5 @@
 """
-octool/services/converter/converter_factory.py
+OCTools/services/conversion/converter_factory.py
 ───────────────────────────────────────────────
 转换器工厂（业务逻辑层）：自动选择 直接 or 星型 转换
 

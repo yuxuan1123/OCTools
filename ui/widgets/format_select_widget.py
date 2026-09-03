@@ -1,5 +1,5 @@
 """
-octool/ui/widgets/format_select_widget.py
+OCTools/ui/widgets/format_select_widget.py
 ───────────────────────────────────────────────
 格式选择控件（可复用自定义控件）
 

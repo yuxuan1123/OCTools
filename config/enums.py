@@ -1,5 +1,5 @@
 """
-octool/config/enums.py
+OCTools/config/enums.py
 ───────────────────────────────────────────────
 MD → DOCX 排版配置使用的全部枚举类型（最小功能单元）。
 

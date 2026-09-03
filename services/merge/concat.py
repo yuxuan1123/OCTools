@@ -1,5 +1,5 @@
 """
-octool/services/merger/concat.py
+OCTools/services/merge/concat.py
 ───────────────────────────────────────────────
 多文件「拼接」编排（业务逻辑层）：把文件夹内所有文件合并为单个目标文件
 

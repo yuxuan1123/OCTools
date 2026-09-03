@@ -1,5 +1,5 @@
 """
-octool/main.py  ─  应用启动入口
+OCTools/main.py  ─  应用启动入口
 ──────────────────────────────── ㄧ
 创建 QApplication 后全局安装滚轮阻断（no_wheel_filter），
 然后启动主窗口。
@@ -59,10 +59,10 @@ def main():
     # 全局屏蔽 ComboBox/SpinBox/Slider 等的悬浮滚轮误操作
     no_wheel_filter.install()
 
-    # 应用已保存的全局 UI 风格（主题/缩放/自定义），启动不广播避免页面提前重建
+    # 全局 UI 风格（主题/缩放/自定义），启动不广播避免页面提前重建
     apply_theme(app, presets.load_app_settings() or {}, notify=False)
 
-    # 设置全局任务栏图标（yin-yang.svg），染色为前景色保证可见
+    # 设置全局任务栏图标（yin-yang.svg）
     icon_path = os.path.join(project_root, "resources", "icons", "yin-yang.svg")
     if os.path.exists(icon_path):
         icon = _tinted_svg_icon(icon_path, "#1F2430", 32)

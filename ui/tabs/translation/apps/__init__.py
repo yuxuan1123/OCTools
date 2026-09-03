@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/translation/apps/__init__.py
+OCTools/ui/tabs/translation/apps/__init__.py
 ──────────────────────────────────────────
 最终应用层：拼接配方（services/recipes）+ 悬浮显示框（services/components）
 挂载为 UI 可启动的成品应用。

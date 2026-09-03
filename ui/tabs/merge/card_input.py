@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/merge/card_input.py
+OCTools/ui/tabs/merge/card_input.py
 ──────────────────────────────────
 输入卡片：源文件 / 源文件夹（二选一）+ 源文件格式选择器（仅源文件夹时显示）。
 """

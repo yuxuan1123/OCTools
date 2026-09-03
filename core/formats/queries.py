@@ -1,5 +1,5 @@
 """
-octool/core/formats/queries.py
+OCTools/core/formats/queries.py
 ───────────────────────────────────────────────
 格式查询 API（最小功能单元）
 

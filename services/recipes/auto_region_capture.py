@@ -1,5 +1,5 @@
 """
-octool/services/recipes/auto_region_capture.py
+OCTools/services/recipes/auto_region_capture.py
 ──────────────────────────────────────────────────
 拼接配方 · 自动区域截图 = 截图 + 定时器（实时）
 

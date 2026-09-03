@@ -1,5 +1,5 @@
 """
-window_resizer.py
+OCTools/ui/ui_component/window_resizer.py
 ====================
 为无边框窗口（Qt.FramelessWindowHint）提供**边缘 / 角落拖拽缩放**能力，
 并将鼠标悬停在对应区域时**即时切换为方向拉伸光标**。

@@ -1,5 +1,5 @@
 """
-octool/ui/ui_component/timer.py
+OCTools/ui/ui_component/timer.py
 ───────────────────────────
 可拓展业务层 · 定时器
 

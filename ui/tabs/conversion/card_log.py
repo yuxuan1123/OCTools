@@ -1,5 +1,5 @@
 """
-octool/ui/tabs/conversion/card_log.py
+OCTools/ui/tabs/conversion/card_log.py
 ──────────────────────────────────────
 日志卡片：标题「转换日志」+ 只读 QTextEdit#log。
 """

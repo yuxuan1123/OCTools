@@ -1,5 +1,5 @@
 """
-octool/services/merger/same_format_merger.py
+OCTools/services/merge/same_format_merger.py
 ───────────────────────────────────────────────
 同格式合并器（业务逻辑层）—— 全互通架构「同一格式之间合并」
 

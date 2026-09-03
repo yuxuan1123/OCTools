@@ -1,5 +1,5 @@
 """
-octool/services/merger/image_merger.py
+OCTools/services/merge/image_merger.py
 ───────────────────────────────────────────────
 图像合并器（业务逻辑层）：图像类 → 动态 GIF / 联系表单图
 

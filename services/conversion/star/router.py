@@ -1,5 +1,5 @@
 """
-octool/services/converter/star/router.py
+OCTools/services/conversion/star/router.py
 ───────────────────────────────────────────────
 星型自动寻路（保底转换的「大脑」）—— 业务逻辑层
 
