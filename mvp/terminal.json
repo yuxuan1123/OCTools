@@ -1,0 +1,8 @@
+{
+    "name": "终端",
+    "class_name": "TabTerminal",
+    "module_path": "ui.tabs.tab_terminal",
+    "order": 4,
+    "settings_count": 0,
+    "settings": [ ]
+}

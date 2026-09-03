@@ -1,16 +1,10 @@
-# ════════════════════════════════════════════════════════════════
-# octool 依赖清单（依据 .venv 生成，按用途分组）
-# 生成方式：.venv\Scripts\python -m pip freeze
-# 安装：pip install -r requirements.txt
-# ════════════════════════════════════════════════════════════════
-
-# ── GUI 框架（PySide6）───────────────────────────────────────────
+# GUI 框架（PySide6）
 PySide6==6.11.1
 PySide6_Addons==6.11.1
 PySide6_Essentials==6.11.1
 shiboken6==6.11.1
 
-# ── 文档 / 表格 / 演示 / PDF 转换 ────────────────────────────────
+# 文档 / 表格 / 演示 / PDF 转换
 python-docx==1.2.0
 python-pptx==1.0.2
 openpyxl==3.1.5
@@ -39,13 +33,13 @@ PyYAML==6.0.2
 ruamel.yaml==0.19.1
 python-dateutil==2.9.0.post0
 
-# ── 图像处理 / 视觉 ──────────────────────────────────────────────
+# 图像处理 / 视觉
 Pillow==12.3.0
 opencv-contrib-python==4.10.0.84
 numpy==2.3.5
 python-bidi==0.6.11
 
-# ── OCR / 文档智能（PaddleOCR 系）────────────────────────────────
+# OCR / 文档智能（PaddleOCR 系）
 paddleocr==3.7.0
 paddlex==3.7.2
 onnxruntime==1.29.0
@@ -56,18 +50,20 @@ pyclipper==1.4.0
 crc32c==2.8
 py-cpuinfo==9.0.0
 
-# ── 翻译 / 本地大模型（llama.cpp + HuggingFace）──────────────────
-llama_cpp_python==0.3.35
+
+# 翻译 / 本地大模型（llama.cpp + HuggingFace）
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python==0.3.35
 huggingface_hub==1.27.0
 hf-xet==1.6.0
 
-# ── AI 平台 SDK ──────────────────────────────────────────────────
+# AI 平台 SDK 
 modelscope==1.39.1
 modelscope-hub==0.2.0
 aistudio_sdk==0.3.9
 bce-python-sdk==0.9.76
 
-# ── 网络 / HTTP ──────────────────────────────────────────────────
+# 网络 / HTTP
 requests==2.34.2
 httpx==0.28.1
 httpcore==1.0.9
@@ -86,12 +82,13 @@ charset-normalizer==3.5.0
 urllib3==2.7.0
 chardet==7.6.0
 
-# ── 浏览器自动化（Playwright，网页相关功能）──────────────────────
+# 浏览器自动化（Playwright，网页相关功能）
 playwright==1.62.0
 pyee==13.0.1
 greenlet==3.5.5
 
-# ── 数据 / 序列化 ────────────────────────────────────────────────
+
+# 数据 / 序列化
 pandas==3.0.5
 pydantic==2.13.4
 pydantic_core==2.46.4
@@ -101,7 +98,7 @@ ujson==5.13.0
 prettytable==3.18.0
 PyYAML==6.0.2
 
-# ── 系统 / 基础工具 ──────────────────────────────────────────────
+# 系统 / 基础工具
 psutil==7.2.2
 pywin32==312
 click==8.4.2
@@ -118,7 +115,8 @@ packaging==26.3
 wcwidth==0.8.2
 tzdata==2026.3
 
-# ── 安全 / 加密 ──────────────────────────────────────────────────
+
+# 安全 / 加密
 cryptography==50.0.0
 pycryptodome==3.23.0
 cffi==2.1.1

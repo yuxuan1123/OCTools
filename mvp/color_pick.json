@@ -1,6 +1,6 @@
 {
     "name": "取色器",
-    "class_name": "ColorPick",
+    "class_name": "TabColorPick",
     "module_path": "ui.tabs.tab_color_pick",
     "order": 4,
     "settings_count": 0,

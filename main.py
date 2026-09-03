@@ -43,6 +43,17 @@ def _tinted_svg_icon(path: str, color: str, size: int = 32) -> QIcon:
 
 
 def main():
+    import ctypes
+    try:
+        is_admin = ctypes.windll.shell32.IsUserAnAdmin()
+    except AttributeError:
+        is_admin = False  # 非 Windows 系统忽略
+    if not is_admin:
+        # 重新以管理员身份启动当前脚本
+        ctypes.windll.shell32.ShellExecuteW(
+            None, "runas", sys.executable, " ".join(sys.argv), None, 1
+        )
+        sys.exit()
     app = QApplication(sys.argv)
 
     # 全局屏蔽 ComboBox/SpinBox/Slider 等的悬浮滚轮误操作

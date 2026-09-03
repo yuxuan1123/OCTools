@@ -78,7 +78,7 @@ def rgb_to_cmyk(r: int, g: int, b: int) -> tuple[float, float, float, float]:
     return (round(c), round(m), round(y), round(k))
 
 
-class ColorPick(QWidget):
+class TabColorPick(QWidget):
     """颜色选择与多格式转换页面（自包含翻译 + 右下角复制提示）。"""
 
     def __init__(self, parent=None):
