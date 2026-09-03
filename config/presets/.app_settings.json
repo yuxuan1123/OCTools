@@ -1,0 +1,9 @@
+{
+  "ui_theme": "light",
+  "ui_scale": 1.0,
+  "ui_overrides": {
+    "colors": {
+      "bg": "#ffffff"
+    }
+  }
+}

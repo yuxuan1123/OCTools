@@ -1,0 +1,15 @@
+{
+    "name": "设置",
+    "class_name": "TabSettings",
+    "module_path": "ui.tabs.tab_settings",
+    "order": 999,
+    "settings_count": 1,
+    "settings": [
+        {
+            "module": "ui.options.set_ui",
+            "class_name": "Setui",
+            "button_name": "全局 UI",
+            "name": "全局 UI 风格"
+        }
+    ]
+}

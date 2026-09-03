@@ -1,0 +1,8 @@
+{
+    "name": "插件",
+    "class_name": "TabPlugin",
+    "module_path": "ui.tabs.tab_plugin",
+    "order": 998,
+    "settings_count": 0,
+    "settings": []
+}

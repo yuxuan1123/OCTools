@@ -1,0 +1,127 @@
+# ════════════════════════════════════════════════════════════════
+# octool 依赖清单（依据 .venv 生成，按用途分组）
+# 生成方式：.venv\Scripts\python -m pip freeze
+# 安装：pip install -r requirements.txt
+# ════════════════════════════════════════════════════════════════
+
+# ── GUI 框架（PySide6）───────────────────────────────────────────
+PySide6==6.11.1
+PySide6_Addons==6.11.1
+PySide6_Essentials==6.11.1
+shiboken6==6.11.1
+
+# ── 文档 / 表格 / 演示 / PDF 转换 ────────────────────────────────
+python-docx==1.2.0
+python-pptx==1.0.2
+openpyxl==3.1.5
+xlsxwriter==3.2.9
+et_xmlfile==2.0.0
+pypdf==6.15.0
+pypdfium2==5.12.1
+pdfminer.six==20260107
+pdfplumber==0.11.10
+pikepdf==10.11.0
+pymupdf==1.28.2
+pdf2image==1.17.0
+img2pdf==0.6.3
+reportlab==5.0.0
+docx2pdf==0.1.8
+pypandoc==1.17
+Markdown==3.10.3
+markdownify==1.2.3
+html2text==2025.4.15
+lxml==6.1.1
+beautifulsoup4==4.15.0
+soupsieve==2.9.2
+Jinja2==3.1.6
+imagesize==2.0.0
+PyYAML==6.0.2
+ruamel.yaml==0.19.1
+python-dateutil==2.9.0.post0
+
+# ── 图像处理 / 视觉 ──────────────────────────────────────────────
+Pillow==12.3.0
+opencv-contrib-python==4.10.0.84
+numpy==2.3.5
+python-bidi==0.6.11
+
+# ── OCR / 文档智能（PaddleOCR 系）────────────────────────────────
+paddleocr==3.7.0
+paddlex==3.7.2
+onnxruntime==1.29.0
+protobuf==7.35.1
+flatbuffers==25.12.19
+shapely==2.1.2
+pyclipper==1.4.0
+crc32c==2.8
+py-cpuinfo==9.0.0
+
+# ── 翻译 / 本地大模型（llama.cpp + HuggingFace）──────────────────
+llama_cpp_python==0.3.35
+huggingface_hub==1.27.0
+hf-xet==1.6.0
+
+# ── AI 平台 SDK ──────────────────────────────────────────────────
+modelscope==1.39.1
+modelscope-hub==0.2.0
+aistudio_sdk==0.3.9
+bce-python-sdk==0.9.76
+
+# ── 网络 / HTTP ──────────────────────────────────────────────────
+requests==2.34.2
+httpx==0.28.1
+httpcore==1.0.9
+h11==0.16.0
+anyio==4.14.2
+aiohttp==3.14.3
+aiohappyeyeballs==2.7.1
+aiosignal==1.4.0
+multidict==6.7.1
+frozenlist==1.8.0
+yarl==1.24.5
+propcache==0.5.2
+idna==3.18
+certifi==2026.7.22
+charset-normalizer==3.5.0
+urllib3==2.7.0
+chardet==7.6.0
+
+# ── 浏览器自动化（Playwright，网页相关功能）──────────────────────
+playwright==1.62.0
+pyee==13.0.1
+greenlet==3.5.5
+
+# ── 数据 / 序列化 ────────────────────────────────────────────────
+pandas==3.0.5
+pydantic==2.13.4
+pydantic_core==2.46.4
+annotated-types==0.8.0
+typing-inspection==0.4.4
+ujson==5.13.0
+prettytable==3.18.0
+PyYAML==6.0.2
+
+# ── 系统 / 基础工具 ──────────────────────────────────────────────
+psutil==7.2.2
+pywin32==312
+click==8.4.2
+colorama==0.4.6
+colorlog==6.12.0
+diskcache==5.6.3
+filelock==3.32.3
+fsspec==2026.7.0
+setuptools==84.0.0
+six==1.17.0
+tqdm==4.70.0
+typing_extensions==4.16.0
+packaging==26.3
+wcwidth==0.8.2
+tzdata==2026.3
+
+# ── 安全 / 加密 ──────────────────────────────────────────────────
+cryptography==50.0.0
+pycryptodome==3.23.0
+cffi==2.1.1
+pycparser==3.0
+future==1.0.0
+attrs==26.1.0

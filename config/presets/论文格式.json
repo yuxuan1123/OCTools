@@ -1,0 +1,86 @@
+{
+  "name": "论文格式",
+  "description": "适合学术论文的中文排版：宋体小四、首行缩进2字符、标题编号、目录",
+  "version": "1.0",
+  "page": {
+    "paper_size": "A4",
+    "orientation": "portrait",
+    "margin_top": 2.54,
+    "margin_bottom": 2.54,
+    "margin_left": 3.18,
+    "margin_right": 3.18,
+    "gutter": 0.0
+  },
+  "typography": {
+    "body_font_cn": "宋体",
+    "body_font_en": "Times New Roman",
+    "body_font_size": 12.0,
+    "body_color": "#000000",
+    "headings": {
+      "h1": {
+        "font_cn": "黑体",
+        "font_en": "Arial",
+        "font_size": 22.0,
+        "bold": true,
+        "color": "#000000",
+        "alignment": "left"
+      },
+      "h2": {
+        "font_cn": "黑体",
+        "font_en": "Arial",
+        "font_size": 18.0,
+        "bold": true,
+        "color": "#000000",
+        "alignment": "left"
+      },
+      "h3": {
+        "font_cn": "黑体",
+        "font_en": "Arial",
+        "font_size": 14.0,
+        "bold": true,
+        "color": "#000000",
+        "alignment": "left"
+      }
+    },
+    "line_spacing_mode": "multiple",
+    "line_spacing": 1.5,
+    "line_spacing_fixed": 20.0,
+    "para_space_before": 0.0,
+    "para_space_after": 0.0,
+    "first_line_indent_chars": 2.0,
+    "alignment": "left"
+  },
+  "content": {
+    "list_bullet_char": "●",
+    "list_indent": 0.63,
+    "blockquote_bar_color": "#CCCCCC",
+    "blockquote_bg_color": "#F5F5F5",
+    "blockquote_left_indent": 1.27,
+    "code_font": "Consolas",
+    "code_font_size": 9.0,
+    "code_bg_color": "#F4F4F4",
+    "code_border": true,
+    "table_header_bg": "#D9E2F3",
+    "table_border": true,
+    "table_border_color": "#000000",
+    "image_max_width_pct": 80.0,
+    "image_center": true,
+    "link_color": "#0563C1",
+    "link_underline": true
+  },
+  "advanced": {
+    "heading_numbering": true,
+    "heading_numbering_format": "1.",
+    "auto_toc": true,
+    "toc_depth": 3,
+    "header_text": "",
+    "footer_text": "",
+    "cover_enabled": false,
+    "cover_title": "",
+    "cover_author": "",
+    "cover_date": "",
+    "watermark_text": "",
+    "watermark_font_size": 72.0,
+    "watermark_opacity": 0.1
+  }
+}

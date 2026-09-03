@@ -1,0 +1,6 @@
+{
+    "name": "样式实验室",
+    "class_name": "TabStyleLab",
+    "module_path": "ui.tabs.plugins.style_lab.tab_style_lab",
+    "order": 5
+}

@@ -1,0 +1,39 @@
+# Python 字节码 / 编译缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 虚拟环境（重点！）
+venv/
+env/
+.venv/
+ENV/
+
+# 环境变量 / 密钥（千万不要提交）
+.env
+.env.*
+*.key
+
+# 打包 / 构建产物
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# 测试 / 缓存
+.pytest_cache/
+.mypy_cache/
+.tox/
+.coverage
+
+# VS Code 设置（按需：如果要团队共享设置就把下面三行删掉）
+.vscode/*
+
+# 操作系统垃圾
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 日志
+*.log

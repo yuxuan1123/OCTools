@@ -1,0 +1,18 @@
+{
+  "engine": "kokoro",
+  "edge_voice": "zh-CN-XiaoxiaoNeural",
+  "edge_rate": "+0%",
+  "edge_volume": "+0%",
+  "edge_pitch": "+0Hz",
+  "kokoro_lang": "z",
+  "kokoro_voice": "zf_xiaoxiao",
+  "kokoro_speed": 0.67,
+  "kokoro_split_pattern": "",
+  "moss_model_dir": "D:\\AI_Model\\moss",
+  "moss_voice": "",
+  "moss_reference": "",
+  "moss_voice_clone_max_text_tokens": 75,
+  "moss_max_new_frames": 0,
+  "moss_do_sample": true,
+  "moss_seed": -1
+}

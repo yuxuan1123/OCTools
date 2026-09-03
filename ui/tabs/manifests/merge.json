@@ -1,0 +1,33 @@
+{
+    "name": "合并",
+    "class_name": "TabMerge",
+    "module_path": "ui.tabs.tab_merge",
+    "order": 2,
+    "settings_count": 4,
+    "settings": [
+        {
+            "module": "ui.options.set_tts",
+            "class_name": "SetTts",
+            "button_name": "语音合成",
+            "name": "语音合成设置"
+        },
+        {
+            "module": "ui.options.set_stt",
+            "class_name": "SetStt",
+            "button_name": "语音识别",
+            "name": "语音识别设置"
+        },
+        {
+            "module": "ui.options.set_image_docx",
+            "class_name": "SetImageDocx",
+            "button_name": "图片排版",
+            "name": "图片排版设置"
+        },
+        {
+            "module": "ui.tabs.tab_component.set_format",
+            "class_name": "SetFormat",
+            "button_name": "文档格式",
+            "name": "文档格式设置"
+        }
+    ]
+}
