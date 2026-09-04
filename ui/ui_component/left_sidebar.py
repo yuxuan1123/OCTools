@@ -1,10 +1,10 @@
 """
 OCTools/ui/ui_component/left_sidebar.py
-───────────────────────────────────────────────
-左侧功能导航栏：按 manifests 目录动态生成入口按钮。
+───────────────────────────────────────
+左侧功能导航栏：根据 manifests 目录动态生成入口按钮。
 
-所有视觉/布局参数统一从 config/ui_config.json 的 sidebar 段读取（CONFIG 单例）。
-tab 注册支持 module_path：JSON 里 class_name + module_path 决定导入模块与类。
+视觉/布局参数来自 config/ui_config.json 的 sidebar 段。
+tab 注册支持 module_path：JSON 中 class_name + module_path 决定导入模块与类。
 """
 import os
 import json
@@ -46,37 +46,34 @@ class LeftSidebar(StyleHookMixin, QWidget):
     """左侧功能导航栏。
 
     标题与空态提示的内联样式随主题变化，故混入 StyleHookMixin：
-    主题切换时由 QEvent.StyleChange 自动重刷，无需重建控件。
+    主题切换时由 QEvent.StyleChange 自动重刷。
     """
 
-    # 信号：发射 (name, class_name, module_path)
     entry_clicked = Signal(str, str, str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.cfg = C.section("sidebar")
-        # 需要在 _apply_inline_style 中重刷的子控件引用
         self._title_label = None
         self._empty_hint = None
 
-        # ---------- 窗口设置 ----------
+        # 窗口设置
         win_cfg = self.cfg.get("window", {})
         self.setWindowTitle(win_cfg.get("title", "OCTools"))
 
-        # ---------- 主布局 ----------
+        # 主布局
         layout_cfg = self.cfg.get("layout", {})
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(*_margins(layout_cfg.get("margins", [0, 0, 0, 0])))
         main_layout.setSpacing(layout_cfg.get("spacing", 15))
-        # 不设 layout alignment：设置后子控件按 sizeHint 排列，滚动区将无法填满侧栏宽度。
 
-        # ---------- 标题 ----------
+        # 标题
         title_cfg = self.cfg.get("title", {})
         self._title_label = QLabel(title_cfg.get("text", "OCTools"))
         self._title_label.setAlignment(_align(title_cfg.get("alignment", "center")))
         main_layout.addWidget(self._title_label)
 
-        # ---------- 滚动区域 ----------
+        # 滚动区域
         scroll_cfg = self.cfg.get("scroll_area", {})
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
@@ -95,10 +92,8 @@ class LeftSidebar(StyleHookMixin, QWidget):
         scroll_layout = QVBoxLayout(scroll_widget)
         scroll_layout.setContentsMargins(0, 0, 0, 0)
         scroll_layout.setSpacing(scroll_cfg.get("button_spacing", 10))
-        # 不设 layout alignment：一旦设置，子控件按 sizeHint 排列、不再填满侧栏宽度。
-        # 「顶部对齐」由末尾 addStretch() 实现。
 
-        # ---------- 扫描 tab 信息（与设置页共用同一份 manifest 目录清单）----------
+        # 扫描 tab 信息
         try:
             _ensure_plugin_dirs()
         except OSError as e:
@@ -108,7 +103,7 @@ class LeftSidebar(StyleHookMixin, QWidget):
             self.tab_infos += self._scan_tab_infos(_m_dir)
         self.tab_infos.sort(key=lambda x: (x["order"], x["name"]))
 
-        # ---------- 生成按钮 ----------
+        # 生成按钮
         button_group = QButtonGroup(self)
         button_group.setExclusive(True)
 
@@ -136,7 +131,6 @@ class LeftSidebar(StyleHookMixin, QWidget):
                     fixed_height=btn_fixed_height,
                     checkable=btn_checkable,
                 )
-                # 导航图标：未选中灰、选中用激活前景色（与选中文字同色，深浅主题均可见）
                 if name in NAV_ICON_NAMES:
                     btn.setIcon(nav_icon(name, False))
                     btn.setIconSize(QSize(NAV_ICON_SIZE, NAV_ICON_SIZE))
@@ -144,8 +138,6 @@ class LeftSidebar(StyleHookMixin, QWidget):
                         lambda checked, b=btn, n=name: b.setIcon(nav_icon(n, checked))
                     )
                 button_group.addButton(btn)
-                # 不传 alignment：否则按钮被压缩到 sizeHint 宽度、填不满侧栏。
-                # 文字的水平对齐由 QSS #navBtn 的 text-align 控制。
                 btn_container = QVBoxLayout()
                 btn_container.setContentsMargins(0, 0, 0, 0)
                 btn_container.addWidget(btn)

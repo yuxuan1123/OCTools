@@ -20,7 +20,13 @@ def capture_excluded(widgets, rect):
         w.hide()
     try:
         if vis:
-            time.sleep(CAPTURE_EXCLUDE_DELAY)
+            # 强制刷新事件循环，确保 hide() 生效
+            from PySide6.QtWidgets import QApplication
+            for _ in range(3):
+                QApplication.processEvents()
+            # 额外等待一小段时间（针对 Windows DWM）
+            import time
+            time.sleep(CAPTURE_EXCLUDE_DELAY)  # 建议值 0.05
         return grab_region(rect)
     finally:
         for w in vis:

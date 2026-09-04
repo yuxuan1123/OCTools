@@ -18,7 +18,6 @@ OCTools/ui/ui_component/window_resizer.py
     self.resizer = attach_resizer(self, margin=6, min_width=600, min_height=400)
 
 也可脱离业务单独运行本文件查看效果::
-
     python window_resizer.py
 """
 from __future__ import annotations
@@ -114,8 +113,7 @@ class WindowResizer(QWidget):
         self._start_pos = None
         self._enabled = True          # 是否允许缩放（如「固定」时禁用）
 
-        # 关键：开启鼠标跟踪，确保未按下时也能收到鼠标移动事件，
-        # 从而在边缘区域即时切换为拉伸光标。
+        # 关键：开启鼠标跟踪，确保未按下时也能收到鼠标移动事件，从而在边缘区域即时切换为拉伸光标。
         self._win.setMouseTracking(True)
         self._win.installEventFilter(self)
 

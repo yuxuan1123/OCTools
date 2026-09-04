@@ -136,8 +136,7 @@ def _categories_for(allowed_formats):
 
 class FormatPicker(QWidget):
     """两级格式选择：一级 = 分类按钮；二级 = 格式芯片按钮。
-
-    - 芯片为可点选按钮，悬停 / 滚轮不会改变选择，避免误修改。
+    - 芯片为可点选按钮。
     - set_available() 控制哪些格式可选；select() 程序化选中。
     """
 

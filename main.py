@@ -1,6 +1,7 @@
 """
 OCTools/main.py  ─  应用启动入口
 ──────────────────────────────── ㄧ
+以管理员身份启动
 创建 QApplication 后全局安装滚轮阻断（no_wheel_filter），
 然后启动主窗口。
 """
@@ -8,7 +9,7 @@ OCTools/main.py  ─  应用启动入口
 import sys
 import os
 
-# 确保项目根目录在 sys.path 中，便于 ui.import 生效
+# 确保项目根目录在 sys.path 中
 current_path = os.path.abspath(__file__)
 project_root = os.path.dirname(current_path)
 if project_root not in sys.path:

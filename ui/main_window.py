@@ -47,10 +47,10 @@ class MainApp:
         self.sidebar = LeftSidebar()
         self.window.set_left_content(self.sidebar)
 
-        # 右侧 widget 缓存（按 class_name 缓存）
+        # 右侧 widget 缓存
         self._right_widgets = {}
 
-        # 当前激活的 tab（主题切换后重建成该页）
+        # 当前激活的 tab
         self._current = None
 
         # 连接信号

@@ -1,3 +1,8 @@
+"""
+OCTools/ui/ui_component/hotkeys.py
+───────────────────────────────────────────────
+按钮组件
+"""
 import os
 import sys
 
@@ -9,9 +14,9 @@ from config.ui_config import CONFIG as C
 
 
 def _project_root() -> str:
-    """项目根目录：源码 = 仓库根；打包后 = _internal（内建只读资源所在）。
+    """项目根目录：源码=仓库根；打包后=_internal。
 
-    打包后模块在 PYZ 内，__file__ 指向 _internal/...，取 sys._MEIPASS 更稳妥。
+    打包后模块在 PYZ 内，__file__ 指向 _internal/...，用 sys._MEIPASS 更稳妥。
     """
     if getattr(sys, "frozen", False):
         meipass = getattr(sys, "_MEIPASS", None)
@@ -24,10 +29,9 @@ def _project_root() -> str:
 
 
 def resource_path(path: str) -> str:
-    """相对项目根的路径 → 绝对路径（绝对路径原样返回）。
+    """相对项目根路径→绝对路径（绝对路径原样返回）。
 
-    打包后项目根 = _internal（内建 resources/ 等数据随其分发）；
-    各调用方均使用 "resources/icons/..." 形式，故整体按项目根解析。
+    打包后项目根=_internal，调用方用 "resources/icons/..." 形式。
     """
     if not path:
         return path
@@ -37,7 +41,10 @@ def resource_path(path: str) -> str:
 
 
 def load_icon_for_button(btn: QPushButton, symbol: str, icon_size: int = 20):
-    """给按钮设置图标（文件路径）或文字（符号）。"""
+    """给按钮设置图标（文件路径）或文字（符号）。
+
+    文件存在则设图标并清空文本，否则设文本并清空图标。
+    """
     if symbol and any(symbol.lower().endswith(ext) for ext in ['.svg', '.png', '.ico', '.jpg']):
         fp = resource_path(symbol)
         if os.path.exists(fp):
@@ -49,10 +56,7 @@ def load_icon_for_button(btn: QPushButton, symbol: str, icon_size: int = 20):
     btn.setIcon(QIcon())
 
 def set_button_icon(btn: QPushButton, icon_path: str, icon_size: int = 20):
-    """
-    明确设置按钮图标（不设文本）。
-    如果文件不存在，则清空图标和文本。
-    """
+    """设置按钮图标（不设文本），文件不存在则清空图标和文本。"""
     full_path = resource_path(icon_path)
     if os.path.exists(full_path):
         btn.setIcon(QIcon(full_path))
@@ -72,10 +76,8 @@ def create_function_entry_button(
 ) -> QPushButton:
     """侧栏功能入口按钮。
 
-    外观全部由全局 QSS 的 QPushButton#navBtn 规则承载（含 hover / checked /
-    pressed 三态），此处只负责尺寸、光标与信号连接，保证主题切换即时生效。
-
-    fixed_width <= 0 时宽度交给布局自适应（侧栏变宽后按钮随之填满）。
+    外观由全局 QSS 的 QPushButton#navBtn 承载，此处只设尺寸、光标与信号。
+    fixed_width<=0 时宽度自适应。
     """
     btn = QPushButton(text)
     if fixed_height is None:

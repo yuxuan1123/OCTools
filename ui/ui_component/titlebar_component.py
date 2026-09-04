@@ -429,8 +429,7 @@ class CustomTitleBar(StyleHookMixin, QWidget):
         if not QSystemTrayIcon.isSystemTrayAvailable():
             return
         self._tray_icon = QSystemTrayIcon(window)
-        # 托盘图标：优先用 icons.tray_icon（应用 logo 的 SVG 版本），
-        # 回退到 icons.tray，再回退到 logo.image
+        # 托盘图标：优先用 icons.tray_icon，回退到 icons.tray，再回退到 logo.image
         tray_path = (self.cfg["icons"].get("tray_icon")
                      or self.cfg["icons"].get("tray")
                      or self.cfg.get("logo", {}).get("image"))

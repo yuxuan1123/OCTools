@@ -79,31 +79,38 @@ class TranslateAppBase(QObject):
         raise NotImplementedError
 
     # ── 区域选择 / 区域框 ──
-
     def _resolve_region(self, log_hint: str):
-        """解析识别区域（QRect 或 None）：
-        固定截图框优先；否则全屏框选并写回配置。框选期间隐藏主窗口。"""
+        """解析识别区域：固定截图框优先；否则全屏框选并写回配置。
+        框选前最小化主窗口，之后永不恢复。"""
         from PySide6.QtCore import QRect
+
+        # ★ 无论是否固定，先最小化主窗口（永不恢复）
+        if self._app.isVisible() and not self._app.isMinimized():
+            self._app.showMinimized()
+            from PySide6.QtWidgets import QApplication
+            QApplication.processEvents()
+            QApplication.processEvents()   # 双重刷新确保生效
+
         region = getattr(self._app, "screen_region_config", None)
         if region is not None and region.fixed and region.has_rect():
             x, y, w, h = region.rect_tuple()
             rect = QRect(x, y, w, h)
             self.log(f"📌 {log_hint}：使用固定截图框 ({x}, {y}) {w}×{h}")
-            return rect
+            return rect   # 主窗口已最小化，直接返回
 
         from config.ui_config import CONFIG as C
-        was_visible = self._app.isVisible()
-        if was_visible:
-            self._app.hide()
         from ui.ui_component.region_box import RegionSelectDialog
         from PySide6.QtWidgets import QDialog
+
         border = region.border_color if region is not None else C.color("screen_border")
         dlg = RegionSelectDialog(border_color=border)
         self._app._region_dialog = dlg
+
         try:
             if dlg.exec() != QDialog.Accepted or dlg.selected_rect is None:
                 self.log("⏹ 已取消区域选择")
                 return None
+
             rect = dlg.selected_rect
             if region is not None:
                 region.set_rect(rect.x(), rect.y(), rect.width(), rect.height())
@@ -113,8 +120,8 @@ class TranslateAppBase(QObject):
         finally:
             if getattr(self._app, "_region_dialog", None) is dlg:
                 self._app._region_dialog = None
-            if was_visible:
-                self._app.show()
+            # ★ 绝不恢复主窗口
+            # （用户需手动点击任务栏图标恢复）
 
     def _make_region_box(self, rect):
         """创建实时识别区域调整框（可拖动/缩放，变化经回调更新区域）"""
@@ -258,5 +265,29 @@ class TranslateAppBase(QObject):
             self._region_box = None
 
     def _capture_excluding(self):
-        """截图前隐藏悬浮框与区域框，返回截取的 PIL Image"""
-        return capture_excluded([self._overlay, self._region_box], self._region)
+        """截图前隐藏悬浮框/区域框，返回 PIL Image（主窗口已在框选时最小化）"""
+        from PySide6.QtCore import QTimer, QEventLoop
+        from PySide6.QtWidgets import QApplication
+        from core.engines.screenshot_engine import grab_region
+
+        # 隐藏子组件（悬浮框、区域框）
+        exclude_widgets = [self._overlay, self._region_box]
+        vis = [w for w in exclude_widgets if w is not None and w.isVisible()]
+        for w in vis:
+            w.hide()
+        QApplication.processEvents()
+
+        result = [None]
+        loop = QEventLoop()
+
+        def _grab():
+            img = grab_region(self._region)
+            result[0] = img
+            # 仅恢复子组件，主窗口保持最小化
+            for w in vis:
+                w.show()
+            loop.quit()
+
+        QTimer.singleShot(100, _grab)
+        loop.exec()
+        return result[0]

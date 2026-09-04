@@ -20,8 +20,7 @@ from config.ui_config import CONFIG as C
 
 
 class _LiveTheme(dict):
-    """THEME['key'] 实时读取当前主题色彩（兼容旧 dict 访问）。
-
+    """THEME['key'] 实时读取当前主题色彩。
     切换主题 / 覆盖后无需重建该对象，取值始终与 CONFIG 一致。
     """
 
@@ -635,10 +634,7 @@ def _sync_style_file() -> str:
 
 STYLE_FILE = _sync_style_file()
 
-
-# ══════════════════════════════════════════════════════════════════
 #  主题切换（全局 UI 风格）
-# ══════════════════════════════════════════════════════════════════
 
 from PySide6.QtCore import QObject, Signal  # noqa: E402
 
@@ -668,10 +664,6 @@ def apply_theme(app, settings: dict = None, notify: bool = True) -> str:
     """
     if settings:
         C.apply_theme_settings(settings)
-    # 强制 Fusion 风格：本项目的 730 行 QSS 主题依赖 QPushButton/QFrame 等
-    # 正确响应 QSS background。原生 Windows 风格（WindowsVista）绘制按钮时
-    # 走系统主题、忽略 QSS background，导致 danger 红底失效、白字落在白底上
-    # （卸载按钮「一片白」）。Fusion 是跨平台且忠实渲染 QSS 的风格。
     if app.style().objectName() != "fusion":
         app.setStyle("Fusion")
     rebuild_stylesheet()
