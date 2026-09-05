@@ -7,7 +7,7 @@
   "paths": {
     "icon_dir": "resources/icons",
     "using_dir": "resources/icons",
-    "media_dir": "resources/icons",
+    "media_dir": "resources/iconss",
     "app_icon": "resources/icons/logo128.png",
     "logo32": "resources/icons/logo32.png",
     "ffmpeg": "D:/LanguageTool/ffmpeg/bin/ffmpeg.exe",
@@ -449,17 +449,17 @@
     "overlay_toolbar_padding_h": 5,
     "overlay_icon": 13,
     "overlay_frame_width": 2,
-    "overlay_resize_margin": 14,
+    "overlay_resize_margin": 6,
     "overlay_min_w": 160,
-    "overlay_min_h": 60,
+    "overlay_min_h": 68,
     "overlay_fit_gap": 24,
     "overlay_max_w_min": 220,
     "overlay_max_w_max": 620,
     "overlay_screen_half_div": 2,
     "overlay_offset_gap": 8,
-    "overlay_titlebar_h": 34,
+    "overlay_titlebar_h": 42,
     "overlay_btn_w": 34,
-    "overlay_btn_h": 26,
+    "overlay_btn_h": 22,
     "overlay_default_w": 420,
     "overlay_default_h": 240,
     "overlay_split_handle": 2,
@@ -559,6 +559,12 @@
       "alignment": "center"
     },
     "manifests_dir": "ui/tabs/manifests"
+  },
+  "timing": {
+    "minimize_settle_ms": 220,
+    "minimize_wait_timeout_ms": 900,
+    "capture_delay_ms": 120,
+    "pump_step_ms": 8
   },
   "split": {
     "window": {
@@ -702,6 +708,7 @@
     "overlay_mode_both_tooltip": "显示模式：双语（原文+译文）",
     "overlay_mode_trans_tooltip": "显示模式：仅译文（点击切换）",
     "hint_region_select": "按住左键拖拽框选 → 松开后可拖动 / 缩放 → 双击或 Enter 确认 · Esc 取消",
-    "region_hint_padding": "8px 16px"
+    "region_hint_padding": "8px 16px",
+    "app_start_minimize_tooltip": "启动后自动最小化主窗口，避免遮挡识别区域（从任务栏 / 托盘图标可恢复）"
   }
 }

@@ -38,6 +38,7 @@ from PySide6.QtWidgets import (
 
 from .button_component import load_icon_for_button, resource_path
 from ui.style_hook import StyleHookMixin
+from config.ui_config import CONFIG as C
 
 
 # 标题栏图标统一染色（主题联动）。None = 不染色。
@@ -201,7 +202,15 @@ class CustomTitleBar(StyleHookMixin, QWidget):
         self._drag_pos: Optional[QPoint] = None
         self._tray_icon: Optional[QSystemTrayIcon] = None
 
+        # 顶边缩放让位：标题栏顶部 top_resize_margin 像素内不启动拖动，
+        # 改由 window 上的 WindowResizer 接管（让事件冒泡）。仅浮窗会注入
+        # resizer 并配置该值；主窗口等默认 0 → 行为不变。
+        self._top_resize_margin = int(self.cfg.get("titlebar", {})
+                                      .get("top_resize_margin", 0))
+        self._resizer = None            # 由 window 在创建缩放器后注入
+
         self.setObjectName("CustomTitleBar")
+        self.setMouseTracking(True)  # 确保鼠标移动时能收到 mouseMoveEvent
         self._build_ui()
         self._apply_inline_style()
         self.setAutoFillBackground(True)
@@ -253,6 +262,14 @@ class CustomTitleBar(StyleHookMixin, QWidget):
         """注册自定义按钮动作。buttons 里 action 为非内置值时调用对应回调。"""
         self._custom_actions[action_name] = callback
 
+    def set_resizer(self, resizer):
+        """注入 window 的边缘缩放器（浮窗用）；None 表示本窗口不可缩放。
+
+        顶边缩放让位依赖此引用：顶边热区内按下时，若 resizer 存在且 enabled，
+        则把按下事件让给 resizer（缩放），否则照常拖动。
+        """
+        self._resizer = resizer
+
     def set_title(self, title: str):
         self.cfg["window"]["title"] = title
         if hasattr(self, "_title_label"):
@@ -278,6 +295,8 @@ class CustomTitleBar(StyleHookMixin, QWidget):
                 spacer.setStyleSheet("background:transparent;")
                 lay.addWidget(spacer)
             logo_label = QLabel(self)
+            # 图标不拦截鼠标：让鼠标事件穿透到标题栏，实现整窗拖动
+            logo_label.setAttribute(Qt.WA_TransparentForMouseEvents, True)
             w = logo_cfg.get("width", 28)
             h = logo_cfg.get("height", 28)
             # SVG 用染色渲染（解决 currentColor → 黑色），PNG 回退 QPixmap
@@ -320,6 +339,9 @@ class CustomTitleBar(StyleHookMixin, QWidget):
         f = QFont(self.cfg["font"].get("family", "Sans Serif"))
         f.setPointSize(self.cfg["font"].get("title_size", 14))
         self._title_label.setFont(f)
+        # 标题文字不拦截鼠标：落在标题上的按下事件穿透到标题栏，
+        # 否则 QLabel 默认吞掉事件，标题区无法触发整窗拖动。
+        self._title_label.setAttribute(Qt.WA_TransparentForMouseEvents, True)
 
         if tcfg.get("title_align") == "center":
             # 标题居中：左右各加一个 stretch
@@ -341,7 +363,10 @@ class CustomTitleBar(StyleHookMixin, QWidget):
         icon_key = b.get("icon_key") or action
         symbol = self.cfg["icons"].get(icon_key, "")
         tint = self.cfg.get("icons_tint")
-        load_titlebar_icon(btn, symbol, icon_size=20, tint=tint)
+        # 按钮图标尺寸：优先读 cfg（浮窗传 button_icon_size 跟随按钮高度缩放），
+        # 默认 20 保持主窗口等未传值的场景不变。
+        icon_size = int(self.cfg.get("titlebar", {}).get("button_icon_size", 20))
+        load_titlebar_icon(btn, symbol, icon_size=icon_size, tint=tint)
 
         btn.setObjectName(f"Btn_{b.get('id', action)}")
         btn.setToolTip(b.get("tooltip", ""))
@@ -364,7 +389,9 @@ class CustomTitleBar(StyleHookMixin, QWidget):
             #TitleLabel {{ color:{tb['foreground']}; background:transparent; border:none; }}
             QPushButton {{
                 background:{c.get('button_normal','transparent')}; color:{tb['foreground']};
-                border:none; font-size:{f.get('button_size',15)}px;
+                border:none; border-radius:0px;
+                padding:0px; min-height:0px;
+                font-size:{f.get('button_size',15)}px;
             }}
             QPushButton:hover {{ background:{c.get('button_hover','#465c70')}; }}
             QPushButton:pressed {{ background:{c.get('button_press','#5a7590')}; }}
@@ -464,13 +491,36 @@ class CustomTitleBar(StyleHookMixin, QWidget):
 
     # -------------------------- 拖拽移动 -------------------------- #
     def mousePressEvent(self, e):
-        if not self.cfg["titlebar"].get("draggable", True) or e.button() != Qt.LeftButton:
+        if e.button() != Qt.LeftButton:
             return
-        if self._window:
-            self._drag_pos = e.globalPosition().toPoint() - self._window.frameGeometry().topLeft()
+        # 顶边热区：交给 window 的缩放器处理（缩放），不启动拖动。
+        # 仅当缩放器存在且启用时让位；否则（不可缩放 / 已固定）顶边照常拖动。
+        if (self._resizer is not None and self._resizer.is_enabled()
+                and self._top_resize_margin > 0
+                and e.pos().y() <= self._top_resize_margin):
+            e.ignore()      # 让事件冒泡到 window，由 WindowResizer 接管顶边缩放
+            return
+        if not self.cfg["titlebar"].get("draggable", True):
+            return
+        if not self._window:
+            return
+        # 优先用系统原生拖动：startSystemMove() 在 Windows 下由操作系统接管
+        # 整个拖动过程，避免 grabMouse()+move() 在无边框窗口上捕获丢失的
+        # 已知问题（SetCapture 与 SetWindowPos 冲突导致拖不动/中途失效）。
+        wnd = self._window.windowHandle()
+        if wnd is not None:
+            e.accept()
+            wnd.startSystemMove()
+            return
+        # 回退：窗口句柄不可用时手动拖动
+        self._drag_pos = e.globalPosition().toPoint() - self._window.geometry().topLeft()
+        e.accept()
 
     def mouseMoveEvent(self, e):
         if self._drag_pos is None or not self._window:
+            return
+        if not e.buttons() & Qt.LeftButton:
+            self._drag_pos = None
             return
         if self._maximized:
             self._act_maximize()  # 拖拽时还原

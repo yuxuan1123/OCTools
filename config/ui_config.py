@@ -481,6 +481,11 @@ class _Config:
         v = self.raw("layout", key)
         return int(v) if isinstance(v, (int, float)) else 0
 
+    def timing(self, key: str, default: int = 0) -> int:
+        """时间参数（毫秒，不参与缩放），缺省用 default。"""
+        v = self.raw("timing", key)
+        return int(v) if isinstance(v, (int, float)) else int(default)
+
     def spacing(self, key: str) -> int:
         return self.size(key)
 

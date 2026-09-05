@@ -51,7 +51,7 @@ class TranslatorConfig:
     opusmt_base: str = OPUS_MT_BASE
 
     # ── 屏幕翻译悬浮窗显示 ──
-    overlay_font_size: int = 12          # 译文悬浮窗字号（px）
+    overlay_font_size: int = 14          # 译文悬浮窗字号（px）
     overlay_mode: str = "both"           # both=双语（原文+译文） / trans=仅译文
     overlay_bg_color: str = "#FFFFFF"  # 悬浮窗背景色（默认浅色）：#RRGGBB 或 transparent（显式选透明）
     overlay_movable: bool = True         # 悬浮窗是否可移动（False = 固定在初始位置）

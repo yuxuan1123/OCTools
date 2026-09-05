@@ -5,6 +5,9 @@ OCTools/ui/tabs/translation/app_controller.py
 
 所有逻辑照抄原 TranslatePage 的实现（stopped 信号复位、_APP_ROWS 名称、
 danger/primary objectName 切换、icon 切换等）。
+
+启动前一律最小化主窗口（window_ctl.minimize_host）：截图类应用不能被主窗口
+遮挡，字幕类应用需要独占视野。宿主是页面子控件，必须经 window_ctl 取顶层窗口。
 """
 
 from PySide6.QtCore import QSize
@@ -12,6 +15,7 @@ from PySide6.QtCore import QSize
 from ui import icon_res
 
 from ui.tabs.translation.registry import _APP_ROWS
+from ui.ui_component import window_ctl
 
 
 def init_apps(page):
@@ -47,6 +51,13 @@ def toggle_app(page, key):
 def start_app(page, key):
     a = page._apps[key]
     label = _APP_ROWS[key][1]
+    # 启动前最小化主窗口：五个应用（3 个截图类 + 屏幕字幕 / 语音翻译）都不该
+    # 被主窗口遮挡。此处是页面按钮 / 热键 / 托盘的唯一入口，覆盖全部来源。
+    # 注意：宿主是页面子控件，必须经 window_ctl 取顶层窗口才有效。
+    try:
+        window_ctl.minimize_host(page)
+    except Exception:
+        pass
     try:
         a.start()
     except Exception as e:

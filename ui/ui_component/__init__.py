@@ -16,6 +16,7 @@ OCTools/ui/ui_component/__init__.py
   - hotkeys.py              热键绑定（parse_hotkey）
   - overlay.py              悬浮显示框（FloatingOverlay，参数化 UI 组件）
   - region_box.py           区域框选（RegionSelectDialog / LiveRegionBox）
+  - window_ctl.py           顶层窗口显隐（子控件→主窗口解析 + 最小化 / 恢复 / 泵事件）
 
 组件一律通过 `from ui.ui_component.<module> import <symbol>` 显式导入。
 """

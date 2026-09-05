@@ -128,13 +128,21 @@ class SetScreenRegion(QDialog):
             f"当前区域：{self._config.summary()} | 边框：{self._config.border_color}")
 
     def _pick_region(self):
-        """全屏框选一次，设为固定区域"""
+        """全屏框选一次，设为固定区域。
+
+        框选期间主窗口必须让开，否则用户选不到被它盖住的区域：
+          - 本对话框是顶层窗口 → 直接 hide() 即可；
+          - 主窗口要经 window_ctl 解析 —— self.parent() 是 **tab 页子控件**，
+            对它 hide() 只会把页面藏掉，主窗口框架（标题栏 / 侧栏）依然挡屏。
+        用「最小化」而非 hide：任务栏图标还在，用户不会以为程序崩了；
+        框选结束（含取消 / 异常）必须恢复，否则用户以为卡死。
+        """
         from ui.ui_component.region_box import RegionSelectDialog
-        # 隐藏本窗口与主窗口，避免框进截图
+        from ui.ui_component import window_ctl
+
         self.hide()
-        parent_win = self.parent()
-        if parent_win is not None:
-            parent_win.hide()
+        host = self.parent()                 # tab 页（子控件）→ 由 window_ctl 解析主窗口
+        minimized = window_ctl.minimize_host(host)
         try:
             dlg = RegionSelectDialog(border_color=self._config.border_color)
             if dlg.exec() == QDialog.Accepted and dlg.selected_rect is not None:
@@ -146,9 +154,10 @@ class SetScreenRegion(QDialog):
                     self, "已设置",
                     f"已把区域 ({r.x()}, {r.y()}) {r.width()}×{r.height()} 设为固定截图框。")
         finally:
-            if parent_win is not None:
-                parent_win.show()
+            if minimized:
+                window_ctl.restore_host(host)
             self.show()
+            self.raise_()
         self._refresh_region_summary()
 
     def _clear_region(self):

@@ -28,6 +28,7 @@ def build_app_rows(parent, keys, page):
         btn.setIcon(icon_res.colored_icon(icon))
         btn.setIconSize(QSize(C.size("icon_small"), C.size("icon_small")))
         btn.setMinimumWidth(C.size("combo_min_w"))
+        btn.setToolTip(C.text("app_start_minimize_tooltip"))
         btn.clicked.connect(lambda _=False, k=key: page.toggle_app(k))
         rl.addWidget(btn)
         name_lab = QLabel(label, row)

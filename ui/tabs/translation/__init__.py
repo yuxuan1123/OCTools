@@ -17,6 +17,9 @@ OCTools/ui/tabs/translation/
   - engine_ctl.py         翻译引擎下拉控制
   - app_controller.py     最终应用 启动/停止/状态 控制
 
-注：本子包的入口页面类 TabTranslation 统一定义在 ui/tabs/tab_translation.py，
+注1：窗口显隐（启动前最小化主窗口）用公共组件 ui/ui_component/window_ctl.py，
+     不放在本子包 —— 「设置 → 截图区域」的框选按钮同样需要它。
+
+注2：本子包的入口页面类 TabTranslation 统一定义在 ui/tabs/tab_translation.py，
 由 OCTools 主程序按 manifests/translation.json 动态加载。
 """

@@ -2,6 +2,9 @@
 OCTools/ui/tabs/translation/card_voice.py
 ────────────────────────────────────────────────────
 语音翻译卡片：标题「语音翻译」+ 屏幕字幕 / 语音翻译 两个应用行 + 底部字幕设置提示。
+
+点击「启动」时 app_controller 会先最小化主窗口（window_ctl.minimize_host），
+让悬浮字幕独占视野；主窗口不自动恢复。
 """
 
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QLabel

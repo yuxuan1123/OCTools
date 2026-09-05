@@ -11,7 +11,7 @@
   "hy_repeat_penalty": 1.05,
   "opusmt_base": "D:\\AI_Model\\opusMT",
   "overlay_font_size": 13,
-  "overlay_mode": "both",
+  "overlay_mode": "trans",
   "overlay_bg_color": "#FFFFFF",
   "overlay_movable": true,
   "overlay_resizable": true,

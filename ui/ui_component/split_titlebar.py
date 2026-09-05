@@ -12,6 +12,34 @@ OCTools/ui/ui_component/split_titlebar.py
 
 from __future__ import annotations
 
+if __name__ == "__main__":
+    # Bootstrap：让 `python ui/ui_component/split_titlebar.py` 直跑也能工作。
+    #
+    # 文件内 `from .split_window import _Pane` 等相对 import 要求模块必须以
+    # `ui.ui_component.split_titlebar` 身份加载（有包上下文）。直跑时
+    # `__name__` 是 `__main__`、无父包，相对 import 会立即报
+    # `ImportError: attempted relative import with no known parent package`。
+    #
+    # 解法：在文件最早处检测 `__name__`；若为 "__main__" 则用 importlib
+    # 以 `ui.ui_component.split_titlebar` 包成员身份重新加载本文件，文件
+    # 内 `__name__` 会变成包路径 → 相对 import 解析正常 → 调用 `main()`。
+    # 重新加载完成后原 `__main__` 命名空间被替换（不影响用户可见行为）。
+    import os, sys, importlib.util
+    _PROJ_ROOT = os.path.normpath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
+    )
+    if _PROJ_ROOT not in sys.path:
+        sys.path.insert(0, _PROJ_ROOT)
+    _SPEC = importlib.util.spec_from_file_location(
+        "ui.ui_component.split_titlebar",
+        os.path.abspath(__file__),
+    )
+    _MOD = importlib.util.module_from_spec(_SPEC)
+    sys.modules["ui.ui_component.split_titlebar"] = _MOD
+    _SPEC.loader.exec_module(_MOD)
+    sys.exit(_MOD.main())
+
+
 import sys
 import os
 
@@ -331,7 +359,3 @@ def main():
     window = TestWindow()
     window.show()
     sys.exit(app.exec())
-
-
-if __name__ == "__main__":
-    main()

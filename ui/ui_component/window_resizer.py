@@ -113,6 +113,13 @@ class WindowResizer(QWidget):
         self._start_pos = None
         self._enabled = True          # 是否允许缩放（如「固定」时禁用）
 
+        # 关键：本 widget 本体绝不接收鼠标事件。
+        # 它作为 window 的子部件默认落在客户区 (0,0)，若不穿透会覆盖
+        # 标题栏左侧（logo/标题），拦截按下事件导致标题栏无法拖动。
+        # 缩放能力完全依赖 window 上的事件过滤器 + QTimer 轮询，
+        # 自身 widget 仅作为常驻 QObject 容器，无需也不应接收鼠标。
+        self.setAttribute(Qt.WA_TransparentForMouseEvents, True)
+
         # 关键：开启鼠标跟踪，确保未按下时也能收到鼠标移动事件，从而在边缘区域即时切换为拉伸光标。
         self._win.setMouseTracking(True)
         self._win.installEventFilter(self)
@@ -130,6 +137,10 @@ class WindowResizer(QWidget):
     # ---------------------------------------------------------- #
     def _poll_cursor(self):
         if not self._enabled or self._resizing:
+            return
+        # 拖动/缩放进行中（存在鼠标捕获）时暂停轮询：否则会覆盖拖动光标，
+        # 且标题栏拖动经过顶边缩放带时光标会闪成拉伸箭头，干扰操作。
+        if self._win.mouseGrabber() is not None:
             return
         win = self._win
         if not win.isVisible():
@@ -282,6 +293,10 @@ class WindowResizer(QWidget):
             self._start_geo = None
             self._start_pos = None
             self._win.setCursor(Qt.ArrowCursor)
+
+    def is_enabled(self) -> bool:
+        """当前是否允许缩放（标题栏据此决定顶边是让位给缩放还是正常拖动）。"""
+        return self._enabled
 
 
 def QCursor_global():

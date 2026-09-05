@@ -4,6 +4,9 @@ OCTools/ui/tabs/translation/card_screen.py
 屏幕翻译卡片：标题「屏幕翻译」+ 屏幕OCR / 屏幕翻译 / 屏幕实时翻译 三个应用行。
 
 应用行由 app_hooks.build_app_rows 生成（启动/停止 切换按钮 + 名称 + 说明 + 状态）。
+
+点击「启动」时 app_controller 会先最小化主窗口（window_ctl.minimize_host），
+避免主窗口遮挡待识别区域；不自动恢复，由用户从任务栏 / 托盘手动恢复。
 """
 
 from PySide6.QtWidgets import QWidget
