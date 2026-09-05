@@ -4,10 +4,13 @@ OCTools/ui/tabs/plugin_registry.py
 插件注册表：统一提供插件目录 / 清单目录 / 模块前缀 / sys.path 挂载与模块清理。
 
 打包兼容（PyInstaller）：
-  - 源码运行时：插件代码 ui/tabs/plugins/<名>/，以 ui.tabs.plugins.<名> 导入；
-  - 打包后（sys.frozen 存在）：插件落在可执行文件同目录 plugins/<名>/，
+  - 源码运行时：插件代码根目录 OCTools/plugins/<名>/，以 plugins.<名> 导入；
+  - 打包后（sys.frozen）：插件落在可执行文件同目录 plugins/<名>/，
     以普通文件系统包 plugins.<名> 导入——frozen 内置 importer 无法动态加载新模块。
   - 插件清单统一存放在 <插件根>/manifests/<名>.json。
+
+与 services/ext_plugins/paths 的根目录规则保持一致（源码=项目根 / 打包=exe 目录），
+保证导入插件（direct）与外部插件（desc/window）共用同一套插件根。
 
 注意：本模块只依赖标准库，避免 UI/配置耦合，供 tab_plugin / left_sidebar 共用。
 """
@@ -29,15 +32,13 @@ def _mount_dir() -> str:
 
 
 def _plugins_pkg() -> str:
-    """插件包名空间：ui.tabs.plugins（源码）/ plugins（打包）。"""
-    return "plugins" if IS_FROZEN else "ui.tabs.plugins"
+    """插件包名空间：统一为 plugins（源码与打包一致）。"""
+    return "plugins"
 
 
 def plugins_dir() -> str:
     """插件代码根目录（含 __init__.py，内部按插件名组织子目录）。"""
-    if IS_FROZEN:
-        return os.path.join(_mount_dir(), "plugins")
-    return os.path.join(_HERE, "plugins")
+    return os.path.join(_mount_dir(), "plugins")
 
 
 def plugin_manifests_dir() -> str:
@@ -56,14 +57,12 @@ def iter_manifest_dirs():
     供 left_sidebar（左侧导航）与 tab_settings（设置页）统一使用，
     避免两处目录清单不一致导致「插件进了导航却没出现在设置页」之类问题。
 
-    覆盖三类位置：
-      - 内建 tab 清单：ui/tabs/manifests
-      - 旧版插件子目录（向后兼容）：ui/tabs/manifests/plugins
-      - 用户导入插件（打包后挂载目录）：<插件根>/manifests
+    覆盖两类位置：
+      - 内建核心 tab 清单：ui/tabs/manifests
+      - 统一插件清单（内置迁移 + 用户导入）：<插件根>/manifests
     """
     candidates = [
         builtin_manifests_dir(),
-        os.path.join(builtin_manifests_dir(), "plugins"),
         plugin_manifests_dir(),
     ]
     seen, out = set(), []

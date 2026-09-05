@@ -1,0 +1,18 @@
+{
+    "name": "样式实验室",
+    "class_name": "TabStyleLab",
+    "module_path": "plugins.style_lab.tab_style_lab",
+    "ui_mode": "direct",
+    "order": 7,
+    "settings_count": 0,
+    "settings": [],
+    "files": {
+        "tab": [
+            "tab_style_lab.py"
+        ],
+        "set": [],
+        "other": [
+            "__init__.py"
+        ]
+    }
+}

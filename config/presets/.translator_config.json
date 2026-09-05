@@ -11,7 +11,7 @@
   "hy_repeat_penalty": 1.05,
   "opusmt_base": "D:\\AI_Model\\opusMT",
   "overlay_font_size": 13,
-  "overlay_mode": "trans",
+  "overlay_mode": "both",
   "overlay_bg_color": "#FFFFFF",
   "overlay_movable": true,
   "overlay_resizable": true,
@@ -20,5 +20,7 @@
   "voice_sub_font_size": 20,
   "voice_sub_show_orig": true,
   "hotkey_ocr_once": "alt+x",
-  "hotkey_ocr_live": "alt+c"
+  "hotkey_ocr_live": "alt+c",
+  "preload_models": true,
+  "preload_timing": "startup"
 }

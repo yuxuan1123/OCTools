@@ -53,8 +53,8 @@ class BuiltinSpeechRecognize(QObject):
 
     # ── 控制 ──
 
-    def start(self):
-        """启动录音与定时识别"""
+    def start(self, rect=None):
+        """启动录音与定时识别（rect 为兼容基类 worker 接口的无用参数）"""
         if self._stopped is False and self._capture is not None:
             return   # 已在运行
         self._stopped = False

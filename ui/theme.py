@@ -16,6 +16,8 @@ PySide6 全局主题：从 ui/ui_config.json 读取所有 UI 参数并生成全�
   app.setStyleSheet(APP_STYLESHEET)
 """
 
+import os
+
 from config.ui_config import CONFIG as C
 
 
@@ -59,6 +61,10 @@ def _qss() -> str:
     """根据 JSON 配置构建全局样式表"""
     monofam = f"{C.raw('fonts', 'mono_family')}, {C.raw('fonts', 'mono_fallback')}, monospace"
     fam = f"{C.raw('fonts', 'family')}, {C.raw('fonts', 'fallback_family')}, sans-serif"
+    check_icon = os.path.join(C.using_dir(), "square-check.svg").replace("\\", "/")
+    radio_icon = os.path.join(C.using_dir(), "square-rounded-check.svg").replace("\\", "/")
+    square_icon = os.path.join(C.using_dir(), "square.svg").replace("\\", "/")
+    square_rounded_icon = os.path.join(C.using_dir(), "square-rounded.svg").replace("\\", "/")
     return f"""
 /* ══════════ 全局 ══════════ */
 * {{
@@ -219,6 +225,13 @@ QPushButton#ghost:hover {{
     color: {_c('text')};
 }}
 
+/* 设置弹窗内按钮统一用主题文字色（黑字），避免白字在部分系统上渲染不可见 */
+QDialog QPushButton#primary,
+QDialog QPushButton#secondary,
+QDialog QPushButton#danger {{
+    color: {_c('text')};
+}}
+
 /* ══════════ 侧栏导航按钮 ══════════ */
 QPushButton#navBtn {{
     background: transparent;
@@ -322,30 +335,18 @@ QCheckBox::indicator, QRadioButton::indicator {{
     height: {_s('indicator_size')}px;
 }}
 QCheckBox::indicator {{
-    border: 1px solid {_c('indicator_border')};
-    border-radius: {_s('radius_check')}px;
-    background: {_c('card')};
-}}
-QCheckBox::indicator:hover {{
-    border-color: {_c('primary')};
+    image: url({square_icon});
 }}
 QCheckBox::indicator:checked {{
-    background: {_c('primary')};
-    border-color: {_c('primary')};
-    image: none;
+    background: {_c('card')};
+    image: url({check_icon});
 }}
 QRadioButton::indicator {{
-    border: 1px solid {_c('indicator_border')};
-    border-radius: {_s('radius_radio')}px;
-    background: {_c('card')};
-}}
-QRadioButton::indicator:hover {{
-    border-color: {_c('primary')};
+    image: url({square_rounded_icon});
 }}
 QRadioButton::indicator:checked {{
-    background: {_c('primary')};
-    border: 3px solid {_c('card')};
-    outline: 1px solid {_c('primary')};
+    background: {_c('card')};
+    image: url({radio_icon});
 }}
 
 /* ══════════ 滑块（全局缩放等）══════════ */
@@ -578,6 +579,32 @@ QLabel#badge[ok="1"] {{
 QLabel#badge[ok="0"] {{
     color: {_c('white')};
     background: {_c('danger')};
+    border-radius: {_s('radius_btn')}px;
+    padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
+}}
+QLabel#badge[ok="2"] {{
+    color: {_c('white')};
+    background: {_c('text_light')};
+    border-radius: {_s('radius_btn')}px;
+    padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
+}}
+
+/* 插件 UI 加载模式徽章（plugin_ext / tab_plugin）：direct 灰 / desc 蓝 / window 紫 */
+QLabel#badge[mode="direct"] {{
+    color: {_c('white')};
+    background: {_c('text_light')};
+    border-radius: {_s('radius_btn')}px;
+    padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
+}}
+QLabel#badge[mode="desc"] {{
+    color: {_c('white')};
+    background: {_c('card_icon_blue')};
+    border-radius: {_s('radius_btn')}px;
+    padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
+}}
+QLabel#badge[mode="window"] {{
+    color: {_c('white')};
+    background: {_c('purple')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
 }}

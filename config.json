@@ -1,0 +1,6 @@
+{
+  "settings": {
+    "idle_timeout_min": 10
+  },
+  "plugins": {}
+}

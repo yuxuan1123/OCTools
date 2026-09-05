@@ -72,11 +72,11 @@ class _MockWorker:
 
 def _make_minimal_app_classes():
     """直接 import 5 个 app 类。"""
-    from ui.tabs.translation.apps.screen_ocr_app import ScreenOcrApp
-    from ui.tabs.translation.apps.one_shot_screen_translate_app import OneShotScreenTranslateApp
-    from ui.tabs.translation.apps.realtime_screen_translate_app import RealtimeScreenTranslateApp
-    from ui.tabs.translation.apps.screen_subtitle_app import ScreenSubtitleApp
-    from ui.tabs.translation.apps.speech_translate_app import SpeechTranslateApp
+    from plugins.translation.apps.screen_ocr_app import ScreenOcrApp
+    from plugins.translation.apps.one_shot_screen_translate_app import OneShotScreenTranslateApp
+    from plugins.translation.apps.realtime_screen_translate_app import RealtimeScreenTranslateApp
+    from plugins.translation.apps.screen_subtitle_app import ScreenSubtitleApp
+    from plugins.translation.apps.speech_translate_app import SpeechTranslateApp
     return [ScreenOcrApp, OneShotScreenTranslateApp,
             RealtimeScreenTranslateApp, ScreenSubtitleApp, SpeechTranslateApp]
 
@@ -89,7 +89,7 @@ def _stub_engines():
     """
     import unittest.mock as mock
     from PySide6.QtCore import QRect
-    from ui.tabs.translation.apps.app_base import TranslateAppBase
+    from plugins.translation.apps.app_base import TranslateAppBase
 
     state = {"workers": {}, "patches": []}
 
@@ -106,19 +106,19 @@ def _stub_engines():
 
     # ── 3) AutoRegionCapture + 两个语音引擎 mock ──
     arc_mock = mock.patch(
-        "ui.tabs.translation.apps.realtime_screen_translate_app.AutoRegionCapture",
+        "plugins.translation.apps.realtime_screen_translate_app.AutoRegionCapture",
         mock.MagicMock())
     arc_mock.start()
     state["patches"].append(arc_mock)
 
     bsr_mock = mock.patch(
-        "ui.tabs.translation.apps.screen_subtitle_app.BuiltinSpeechRecognize",
+        "plugins.translation.apps.screen_subtitle_app.BuiltinSpeechRecognize",
         mock.MagicMock())
     bsr_mock.start()
     state["patches"].append(bsr_mock)
 
     rst_mock = mock.patch(
-        "ui.tabs.translation.apps.speech_translate_app.RealtimeSpeechTranslate",
+        "plugins.translation.apps.speech_translate_app.RealtimeSpeechTranslate",
         mock.MagicMock())
     rst_mock.start()
     state["patches"].append(rst_mock)
@@ -140,9 +140,9 @@ def _stub_engines():
     state["patches"].append(cap_mock)
 
     # ── 6) 给有 worker 的 app 替换 _make_worker 为 _MockWorker 工厂 ──
-    from ui.tabs.translation.apps.realtime_screen_translate_app import RealtimeScreenTranslateApp
-    from ui.tabs.translation.apps.screen_subtitle_app import ScreenSubtitleApp
-    from ui.tabs.translation.apps.speech_translate_app import SpeechTranslateApp
+    from plugins.translation.apps.realtime_screen_translate_app import RealtimeScreenTranslateApp
+    from plugins.translation.apps.screen_subtitle_app import ScreenSubtitleApp
+    from plugins.translation.apps.speech_translate_app import SpeechTranslateApp
 
     def _factory(self, rect, name=None):
         w = _MockWorker(name or self.__class__.__name__)
@@ -272,7 +272,7 @@ def _region_required():
                 resolved_count = {"n": 0}
                 # 因为 _resolve_region 已在 _stub_engines 被替换为 _fake_resolve，
                 # 我们改用 monkey-patch 数调用
-                from ui.tabs.translation.apps.app_base import TranslateAppBase
+                from plugins.translation.apps.app_base import TranslateAppBase
                 original = TranslateAppBase._resolve_region
                 def _spy(self, hint):
                     resolved_count["n"] += 1
@@ -295,11 +295,11 @@ def _signal_hooks_mapping():
     """每个 app 的 _install_overlay_signals 返回的映射（按方法名规范化为字符串）"""
     import unittest.mock as mock
 
-    from ui.tabs.translation.apps.screen_ocr_app import ScreenOcrApp
-    from ui.tabs.translation.apps.one_shot_screen_translate_app import OneShotScreenTranslateApp
-    from ui.tabs.translation.apps.realtime_screen_translate_app import RealtimeScreenTranslateApp
-    from ui.tabs.translation.apps.screen_subtitle_app import ScreenSubtitleApp
-    from ui.tabs.translation.apps.speech_translate_app import SpeechTranslateApp
+    from plugins.translation.apps.screen_ocr_app import ScreenOcrApp
+    from plugins.translation.apps.one_shot_screen_translate_app import OneShotScreenTranslateApp
+    from plugins.translation.apps.realtime_screen_translate_app import RealtimeScreenTranslateApp
+    from plugins.translation.apps.screen_subtitle_app import ScreenSubtitleApp
+    from plugins.translation.apps.speech_translate_app import SpeechTranslateApp
 
     expected = {
         ScreenOcrApp.__name__: {"retry_clicked": "_run_once"},

@@ -23,14 +23,20 @@ import importlib
 import json
 import os
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSize, QRect
+from PySide6.QtGui import QColor, QFont
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QFileDialog, QScrollArea, QFrame, QMessageBox,
+    QDialog, QListWidget, QListWidgetItem, QAbstractItemView,
+    QStyledItemDelegate, QStyle,
 )
 
 from config import presets
 from config.ui_config import CONFIG as C
+from ui.toast import show_toast
+from ui.theme import THEME_BUS
+from ui.icon_res import colored_pixmap
 from ui.tabs.tab_component.page_header import build_page_header
 from config.format_config import FormatConfig
 from config.image_docx_config import ImageDocxConfig
@@ -106,6 +112,38 @@ def _iter_manifests():
                 items.append(manifest)
     items.sort(key=lambda m: m.get("order", 999))
     yield from items
+
+
+def _iter_all_manifests():
+    """产出全部导航 manifest（含无 settings 的），携带文件路径，按 (order, name) 排序。
+
+    供「侧栏顺序」卡片使用：左侧栏按此清单生成入口，保存顺序即重写各
+    manifest 的 order 字段。
+    """
+    seen_paths = set()
+    items = []
+    for directory in iter_manifest_dirs():
+        try:
+            names = sorted(os.listdir(directory))
+        except OSError:
+            continue
+        for n in names:
+            if not n.endswith(".json"):
+                continue
+            fpath = os.path.join(directory, n)
+            if fpath in seen_paths:
+                continue
+            seen_paths.add(fpath)
+            try:
+                with open(fpath, encoding="utf-8") as f:
+                    manifest = json.load(f)
+            except (OSError, ValueError):
+                continue
+            if not isinstance(manifest, dict) or not manifest.get("class_name"):
+                continue
+            items.append((manifest, fpath))
+    items.sort(key=lambda mf: (mf[0].get("order", 999), mf[0].get("name", "")))
+    return items
 
 
 # ─────────────────────────────────────────────
@@ -195,6 +233,19 @@ class TabSettings(QWidget):
         dir_row.addWidget(browse_btn)
         general.body.addLayout(dir_row)
 
+        order_row = QHBoxLayout()
+        order_row.setSpacing(C.size("form_row_spacing"))
+        order_label = QLabel("侧栏顺序")
+        order_label.setFixedWidth(C.size("form_width_90"))
+        order_label.setObjectName("formLabel")
+        order_row.addWidget(order_label)
+        order_btn = QPushButton("调整…")
+        order_btn.setObjectName("ghost")
+        order_btn.clicked.connect(self._open_sidebar_order)
+        order_row.addWidget(order_btn)
+        order_row.addStretch(1)
+        general.body.addLayout(order_row)
+
         save_btn = QPushButton("保存设置")
         save_btn.setObjectName("primary")
         save_btn.clicked.connect(self._save)
@@ -218,10 +269,24 @@ class TabSettings(QWidget):
         scroll.setWidget(content)
 
     # ──────────────────────────────────────
+    #  侧栏顺序（独立窗口内拖拽排序）
+    # ──────────────────────────────────────
+    def _open_sidebar_order(self):
+        """弹出独立排序窗口（拖拽调整左侧栏顺序）。"""
+        SidebarOrderDialog(self).exec()
+
+    # ──────────────────────────────────────
     #  自动渲染 Helpers
     # ──────────────────────────────────────
     def _add_manifest_section(self, lay: QVBoxLayout, manifest: dict):
-        """为单个标签页清单渲染一个设置分组（名称 + 按钮）。"""
+        """为单个标签页清单渲染一个设置分组（名称 + 按钮）。
+
+        仅渲染 direct（主进程直载）插件的设置：desc/window 插件的 set_*.py
+        位于隔离子进程内、可能依赖独立库，主进程无法 import，
+        其设置入口改由插件自身的 UI（控件树 / 独立窗口）承载。
+        """
+        if manifest.get("ui_mode", "direct") != "direct":
+            return
         name = manifest.get("name", "") or ""
         section = _Section(name if name.endswith("设置") else f"{name}设置")
         for entry in manifest.get("settings", []):
@@ -269,3 +334,133 @@ class TabSettings(QWidget):
         self._settings["log_dir"] = self.log_dir_edit.text().strip()
         presets.save_app_settings(self._settings)
         QMessageBox.information(self, "设置", "设置已保存。")
+
+
+class _HandleDelegate(QStyledItemDelegate):
+    """侧栏顺序列表行：行首手柄图标（menu-order）+ 序号 + 名称。
+
+    序号实时取行号（拖拽让位时自动正确），无需重写 item 文本。
+    """
+
+    HANDLE_W = 30
+    SEQ_W = 34
+
+    def paint(self, painter, option, index):
+        rect = option.rect
+        sel = option.state & QStyle.State_Selected
+        hover = option.state & QStyle.State_MouseOver
+        if sel:
+            painter.fillRect(rect, QColor(C.color("nav_active_bg")))
+        elif hover:
+            painter.fillRect(rect, QColor("#14000000"))
+
+        # 拖拽手柄
+        h = C.size("icon_small")
+        pm = colored_pixmap("menu-order", C.color("icon_default"), h)
+        if not pm.isNull():
+            painter.drawPixmap(rect.left() + 6,
+                               rect.center().y() - h // 2, pm)
+
+        # 序号
+        f = QFont(painter.font())
+        f.setBold(True)
+        painter.setFont(f)
+        painter.setPen(QColor(C.color("text_light")))
+        painter.drawText(
+            QRect(rect.left() + self.HANDLE_W, rect.top(),
+                  self.SEQ_W - 6, rect.height()),
+            Qt.AlignVCenter | Qt.AlignRight, str(index.row() + 1))
+
+        # 名称
+        f.setBold(False)
+        painter.setFont(f)
+        painter.setPen(QColor(C.color("nav_active_fg" if sel else "text")))
+        painter.drawText(
+            QRect(rect.left() + self.HANDLE_W + self.SEQ_W, rect.top(),
+                  rect.width() - self.HANDLE_W - self.SEQ_W, rect.height()),
+            Qt.AlignVCenter | Qt.AlignLeft, index.data(Qt.DisplayRole))
+
+    def sizeHint(self, option, index):
+        return QSize(0, C.size("btn_h") + 8)
+
+
+class SidebarOrderDialog(QDialog):
+    """侧栏顺序独立窗口：拖拽排序，保存后重写各 manifest 的 order。
+
+    - 行首 menu-order 手柄拖拽，拖拽时其他行自动让位留出空槽；
+    - 序号由 delegate 实时取行号绘制，随让位自动更新；
+    - 「保存顺序」按列表顺序写 order 并广播 THEME_BUS 重建左侧栏。
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("侧栏顺序")
+        self.setMinimumWidth(420)
+        self._build_ui()
+
+    def _build_ui(self):
+        lay = QVBoxLayout(self)
+        lay.setSpacing(C.size("form_row_spacing"))
+
+        hint = QLabel("拖动行首手柄调整顺序（拖动时其他标签自动让位），"
+                      "点击「保存顺序」后生效。")
+        hint.setObjectName("hint")
+        hint.setWordWrap(True)
+        lay.addWidget(hint)
+
+        self._list = QListWidget()
+        self._list.setDragDropMode(QAbstractItemView.InternalMove)
+        self._list.setDefaultDropAction(Qt.MoveAction)
+        self._list.setSelectionMode(QAbstractItemView.SingleSelection)
+        # 列表模式：拖拽时其他行让位留空，而非覆盖
+        self._list.setDragDropOverwriteMode(False)
+        self._list.setItemDelegate(_HandleDelegate(self._list))
+        self._list.setFixedHeight(340)
+        border = C.color("input_border")
+        radius = C.size("radius_btn")
+        self._list.setStyleSheet(
+            f"QListWidget {{ background: transparent; "
+            f"border: 1px solid {border}; border-radius: {radius}px; "
+            f"padding: 4px; outline: none; }}"
+            f"QListWidget::item {{ border: none; }}")
+        self._reload()
+        lay.addWidget(self._list)
+
+        btns = QHBoxLayout()
+        btns.setSpacing(C.size("form_row_spacing"))
+        btns.addStretch(1)
+        reset_btn = QPushButton("重置")
+        reset_btn.setObjectName("ghost")
+        reset_btn.clicked.connect(self._reload)
+        btns.addWidget(reset_btn)
+        save_btn = QPushButton("保存顺序")
+        save_btn.setObjectName("primary")
+        save_btn.clicked.connect(self._save)
+        btns.addWidget(save_btn)
+        lay.addLayout(btns)
+
+    def _reload(self):
+        """按 manifest 当前 (order, name) 重建列表（丢弃未保存的拖动）。"""
+        self._list.clear()
+        for manifest, fpath in _iter_all_manifests():
+            name = manifest.get("name", "")
+            item = QListWidgetItem(name)
+            item.setData(Qt.UserRole, {"name": name, "path": fpath})
+            self._list.addItem(item)
+
+    def _save(self):
+        """按列表顺序重写各 manifest 的 order，广播重建左侧栏后关闭。"""
+        for i in range(self._list.count()):
+            item = self._list.item(i)
+            fpath = item.data(Qt.UserRole).get("path", "")
+            try:
+                with open(fpath, encoding="utf-8") as f:
+                    data = json.load(f)
+                data["order"] = i
+                with open(fpath, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
+            except (OSError, ValueError):
+                continue
+        THEME_BUS.changed.emit(C.theme())
+        show_toast(self, "侧栏顺序已更新", kind="success")
+        self.accept()

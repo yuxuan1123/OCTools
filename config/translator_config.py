@@ -67,6 +67,10 @@ class TranslatorConfig:
     hotkey_ocr_once: str = "alt+x"       # OCR 单词屏幕翻译（单次）
     hotkey_ocr_live: str = "alt+c"       # OCR 实时屏幕翻译（连续）
 
+    # ── 模型预加载（后台提前加载 OCR + 翻译模型，减少首次使用等待）──
+    preload_models: bool = True          # 是否启用后台预加载
+    preload_timing: str = "startup"      # 何时预加载：startup=主程序启动后 / tab=进入翻译页时
+
     def validate(self):
         errors = []
         if self.engine not in ENGINE_LABELS:

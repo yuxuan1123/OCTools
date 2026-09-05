@@ -1,0 +1,24 @@
+{
+    "name": "目录树",
+    "class_name": "TabTree",
+    "module_path": "plugins.tree.tab_tree",
+    "ui_mode": "direct",
+    "order": 5,
+    "settings_count": 0,
+    "settings": [
+    ],
+    "files": {
+        "tab": [
+            "tab_tree.py"
+        ],
+        "set": [
+            "set_tts.py"
+        ],
+        "other": [
+            "__init__.py",
+            "card_options.py",
+            "card_output.py",
+            "tree_core.py"
+        ]
+    }
+}

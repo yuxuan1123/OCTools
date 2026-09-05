@@ -55,7 +55,7 @@ def _mounted_page():
     from PySide6.QtWidgets import QVBoxLayout, QWidget
 
     from ui.ui_component.split_titlebar import TestWindow
-    from ui.tabs.tab_translation import TabTranslation
+    from plugins.translation.tab_translation import TabTranslation
 
     win = TestWindow()
     page = TabTranslation()
@@ -124,7 +124,7 @@ def main() -> int:
     print("[3/6] 五个最终应用启动即最小化")
 
     def _five_apps():
-        from ui.tabs.translation import app_controller
+        from plugins.translation import app_controller
         for key in _FIVE_KEYS:
             win, page = _mounted_page()
             win.show()
@@ -154,7 +154,7 @@ def main() -> int:
     def _region_before_dialog():
         import unittest.mock as mock
 
-        from ui.tabs.translation.apps.app_base import TranslateAppBase
+        from plugins.translation.apps.app_base import TranslateAppBase
         win, page = _mounted_page()
         win.show()
         app.processEvents()
@@ -179,7 +179,7 @@ def main() -> int:
     def _capture_after_minimize():
         import unittest.mock as mock
 
-        from ui.tabs.translation.apps.app_base import TranslateAppBase
+        from plugins.translation.apps.app_base import TranslateAppBase
         win, page = _mounted_page()
         win.show()
         app.processEvents()
@@ -207,7 +207,7 @@ def main() -> int:
         import unittest.mock as mock
 
         from config.screen_region_config import default_config as sr_cfg
-        from ui.options.set_screen_region import SetScreenRegion
+        from plugins.translation.set_screen_region import SetScreenRegion
 
         win, page = _mounted_page()
         win.show()

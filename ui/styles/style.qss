@@ -4,7 +4,7 @@
     font-family: Microsoft YaHei UI, Segoe UI, sans-serif;
 }
 QMainWindow, QDialog {
-    background: #ffffff;
+    background: #F3F5F9;
 }
 QWidget {
     color: #1F2430;
@@ -158,6 +158,13 @@ QPushButton#ghost:hover {
     color: #1F2430;
 }
 
+/* 设置弹窗内按钮统一用主题文字色（黑字），避免白字在部分系统上渲染不可见 */
+QDialog QPushButton#primary,
+QDialog QPushButton#secondary,
+QDialog QPushButton#danger {
+    color: #1F2430;
+}
+
 /* ══════════ 侧栏导航按钮 ══════════ */
 QPushButton#navBtn {
     background: transparent;
@@ -261,30 +268,18 @@ QCheckBox::indicator, QRadioButton::indicator {
     height: 18px;
 }
 QCheckBox::indicator {
-    border: 1px solid #9AA5B5;
-    border-radius: 5px;
-    background: #FFFFFF;
-}
-QCheckBox::indicator:hover {
-    border-color: #4F6EF7;
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square.svg);
 }
 QCheckBox::indicator:checked {
-    background: #4F6EF7;
-    border-color: #4F6EF7;
-    image: none;
+    background: #FFFFFF;
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-check.svg);
 }
 QRadioButton::indicator {
-    border: 1px solid #9AA5B5;
-    border-radius: 9px;
-    background: #FFFFFF;
-}
-QRadioButton::indicator:hover {
-    border-color: #4F6EF7;
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-rounded.svg);
 }
 QRadioButton::indicator:checked {
-    background: #4F6EF7;
-    border: 3px solid #FFFFFF;
-    outline: 1px solid #4F6EF7;
+    background: #FFFFFF;
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-rounded-check.svg);
 }
 
 /* ══════════ 滑块（全局缩放等）══════════ */
@@ -517,6 +512,32 @@ QLabel#badge[ok="1"] {
 QLabel#badge[ok="0"] {
     color: #FFFFFF;
     background: #EF4444;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+QLabel#badge[ok="2"] {
+    color: #FFFFFF;
+    background: #64748B;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+
+/* 插件 UI 加载模式徽章（plugin_ext / tab_plugin）：direct 灰 / desc 蓝 / window 紫 */
+QLabel#badge[mode="direct"] {
+    color: #FFFFFF;
+    background: #64748B;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+QLabel#badge[mode="desc"] {
+    color: #FFFFFF;
+    background: #2563EB;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+QLabel#badge[mode="window"] {
+    color: #FFFFFF;
+    background: #8B5CF6;
     border-radius: 8px;
     padding: 4px 12px;
 }

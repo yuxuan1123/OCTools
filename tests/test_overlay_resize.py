@@ -55,8 +55,8 @@ def main() -> int:
 
     from config.ui_config import CONFIG as C
     from ui.ui_component.overlay import FloatingOverlay
-    from ui.tabs.tab_translation import TabTranslation
-    from ui.tabs.translation.registry import _APP_ROWS
+    from plugins.translation.tab_translation import TabTranslation
+    from plugins.translation.registry import _APP_ROWS
 
     app = QApplication([])
 

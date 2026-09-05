@@ -14,16 +14,25 @@ OCTools/ui/options/_base.py
 
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QWidget,
-    QScrollArea, QPushButton,
+    QScrollArea, QPushButton, QFormLayout,
 )
-from PySide6.QtCore import QSize
+from PySide6.QtCore import QSize, Qt
+from PySide6.QtGui import QGuiApplication, QCursor
 
 from ui import icon_res
 from config.ui_config import CONFIG as C
 
 
 class OptionsDialogBase(QDialog):
-    """设置弹窗公共骨架：顶栏 + 内容区 + 底部按钮条"""
+    """设置弹窗公共骨架：顶栏 + 内容区 + 底部按钮条
+
+    统一视觉语言（所有 set_*.py 共用）：
+      - 52px 顶栏（header / headerTitle）
+      - 内容区默认用 build_scroll_body()（可滚动，窗口过小不溢出屏幕）
+      - 内容按 build_section_card() 分组卡片组织（QFrame#card）
+      - 底部 build_buttons() 按钮条（ghost 左按钮 + primary 确定）
+      - fit_size() 统一窗口尺寸策略：默认尺寸 + 最小尺寸均按屏幕收缩
+    """
 
     HEADER_MIN_HEIGHT = 52
 
@@ -38,6 +47,22 @@ class OptionsDialogBase(QDialog):
 
         self._body = None          # 最近一次 build_*_body() 的内容控件
         self._body_layout = None   # 对应布局管理器
+
+    # ── 统一尺寸策略 ──
+
+    def fit_size(self, default_w: int, default_h: int,
+                 min_w: int = 480, min_h: int = 400):
+        """统一窗口尺寸：按屏幕可用区域收缩，小屏不溢出、不小到失控。
+
+        所有 set 页面统一调用，消除各自固定 780/560/380 高的尺寸乱象。
+        """
+        screen = QGuiApplication.screenAt(QCursor.pos()) \
+            or QGuiApplication.primaryScreen()
+        avail = screen.availableGeometry()
+        self.resize(min(default_w, avail.width() - 80),
+                    min(default_h, avail.height() - 120))
+        self.setMinimumSize(min(min_w, avail.width() - 40),
+                            min(min_h, avail.height() - 80))
 
     # ── 顶栏 ──
 
@@ -82,6 +107,44 @@ class OptionsDialogBase(QDialog):
         self._lay.addWidget(scroll, stretch)
         self._body, self._body_layout = body, b_lay
         return body, b_lay
+
+    # ── 分组卡片 / 表单工厂 ──
+
+    def build_section_card(self, title: str = "", parent=None):
+        """统一分组卡片（QFrame#card + cardTitle），返回 (card, lay)。"""
+        card = QFrame(parent or self)
+        card.setObjectName("card")
+        lay = QVBoxLayout(card)
+        lay.setContentsMargins(
+            C.size("group_padding_h"), C.size("group_padding_v"),
+            C.size("group_padding_h"), C.size("group_padding_v"))
+        lay.setSpacing(C.size("form_row_spacing"))
+        if title:
+            lab = QLabel(title, card)
+            lab.setObjectName("cardTitle")
+            lay.addWidget(lab)
+        return card, lay
+
+    def make_form(self, parent=None) -> QFormLayout:
+        """统一表单布局：标签左对齐，字段区自适应。
+
+        注意：QFormLayout 的 parent 只能是 QWidget，分组卡片传入的是
+        QVBoxLayout，因此这里一律不设父级，由调用方 addLayout 挂接。
+        """
+        form = QFormLayout()
+        form.setContentsMargins(0, 0, 0, 0)
+        form.setHorizontalSpacing(C.size("form_spacing"))
+        form.setVerticalSpacing(C.size("form_row_spacing"))
+        form.setLabelAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+        form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+        return form
+
+    def hint_label(self, text: str, parent=None) -> QLabel:
+        """统一提示文本（#hint，自动换行）"""
+        lab = QLabel(text, parent)
+        lab.setObjectName("hint")
+        lab.setWordWrap(True)
+        return lab
 
     # ── 底部按钮条 ──
 

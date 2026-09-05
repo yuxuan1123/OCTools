@@ -70,10 +70,24 @@ def main():
         if not icon.isNull():
             app.setWindowIcon(icon)
 
+    # 外部插件管理器：启动扫描/安装/子进程调度，退出时清理所有子进程
+    from services.ext_plugins.manager import PluginManager
+    _plugin_mgr = PluginManager.instance()
+    app.aboutToQuit.connect(_plugin_mgr.shutdown)
+    _plugin_mgr.start()
+
     # 复用现有主窗口
     from ui.main_window import MainApp
     main_app = MainApp()
     main_app.show()
+
+    # 主程序 UI 已显示：按翻译设置后台预加载 OCR / 翻译模型（失败静默，不阻塞启动）
+    try:
+        from plugins.translation.preload import start_preload
+        start_preload(presets.load_last_translator_config(), timing="startup")
+    except Exception:
+        pass
+
     sys.exit(app.exec())
 
 

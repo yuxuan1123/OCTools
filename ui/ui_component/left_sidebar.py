@@ -49,7 +49,7 @@ class LeftSidebar(StyleHookMixin, QWidget):
     主题切换时由 QEvent.StyleChange 自动重刷。
     """
 
-    entry_clicked = Signal(str, str, str)
+    entry_clicked = Signal(str, str, str, str, str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -124,9 +124,12 @@ class LeftSidebar(StyleHookMixin, QWidget):
                 name = info["name"]
                 class_name = info["class_name"]
                 module_path = info.get("module_path")
+                plugin_id = info.get("plugin_id", "")
+                ui_mode = info.get("ui_mode", "direct")
                 btn = create_function_entry_button(
                     text=name,
-                    on_click=lambda checked, n=name, cn=class_name, mp=module_path: self.entry_clicked.emit(n, cn, mp),
+                    on_click=lambda checked, n=name, cn=class_name, mp=module_path,
+                        pid=plugin_id, um=ui_mode: self.entry_clicked.emit(n, cn, mp, pid, um),
                     fixed_width=btn_fixed_width,
                     fixed_height=btn_fixed_height,
                     checkable=btn_checkable,
@@ -174,7 +177,7 @@ class LeftSidebar(StyleHookMixin, QWidget):
             )
 
     def _scan_tab_infos(self, json_dir: str) -> List[dict]:
-        """扫描单目录下的 JSON，返回 [{name, class_name, module_path, order}, ...]"""
+        """扫描单目录下的 JSON，返回 [{name, class_name, module_path, order, plugin_id, ui_mode}, ...]"""
         infos = []
         if not os.path.isdir(json_dir):
             return infos
@@ -196,6 +199,9 @@ class LeftSidebar(StyleHookMixin, QWidget):
                     "class_name": class_name,
                     "module_path": module_path,
                     "order": order,
+                    # 外部插件以 manifest 文件名作 plugin_id（desc/window 模式定位用）
+                    "plugin_id": fname[:-5] if fname.lower().endswith(".json") else fname,
+                    "ui_mode": data.get("ui_mode", "direct"),
                 })
             except Exception as e:
                 print(f"读取 {fpath} 出错: {e}")

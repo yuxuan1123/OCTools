@@ -114,7 +114,8 @@ typing_extensions==4.16.0
 packaging==26.3
 wcwidth==0.8.2
 tzdata==2026.3
-
+pyaudio==0.2.14
+PyAudioWPatch==0.2.12.8
 
 # 安全 / 加密
 cryptography==50.0.0

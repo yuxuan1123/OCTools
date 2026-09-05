@@ -1,20 +1,20 @@
 {
   "name": "论文格式",
-  "description": "适合学术论文的中文排版：宋体小四、首行缩进2字符、标题编号、目录",
+  "description": "符合中文出版规范的默认配置",
   "version": "1.0",
   "page": {
     "paper_size": "A4",
     "orientation": "portrait",
-    "margin_top": 2.54,
-    "margin_bottom": 2.54,
-    "margin_left": 3.18,
-    "margin_right": 3.18,
-    "gutter": 0.0
+    "margin_top": 1.7,
+    "margin_bottom": 2.6,
+    "margin_left": 3.7,
+    "margin_right": 3.2,
+    "gutter": 0.8
   },
   "typography": {
-    "body_font_cn": "宋体",
-    "body_font_en": "Times New Roman",
-    "body_font_size": 12.0,
+    "body_font_cn": "华文黑体",
+    "body_font_en": "Trebuchet MS",
+    "body_font_size": 16.5,
     "body_color": "#000000",
     "headings": {
       "h1": {
@@ -55,7 +55,7 @@
     "list_indent": 0.63,
     "blockquote_bar_color": "#CCCCCC",
     "blockquote_bg_color": "#F5F5F5",
-    "blockquote_left_indent": 1.27,
+    "blockquote_left_indent": 1.3,
     "code_font": "Consolas",
     "code_font_size": 9.0,
     "code_bg_color": "#F4F4F4",
@@ -69,9 +69,9 @@
     "link_underline": true
   },
   "advanced": {
-    "heading_numbering": true,
+    "heading_numbering": false,
     "heading_numbering_format": "1.",
-    "auto_toc": true,
+    "auto_toc": false,
     "toc_depth": 3,
     "header_text": "",
     "footer_text": "",

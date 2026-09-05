@@ -1,0 +1,32 @@
+{
+    "name": "翻译",
+    "class_name": "TabTranslation",
+    "module_path": "plugins.translation.tab_translation",
+    "ui_mode": "direct",
+    "order": 3,
+    "hotkeys": [
+        {"spec": "alt+x", "action": "toggle_app", "params": {"key": "one_shot"}},
+        {"spec": "alt+c", "action": "toggle_app", "params": {"key": "realtime"}}
+    ],
+    "settings_count": 3,
+    "settings": [
+        {
+            "module": "plugins.translation.set_translator",
+            "class_name": "SetTranslator",
+            "button_name": "翻译引擎",
+            "name": "翻译引擎设置"
+        },
+        {
+            "module": "plugins._shared.set_stt",
+            "class_name": "SetStt",
+            "button_name": "字幕语音识别",
+            "name": "字幕设置"
+        },
+        {
+            "module": "plugins.translation.set_screen_region",
+            "class_name": "SetScreenRegion",
+            "button_name": "截图区域",
+            "name": "截图区域设置"
+        }
+    ]
+}

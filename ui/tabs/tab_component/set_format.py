@@ -32,6 +32,7 @@ from PySide6.QtWidgets import (
     QFileDialog, QMessageBox, QInputDialog, QColorDialog, QSizePolicy,
 )
 
+from ui.options._base import OptionsDialogBase
 from config.format_config import FormatConfig
 from config.enums import PaperSize, Orientation, LineSpacingMode, Alignment
 from config import presets
@@ -647,7 +648,7 @@ class PresetsSection(CollapsibleSection):
         save_row.layout().addWidget(save_btn)
         form.addRow("另存为:", save_row)
 
-        # 导入导出
+        # 导入导出 + 恢复默认（同一行：左侧导入/导出，右侧恢复默认）
         ie_row = _hbox()
         for text, ic, cmd in (("导入预设", "download", self._do_import),
                               ("导出当前", "upload", self._do_export)):
@@ -658,15 +659,13 @@ class PresetsSection(CollapsibleSection):
             b.clicked.connect(cmd)
             ie_row.layout().addWidget(b)
         ie_row.layout().addStretch(1)
-        form.addRow("", ie_row)
-
-        # 恢复默认
         reset_btn = QPushButton("恢复默认配置", c)
         reset_btn.setIcon(icon_res.colored_icon("refresh"))
         reset_btn.setIconSize(QSize(C.size("icon_small"), C.size("icon_small")))
         reset_btn.setObjectName("danger")
         reset_btn.clicked.connect(self._do_reset)
-        form.addRow("", reset_btn)
+        ie_row.layout().addWidget(reset_btn)
+        form.addRow("", ie_row)
 
     def _refresh_list(self):
         names = presets.list_presets()
@@ -839,47 +838,24 @@ class FormatPanel(QWidget):
 #  弹窗封装
 # ════════════════════════════════════════════
 
-class SetFormat(QDialog):
+class SetFormat(OptionsDialogBase):
     """「格式选项 - MD → DOCX」独立窗口"""
 
     def __init__(self, config: FormatConfig = None, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("格式选项 - MD → DOCX")
-        self.resize(600, 780)
-        self.setMinimumSize(520, 600)
-
-        lay = QVBoxLayout(self)
-        lay.setContentsMargins(0, 0, 0, 0)
-        lay.setSpacing(0)
+        super().__init__("格式选项 - MD → DOCX", parent)
+        self.fit_size(640, 720, min_w=560, min_h=560)
 
         # 顶栏
-        header = QFrame(self)
-        header.setObjectName("header")
-        header.setFixedHeight(52)
-        h_lay = QHBoxLayout(header)
-        h_lay.setContentsMargins(16, 0, 16, 0)
-        title = QLabel("格式选项（仅 MD → DOCX 生效）", header)
-        title.setObjectName("headerTitle")
-        h_lay.addWidget(title)
-        lay.addWidget(header)
+        self.build_header("格式选项（仅 MD → DOCX 生效）")
 
         # 面板
         self.panel = FormatPanel(self, config)
-        lay.addWidget(self.panel, 1)
+        self._lay.addWidget(self.panel, 1)
 
         # 底部按钮
-        btn_bar = QWidget(self)
-        b_lay = QHBoxLayout(btn_bar)
-        b_lay.setContentsMargins(16, 10, 16, 14)
-        b_lay.addStretch(1)
-        ok_btn = QPushButton("完成", btn_bar)
-        ok_btn.setIcon(icon_res.colored_icon("check"))
-        ok_btn.setIconSize(QSize(C.size("icon_small"), C.size("icon_small")))
-        ok_btn.setObjectName("primary")
-        ok_btn.setMinimumWidth(120)
-        ok_btn.clicked.connect(self.accept)
-        b_lay.addWidget(ok_btn)
-        lay.addWidget(btn_bar)
+        self._lay.addWidget(self.build_buttons(
+            ok_text="完成", ok_icon="check", ok_min_width=120,
+            on_ok=self.accept, margins=(16, 10, 16, 14)))
 
     def get_config(self) -> FormatConfig:
         return self.panel.get_config()

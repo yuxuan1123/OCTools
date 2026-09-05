@@ -83,12 +83,16 @@ def load_titlebar_icon(btn: QPushButton, symbol: str, icon_size: int = 20,
 
     图标路径为相对路径时先解析为绝对路径（QSvgRenderer 按工作目录解析相对路径，
     打包后工作目录不是项目根，必须绝对化）。
+    symbol 为纯文本符号（如 mode 按钮的"双"/"译"）时不当作图标路径打开，
+    直接回退文本显示，避免 QSvgRenderer 尝试打开 `项目根/<文本>` 触发 Qt 警告。
     """
     if not symbol:
         load_icon_for_button(btn, symbol, icon_size)
         return
+    is_image = any(symbol.lower().endswith(ext)
+                   for ext in (".svg", ".png", ".ico", ".jpg"))
     color = tint if tint is not None else _TITLEBAR_ICON_TINT
-    if color:
+    if is_image and color:
         icon = _tinted_svg_icon(resource_path(symbol), color, icon_size)
         if not icon.isNull():
             btn.setIcon(icon)

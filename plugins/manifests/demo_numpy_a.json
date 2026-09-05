@@ -1,0 +1,18 @@
+{
+    "name": "demo_numpy_a",
+    "class_name": "TabNumpyA",
+    "module_path": "plugins.demo_numpy_a.tab_numpy_a",
+    "ui_mode": "desc",
+    "order": 100,
+    "settings_count": 0,
+    "settings": [],
+    "files": {
+        "tab": [
+            "tab_numpy_a.py"
+        ],
+        "set": [],
+        "other": [
+            "__init__.py"
+        ]
+    }
+}

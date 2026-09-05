@@ -89,8 +89,8 @@ class Setui(StyleHookMixin, OptionsDialogBase):
     def __init__(self, config=None, parent=None):
         super().__init__("全局 UI 风格", parent)
         self._config = config      # 预留，保持弹窗构造签名兼容
-        self.resize(640, 560)
-        self.setMinimumSize(600, 460)
+        # 尺寸自适应屏幕：小屏幕不超出屏幕外（内容区可滚动）
+        self.fit_size(680, 660, min_w=600, min_h=520)
         self._unit_labels = []
 
         self._settings = presets.load_app_settings() or {}
@@ -123,10 +123,11 @@ class Setui(StyleHookMixin, OptionsDialogBase):
         b_lay.addWidget(hint)
 
         b_lay.addStretch(1)
-        b_lay.addWidget(self.build_buttons(
+        # 底部按钮（固定在窗口底部，不随内容滚动）
+        self._lay.addWidget(self.build_buttons(
             left_text="恢复默认", left_on_click=self._reset_theme,
             ok_text="确定", ok_icon="check", on_ok=self._ok,
-            margins=(0, 6, 0, 0)))
+            margins=(20, 4, 20, 12)))
         self._apply_inline_style()
 
     # ──────────────────────────────────────
