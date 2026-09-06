@@ -8,8 +8,9 @@ PDF → DOCX 转换方式选项窗口
   - text        : 文本提取 + python-docx 重建（仅文字，无需 LibreOffice）
 """
 
+from ui.ui_component.combo_component import Combo
 from PySide6.QtWidgets import (
-    QComboBox, QLabel,
+    QLabel,
 )
 
 from ui.options._base import OptionsDialogBase
@@ -44,7 +45,7 @@ class SetPdfDocx(OptionsDialogBase):
         tip.setWordWrap(True)
         form.addRow(tip)
 
-        self._method_combo = QComboBox(card)
+        self._method_combo = Combo(card)
         for key, label in MODE_LABELS.items():
             self._method_combo.addItem(label, key)
         cur = config.method if config.method in MODE_LABELS else "libreoffice"

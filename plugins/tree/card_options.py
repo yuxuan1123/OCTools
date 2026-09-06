@@ -14,9 +14,10 @@ OCTools/ui/tabs/plugins/tree/card_options.py
 所有视觉/布局参数统从 config/ui_config.json 读取（CONFIG 单例）。
 """
 
+from ui.ui_component.combo_component import Combo
 from PySide6.QtWidgets import (
     QWidget, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
-    QPushButton, QCheckBox, QComboBox, QSpinBox, QFileDialog,
+    QPushButton, QCheckBox, QSpinBox, QFileDialog,
 )
 
 from config.ui_config import CONFIG as C
@@ -137,7 +138,7 @@ def build_options_card(parent: QWidget, page) -> QFrame:
     filter_label.setFixedWidth(C.size("form_width_90"))
     filter_label.setStyleSheet(label_style())
 
-    page.filter_combo = QComboBox(card)
+    page.filter_combo = Combo(card)
     page.filter_combo.addItems(FILTER_OPTIONS)
     page.filter_combo.setCurrentIndex(0)
     page.filter_combo.setMinimumWidth(C.size("combo_min_w_large"))

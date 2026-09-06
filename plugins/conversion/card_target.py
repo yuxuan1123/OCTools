@@ -7,8 +7,9 @@ TXT·MD→音频 语音引擎 / 音频→TXT 语音识别 / 占位提示）。
 对应原 tab_conversion.py 中「卡片 2：目标格式」整段。
 """
 
+from ui.ui_component.combo_component import Combo
 from PySide6.QtCore import QSize
-from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QFormLayout, QLabel, QComboBox, QPushButton
+from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QFormLayout, QLabel, QPushButton
 
 from ui import icon_res
 from config.ui_config import CONFIG as C
@@ -66,7 +67,7 @@ def build_target_card(parent, **ctx):
     ig_lab = QLabel("图片预设:", page._img_row_w)
     ig_lab.setObjectName("fieldLabel")
     ig_lay.addWidget(ig_lab)
-    page.img_preset_combo = QComboBox(page._img_row_w)
+    page.img_preset_combo = Combo(page._img_row_w)
     page.img_preset_combo.currentIndexChanged.connect(page._on_img_preset_selected)
     page.img_preset_combo.setMinimumWidth(200)
     ig_lay.addWidget(page.img_preset_combo, 1)
@@ -82,7 +83,7 @@ def build_target_card(parent, **ctx):
     tt_lab = QLabel("语音引擎:", page._tts_row_w)
     tt_lab.setObjectName("fieldLabel")
     tt_lay.addWidget(tt_lab)
-    page.tts_engine_combo = QComboBox(page._tts_row_w)
+    page.tts_engine_combo = Combo(page._tts_row_w)
     page.tts_engine_combo.addItems([TTS_ENGINE_LABELS[e] for e in TTS_ENGINE_ORDER])
     page.tts_engine_combo.currentIndexChanged.connect(page._on_tts_engine_selected)
     page.tts_engine_combo.setMinimumWidth(180)

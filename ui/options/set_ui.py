@@ -14,13 +14,13 @@ OCTools/ui/options/set_ui.py
   - 「恢复默认」清空全部自定义覆盖与缩放，仅保留主题选择。
 """
 
+from ui.ui_component.combo_component import Combo
 import copy
 
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
-    QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QComboBox,
-    QSlider, QSpinBox, QPushButton, QWidget, QFrame, QColorDialog,
+    QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QSlider, QSpinBox, QPushButton, QWidget, QFrame, QColorDialog,
     QApplication,
 )
 
@@ -154,7 +154,7 @@ class Setui(StyleHookMixin, OptionsDialogBase):
         current_overrides = settings.get("ui_overrides") or {}
 
         # 主题方案
-        theme_combo = QComboBox(self)
+        theme_combo = Combo(self)
         theme_combo.setMinimumWidth(C.size("combo_min_w_small"))
         for key, disp in (_theme_names() or {"light": "浅色"}).items():
             theme_combo.addItem(disp, key)
@@ -163,7 +163,7 @@ class Setui(StyleHookMixin, OptionsDialogBase):
 
         # 字体族
         fam_choices = C.raw("fonts", "families") or ["Microsoft YaHei UI"]
-        fam_combo = QComboBox(self)
+        fam_combo = Combo(self)
         fam_combo.setMinimumWidth(C.size("combo_min_w_small"))
         for fam in fam_choices:
             fam_combo.addItem(fam, fam)

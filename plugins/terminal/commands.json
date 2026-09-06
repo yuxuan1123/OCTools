@@ -1,0 +1,802 @@
+{
+  "ffmpeg": {
+    "description": "FFmpeg 音视频转换",
+    "executable": "ffmpeg",
+    "parameters": [
+      {"flag": "-i", "label": "输入文件", "type": "file_open", "required": true, "placeholder": "选择输入文件"},
+      {"flag": "-ss", "label": "起始时间", "type": "string", "default": "", "placeholder": "HH:MM:SS"},
+      {"flag": "-t", "label": "持续时间", "type": "string", "default": "", "placeholder": "HH:MM:SS"},
+      {"flag": "-c:v", "label": "视频编码器", "type": "combo", "editable": true, "options": ["libx264", "libx264rgb", "libx265", "libsvtav1", "libaom-av1", "librav1e", "libvpx", "libvpx-vp9", "mpeg4", "mpeg2video", "mjpeg", "h264_nvenc", "hevc_nvenc", "av1_nvenc", "h264_amf", "hevc_amf", "av1_amf", "h264_qsv", "hevc_qsv", "av1_qsv", "h264_vaapi", "hevc_vaapi", "av1_vaapi", "h264_videotoolbox", "hevc_videotoolbox", "prores_ks", "prores_aw", "ffv1", "utvideo", "huffyuv", "wmv2", "copy"], "default": "libx264"},
+      {"flag": "-c:a", "label": "音频编码器", "type": "combo", "editable": true, "options": ["aac", "libmp3lame", "libopus", "opus", "libvorbis", "vorbis", "flac", "alac", "pcm_s16le", "pcm_s24le", "pcm_f32le", "pcm_s16be", "wavpack", "ac3", "eac3", "dts", "truehd", "mp2", "libtwolame", "libfdk_aac", "libgsm", "amr_nb", "libspeex", "copy"], "default": "aac"},
+      {"flag": "-b:v", "label": "视频比特率", "type": "string", "default": "2000k", "placeholder": "如 1000k"},
+      {"flag": "-vf", "label": "视频滤镜", "type": "string", "default": "", "placeholder": "如 scale=1280:720"},
+      {"flag": "-y", "label": "覆盖输出文件", "type": "checkbox", "default": true},
+      {"flag": "_output", "label": "输出文件", "type": "file_save", "required": true, "placeholder": "选择输出路径"}
+    ]
+  },
+  "ping": {
+    "description": "Ping 测试",
+    "executable": "ping",
+    "parameters": [
+      {"flag": "_target", "label": "目标地址", "type": "string", "required": true, "placeholder": "IP 或域名"},
+      {"flag": "-n", "label": "发送次数", "type": "int", "default": "4", "placeholder": "1-100"},
+      {"flag": "-l", "label": "数据包大小", "type": "int", "default": "32", "placeholder": "字节"},
+      {"flag": "-t", "label": "持续 ping", "type": "checkbox", "default": false}
+    ]
+  },
+  "git": {
+    "description": "Git 版本控制",
+    "executable": "git",
+    "subcommands": {
+      "clone": {
+        "description": "克隆仓库",
+        "parameters": [
+          {"flag": "_url", "label": "仓库地址", "type": "string", "required": true, "placeholder": "https://… 或 git@…"},
+          {"flag": "-b", "label": "分支", "type": "string", "placeholder": "如 main"},
+          {"flag": "--depth", "label": "浅克隆深度", "type": "int", "placeholder": "如 1"},
+          {"flag": "_dir", "label": "目标目录", "type": "string", "placeholder": "可选"}
+        ]
+      },
+      "init": {
+        "description": "初始化仓库",
+        "parameters": [
+          {"flag": "_dir", "label": "目录", "type": "string", "placeholder": "默认当前目录"}
+        ]
+      },
+      "status": {
+        "description": "查看状态",
+        "parameters": [
+          {"flag": "-s", "label": "简短格式", "type": "checkbox", "default": true},
+          {"flag": "-b", "label": "显示分支", "type": "checkbox", "default": true}
+        ]
+      },
+      "add": {
+        "description": "暂存文件",
+        "parameters": [
+          {"flag": "_path", "label": "文件/目录", "type": "string", "required": true, "default": ".", "placeholder": "如 . 或 src/a.py"},
+          {"flag": "-p", "label": "交互式暂存", "type": "checkbox", "default": false}
+        ]
+      },
+      "commit": {
+        "description": "提交",
+        "parameters": [
+          {"flag": "-m", "label": "提交信息", "type": "string", "required": true, "placeholder": "本次变更说明"},
+          {"flag": "-a", "label": "暂存已跟踪改动", "type": "checkbox", "default": true},
+          {"flag": "--amend", "label": "修正上次提交", "type": "checkbox", "default": false}
+        ]
+      },
+      "push": {
+        "description": "推送",
+        "parameters": [
+          {"flag": "_remote", "label": "远程", "type": "string", "default": "origin", "placeholder": "默认 origin"},
+          {"flag": "_branch", "label": "分支", "type": "string", "placeholder": "默认当前分支"},
+          {"flag": "-u", "label": "设置上游", "type": "checkbox", "default": true},
+          {"flag": "-f", "label": "强制推送", "type": "checkbox", "default": false}
+        ]
+      },
+      "pull": {
+        "description": "拉取",
+        "parameters": [
+          {"flag": "_remote", "label": "远程", "type": "string", "default": "origin"},
+          {"flag": "_branch", "label": "分支", "type": "string", "placeholder": "默认当前分支"},
+          {"flag": "--rebase", "label": "变基合并", "type": "checkbox", "default": false}
+        ]
+      },
+      "fetch": {
+        "description": "获取远程",
+        "parameters": [
+          {"flag": "_remote", "label": "远程", "type": "string", "default": "origin"},
+          {"flag": "--all", "label": "所有远程", "type": "checkbox", "default": false}
+        ]
+      },
+      "branch": {
+        "description": "分支管理",
+        "parameters": [
+          {"flag": "_name", "label": "分支名", "type": "string", "placeholder": "新建/删除的分支名"},
+          {"flag": "-a", "label": "列出所有(含远程)", "type": "checkbox", "default": false},
+          {"flag": "-d", "label": "删除分支", "type": "checkbox", "default": false},
+          {"flag": "-D", "label": "强制删除", "type": "checkbox", "default": false}
+        ]
+      },
+      "checkout": {
+        "description": "切换分支/恢复文件",
+        "parameters": [
+          {"flag": "_target", "label": "分支或文件", "type": "string", "required": true, "placeholder": "如 main"},
+          {"flag": "-b", "label": "新建并切换", "type": "checkbox", "default": false}
+        ]
+      },
+      "merge": {
+        "description": "合并分支",
+        "parameters": [
+          {"flag": "_branch", "label": "被合并分支", "type": "string", "required": true},
+          {"flag": "--no-ff", "label": "禁用快进合并", "type": "checkbox", "default": false},
+          {"flag": "-m", "label": "合并信息", "type": "string", "placeholder": "可选"}
+        ]
+      },
+      "remote": {
+        "description": "远程仓库管理",
+        "parameters": [
+          {"flag": "_action", "label": "操作", "type": "combo", "options": ["add", "remove", "rename", "-v"], "default": "add"},
+          {"flag": "_name", "label": "远程名", "type": "string", "default": "origin"},
+          {"flag": "_url", "label": "仓库地址", "type": "string", "placeholder": "add 时必填"}
+        ]
+      },
+      "tag": {
+        "description": "标签",
+        "parameters": [
+          {"flag": "_name", "label": "标签名", "type": "string", "placeholder": "如 v1.0.0"},
+          {"flag": "-a", "label": "附注标签", "type": "checkbox", "default": false},
+          {"flag": "-m", "label": "标签信息", "type": "string", "placeholder": "可选"},
+          {"flag": "-l", "label": "列出标签", "type": "checkbox", "default": false}
+        ]
+      },
+      "log": {
+        "description": "提交历史",
+        "parameters": [
+          {"flag": "-n", "label": "条数", "type": "int", "placeholder": "如 10"},
+          {"flag": "--oneline", "label": "单行格式", "type": "checkbox", "default": true},
+          {"flag": "--graph", "label": "图形化", "type": "checkbox", "default": false},
+          {"flag": "--all", "label": "所有分支", "type": "checkbox", "default": false}
+        ]
+      },
+      "diff": {
+        "description": "差异比较",
+        "parameters": [
+          {"flag": "_path", "label": "文件", "type": "string", "placeholder": "可选"},
+          {"flag": "--cached", "label": "已暂存改动", "type": "checkbox", "default": false},
+          {"flag": "--stat", "label": "统计概览", "type": "checkbox", "default": false}
+        ]
+      },
+      "stash": {
+        "description": "暂存/弹出",
+        "parameters": [
+          {"flag": "_action", "label": "操作", "type": "combo", "options": ["push", "pop", "list", "drop"], "default": "push"},
+          {"flag": "-u", "label": "包含未跟踪文件", "type": "checkbox", "default": false},
+          {"flag": "_message", "label": "说明", "type": "string", "placeholder": "可选"}
+        ]
+      },
+      "config": {
+        "description": "配置项",
+        "parameters": [
+          {"flag": "_key", "label": "键", "type": "string", "required": true, "placeholder": "如 user.name"},
+          {"flag": "_value", "label": "值", "type": "string", "placeholder": "设置时填写"},
+          {"flag": "--global", "label": "全局配置", "type": "checkbox", "default": true},
+          {"flag": "--list", "label": "列出全部", "type": "checkbox", "default": false}
+        ]
+      },
+      "reset": {
+        "description": "重置",
+        "parameters": [
+          {"flag": "_target", "label": "目标", "type": "string", "default": "HEAD", "placeholder": "如 HEAD~1"},
+          {"flag": "--hard", "label": "硬重置", "type": "checkbox", "default": false},
+          {"flag": "--soft", "label": "软重置", "type": "checkbox", "default": false}
+        ]
+      },
+      "show": {
+        "description": "查看提交/文件",
+        "parameters": [
+          {"flag": "_rev", "label": "版本", "type": "string", "default": "HEAD", "placeholder": "如 HEAD~2"}
+        ]
+      },
+      "rm": {
+        "description": "删除文件",
+        "parameters": [
+          {"flag": "_path", "label": "文件", "type": "string", "required": true},
+          {"flag": "--cached", "label": "仅移除暂存", "type": "checkbox", "default": false}
+        ]
+      },
+      "mv": {
+        "description": "移动/重命名",
+        "parameters": [
+          {"flag": "_old", "label": "原路径", "type": "string", "required": true},
+          {"flag": "_new", "label": "新路径", "type": "string", "required": true}
+        ]
+      }
+    }
+  },
+  "cmd": {
+    "description": "CMD 常用命令",
+    "executable": "",
+    "subcommands": {
+      "dir": {
+        "description": "列出目录",
+        "parameters": [
+          {"flag": "_path", "label": "路径", "type": "string", "default": ".", "placeholder": "默认当前目录"},
+          {"flag": "/b", "label": "仅名称", "type": "checkbox", "default": false},
+          {"flag": "/s", "label": "包含子目录", "type": "checkbox", "default": false},
+          {"flag": "/a", "label": "显示隐藏文件", "type": "checkbox", "default": false}
+        ]
+      },
+      "cd": {
+        "description": "切换目录",
+        "parameters": [
+          {"flag": "_path", "label": "目录", "type": "string", "required": true, "placeholder": "如 C:\\Users"}
+        ]
+      },
+      "copy": {
+        "description": "复制文件",
+        "parameters": [
+          {"flag": "_src", "label": "源文件", "type": "file_open", "required": true},
+          {"flag": "_dst", "label": "目标", "type": "string", "required": true, "placeholder": "路径或目录"},
+          {"flag": "/y", "label": "覆盖不提示", "type": "checkbox", "default": true}
+        ]
+      },
+      "xcopy": {
+        "description": "复制(含子目录)",
+        "parameters": [
+          {"flag": "_src", "label": "源", "type": "string", "required": true},
+          {"flag": "_dst", "label": "目标", "type": "string", "required": true},
+          {"flag": "/e", "label": "含空子目录", "type": "checkbox", "default": false},
+          {"flag": "/y", "label": "覆盖不提示", "type": "checkbox", "default": true}
+        ]
+      },
+      "move": {
+        "description": "移动文件",
+        "parameters": [
+          {"flag": "_src", "label": "源", "type": "string", "required": true},
+          {"flag": "_dst", "label": "目标", "type": "string", "required": true},
+          {"flag": "/y", "label": "覆盖不提示", "type": "checkbox", "default": true}
+        ]
+      },
+      "del": {
+        "description": "删除文件",
+        "parameters": [
+          {"flag": "_path", "label": "文件/模式", "type": "string", "required": true, "placeholder": "如 *.tmp"},
+          {"flag": "/f", "label": "强制删除", "type": "checkbox", "default": false},
+          {"flag": "/q", "label": "静默", "type": "checkbox", "default": false},
+          {"flag": "/s", "label": "递归子目录", "type": "checkbox", "default": false}
+        ]
+      },
+      "mkdir": {
+        "description": "创建目录",
+        "parameters": [
+          {"flag": "_path", "label": "目录", "type": "string", "required": true}
+        ]
+      },
+      "rmdir": {
+        "description": "删除目录",
+        "parameters": [
+          {"flag": "_path", "label": "目录", "type": "string", "required": true},
+          {"flag": "/s", "label": "递归删除", "type": "checkbox", "default": false},
+          {"flag": "/q", "label": "静默", "type": "checkbox", "default": false}
+        ]
+      },
+      "ren": {
+        "description": "重命名",
+        "parameters": [
+          {"flag": "_old", "label": "原名称", "type": "string", "required": true},
+          {"flag": "_new", "label": "新名称", "type": "string", "required": true}
+        ]
+      },
+      "type": {
+        "description": "显示文件内容",
+        "parameters": [
+          {"flag": "_file", "label": "文件", "type": "file_open", "required": true}
+        ]
+      },
+      "echo": {
+        "description": "输出文本",
+        "parameters": [
+          {"flag": "_text", "label": "文本", "type": "string", "required": true}
+        ]
+      },
+      "cls": {
+        "description": "清屏",
+        "parameters": []
+      },
+      "ipconfig": {
+        "description": "网络配置",
+        "parameters": [
+          {"flag": "/all", "label": "详细信息", "type": "checkbox", "default": true},
+          {"flag": "/release", "label": "释放地址", "type": "checkbox", "default": false},
+          {"flag": "/renew", "label": "更新地址", "type": "checkbox", "default": false}
+        ]
+      },
+      "netstat": {
+        "description": "网络状态",
+        "parameters": [
+          {"flag": "-a", "label": "所有连接", "type": "checkbox", "default": true},
+          {"flag": "-n", "label": "数值显示", "type": "checkbox", "default": true},
+          {"flag": "-o", "label": "显示 PID", "type": "checkbox", "default": true}
+        ]
+      },
+      "tasklist": {
+        "description": "进程列表",
+        "parameters": [
+          {"flag": "/svc", "label": "显示服务", "type": "checkbox", "default": false},
+          {"flag": "/fi", "label": "筛选条件", "type": "string", "placeholder": "如 \"imagename eq chrome.exe\""}
+        ]
+      },
+      "taskkill": {
+        "description": "结束进程",
+        "parameters": [
+          {"flag": "/im", "label": "镜像名", "type": "string", "placeholder": "如 notepad.exe"},
+          {"flag": "/pid", "label": "PID", "type": "int", "placeholder": "进程 ID"},
+          {"flag": "/f", "label": "强制结束", "type": "checkbox", "default": true}
+        ]
+      },
+      "systeminfo": {
+        "description": "系统信息",
+        "parameters": []
+      },
+      "shutdown": {
+        "description": "关机/重启",
+        "parameters": [
+          {"flag": "/r", "label": "重启", "type": "checkbox", "default": true},
+          {"flag": "/s", "label": "关机", "type": "checkbox", "default": false},
+          {"flag": "/t", "label": "延迟(秒)", "type": "int", "default": "30"},
+          {"flag": "/f", "label": "强制关闭程序", "type": "checkbox", "default": true}
+        ]
+      },
+      "tree": {
+        "description": "目录树",
+        "parameters": [
+          {"flag": "_path", "label": "路径", "type": "string", "default": "."},
+          {"flag": "/f", "label": "显示文件", "type": "checkbox", "default": false}
+        ]
+      },
+      "where": {
+        "description": "定位程序",
+        "parameters": [
+          {"flag": "_name", "label": "程序名", "type": "string", "required": true}
+        ]
+      },
+      "findstr": {
+        "description": "文本搜索",
+        "parameters": [
+          {"flag": "_pattern", "label": "关键字", "type": "string", "required": true},
+          {"flag": "_file", "label": "文件", "type": "file_open", "placeholder": "可选"},
+          {"flag": "/i", "label": "忽略大小写", "type": "checkbox", "default": true},
+          {"flag": "/n", "label": "显示行号", "type": "checkbox", "default": false}
+        ]
+      },
+      "fc": {
+        "description": "文件比较",
+        "parameters": [
+          {"flag": "_file1", "label": "文件 1", "type": "file_open", "required": true},
+          {"flag": "_file2", "label": "文件 2", "type": "file_open", "required": true}
+        ]
+      }
+    }
+  },
+  "powershell": {
+    "description": "PowerShell 常用命令",
+    "executable": "",
+    "subcommands": {
+      "Get-ChildItem": {
+        "description": "列出内容",
+        "parameters": [
+          {"flag": "-Path", "label": "路径", "type": "string", "default": ".", "placeholder": "默认当前目录"},
+          {"flag": "-Filter", "label": "过滤器", "type": "string", "placeholder": "如 *.py"},
+          {"flag": "-Recurse", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-Force", "label": "含隐藏", "type": "checkbox", "default": false},
+          {"flag": "-Name", "label": "仅名称", "type": "checkbox", "default": false}
+        ]
+      },
+      "Set-Location": {
+        "description": "切换目录",
+        "parameters": [
+          {"flag": "-Path", "label": "路径", "type": "string", "required": true}
+        ]
+      },
+      "Copy-Item": {
+        "description": "复制",
+        "parameters": [
+          {"flag": "-Path", "label": "源", "type": "string", "required": true},
+          {"flag": "-Destination", "label": "目标", "type": "string", "required": true},
+          {"flag": "-Recurse", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": true}
+        ]
+      },
+      "Move-Item": {
+        "description": "移动",
+        "parameters": [
+          {"flag": "-Path", "label": "源", "type": "string", "required": true},
+          {"flag": "-Destination", "label": "目标", "type": "string", "required": true},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": false}
+        ]
+      },
+      "Remove-Item": {
+        "description": "删除",
+        "parameters": [
+          {"flag": "-Path", "label": "路径", "type": "string", "required": true},
+          {"flag": "-Recurse", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": true}
+        ]
+      },
+      "New-Item": {
+        "description": "新建项目",
+        "parameters": [
+          {"flag": "-Path", "label": "路径", "type": "string", "required": true},
+          {"flag": "-ItemType", "label": "类型", "type": "combo", "options": ["File", "Directory"], "default": "File"},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": false}
+        ]
+      },
+      "Get-Process": {
+        "description": "进程列表",
+        "parameters": [
+          {"flag": "-Name", "label": "名称", "type": "string", "placeholder": "如 chrome"},
+          {"flag": "-Id", "label": "PID", "type": "int", "placeholder": "可选"}
+        ]
+      },
+      "Stop-Process": {
+        "description": "结束进程",
+        "parameters": [
+          {"flag": "-Name", "label": "名称", "type": "string", "placeholder": "如 notepad"},
+          {"flag": "-Id", "label": "PID", "type": "int", "placeholder": "可选"},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": true}
+        ]
+      },
+      "Get-Service": {
+        "description": "服务列表",
+        "parameters": [
+          {"flag": "-Name", "label": "服务名", "type": "string", "placeholder": "如 spooler"},
+          {"flag": "-Status", "label": "状态", "type": "combo", "options": ["All", "Running", "Stopped"], "default": "All"}
+        ]
+      },
+      "Start-Service": {
+        "description": "启动服务",
+        "parameters": [
+          {"flag": "-Name", "label": "服务名", "type": "string", "required": true}
+        ]
+      },
+      "Stop-Service": {
+        "description": "停止服务",
+        "parameters": [
+          {"flag": "-Name", "label": "服务名", "type": "string", "required": true},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": false}
+        ]
+      },
+      "Restart-Service": {
+        "description": "重启服务",
+        "parameters": [
+          {"flag": "-Name", "label": "服务名", "type": "string", "required": true},
+          {"flag": "-Force", "label": "强制", "type": "checkbox", "default": false}
+        ]
+      },
+      "Get-Help": {
+        "description": "查看帮助",
+        "parameters": [
+          {"flag": "-Name", "label": "命令名", "type": "string", "required": true},
+          {"flag": "-Examples", "label": "示例", "type": "checkbox", "default": false},
+          {"flag": "-Detailed", "label": "详细", "type": "checkbox", "default": false}
+        ]
+      },
+      "Get-Command": {
+        "description": "查找命令",
+        "parameters": [
+          {"flag": "-Name", "label": "名称", "type": "string", "placeholder": "如 Get-*"},
+          {"flag": "-CommandType", "label": "类型", "type": "combo", "options": ["Cmdlet", "Function", "Alias", "Application"], "default": "Cmdlet"}
+        ]
+      },
+      "Set-ExecutionPolicy": {
+        "description": "执行策略",
+        "parameters": [
+          {"flag": "-ExecutionPolicy", "label": "策略", "type": "combo", "options": ["RemoteSigned", "Unrestricted", "Restricted", "AllSigned", "Bypass"], "default": "RemoteSigned"},
+          {"flag": "-Scope", "label": "范围", "type": "combo", "options": ["CurrentUser", "Process", "LocalMachine"], "default": "CurrentUser"}
+        ]
+      },
+      "Write-Output": {
+        "description": "输出文本",
+        "parameters": [
+          {"flag": "_text", "label": "文本", "type": "string", "required": true}
+        ]
+      },
+      "Clear-Host": {
+        "description": "清屏",
+        "parameters": []
+      },
+      "Start-Process": {
+        "description": "启动程序",
+        "parameters": [
+          {"flag": "-FilePath", "label": "程序", "type": "string", "required": true},
+          {"flag": "-ArgumentList", "label": "参数", "type": "string", "placeholder": "可选"},
+          {"flag": "-WindowStyle", "label": "窗口", "type": "combo", "options": ["Normal", "Hidden", "Minimized", "Maximized"], "default": "Normal"}
+        ]
+      },
+      "Select-String": {
+        "description": "文本搜索",
+        "parameters": [
+          {"flag": "-Pattern", "label": "关键字", "type": "string", "required": true},
+          {"flag": "-Path", "label": "路径", "type": "string", "placeholder": "如 *.log"},
+          {"flag": "-Recurse", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-CaseSensitive", "label": "区分大小写", "type": "checkbox", "default": false}
+        ]
+      },
+      "Get-Date": {
+        "description": "日期时间",
+        "parameters": [
+          {"flag": "-Format", "label": "格式", "type": "string", "placeholder": "如 yyyy-MM-dd HH:mm"},
+          {"flag": "-UFormat", "label": "Unix 格式", "type": "string", "placeholder": "如 %Y-%m-%d"}
+        ]
+      },
+      "Test-NetConnection": {
+        "description": "网络测试",
+        "parameters": [
+          {"flag": "-ComputerName", "label": "主机", "type": "string", "required": true},
+          {"flag": "-Port", "label": "端口", "type": "int", "placeholder": "如 443"}
+        ]
+      }
+    }
+  },
+  "linux": {
+    "description": "Linux/Bash 常用命令",
+    "executable": "",
+    "subcommands": {
+      "ls": {
+        "description": "列出目录",
+        "parameters": [
+          {"flag": "_path", "label": "路径", "type": "string", "default": ".", "placeholder": "默认当前目录"},
+          {"flag": "-l", "label": "详细信息", "type": "checkbox", "default": true},
+          {"flag": "-a", "label": "显示隐藏", "type": "checkbox", "default": false},
+          {"flag": "-h", "label": "人类可读", "type": "checkbox", "default": true},
+          {"flag": "-R", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-t", "label": "按时间排序", "type": "checkbox", "default": false}
+        ]
+      },
+      "cd": {
+        "description": "切换目录",
+        "parameters": [
+          {"flag": "_path", "label": "目录", "type": "string", "required": true, "placeholder": "如 /etc 或 ~"}
+        ]
+      },
+      "pwd": {
+        "description": "当前目录",
+        "parameters": []
+      },
+      "cp": {
+        "description": "复制",
+        "parameters": [
+          {"flag": "_src", "label": "源", "type": "string", "required": true},
+          {"flag": "_dst", "label": "目标", "type": "string", "required": true},
+          {"flag": "-r", "label": "递归目录", "type": "checkbox", "default": false},
+          {"flag": "-v", "label": "显示过程", "type": "checkbox", "default": false},
+          {"flag": "-i", "label": "覆盖前询问", "type": "checkbox", "default": false}
+        ]
+      },
+      "mv": {
+        "description": "移动/重命名",
+        "parameters": [
+          {"flag": "_src", "label": "源", "type": "string", "required": true},
+          {"flag": "_dst", "label": "目标", "type": "string", "required": true},
+          {"flag": "-v", "label": "显示过程", "type": "checkbox", "default": false},
+          {"flag": "-i", "label": "覆盖前询问", "type": "checkbox", "default": false}
+        ]
+      },
+      "rm": {
+        "description": "删除",
+        "parameters": [
+          {"flag": "_path", "label": "路径", "type": "string", "required": true},
+          {"flag": "-r", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-f", "label": "强制", "type": "checkbox", "default": false},
+          {"flag": "-v", "label": "显示过程", "type": "checkbox", "default": false}
+        ]
+      },
+      "mkdir": {
+        "description": "创建目录",
+        "parameters": [
+          {"flag": "_path", "label": "目录", "type": "string", "required": true},
+          {"flag": "-p", "label": "创建父目录", "type": "checkbox", "default": true}
+        ]
+      },
+      "rmdir": {
+        "description": "删除空目录",
+        "parameters": [
+          {"flag": "_path", "label": "目录", "type": "string", "required": true}
+        ]
+      },
+      "touch": {
+        "description": "创建/更新时间戳",
+        "parameters": [
+          {"flag": "_file", "label": "文件", "type": "string", "required": true}
+        ]
+      },
+      "cat": {
+        "description": "查看文件",
+        "parameters": [
+          {"flag": "_file", "label": "文件", "type": "file_open", "required": true},
+          {"flag": "-n", "label": "显示行号", "type": "checkbox", "default": false}
+        ]
+      },
+      "head": {
+        "description": "查看开头",
+        "parameters": [
+          {"flag": "_file", "label": "文件", "type": "file_open", "required": true},
+          {"flag": "-n", "label": "行数", "type": "int", "default": "10"}
+        ]
+      },
+      "tail": {
+        "description": "查看结尾",
+        "parameters": [
+          {"flag": "_file", "label": "文件", "type": "file_open", "required": true},
+          {"flag": "-n", "label": "行数", "type": "int", "default": "10"},
+          {"flag": "-f", "label": "持续跟随", "type": "checkbox", "default": false}
+        ]
+      },
+      "less": {
+        "description": "分页查看",
+        "parameters": [
+          {"flag": "_file", "label": "文件", "type": "file_open", "required": true}
+        ]
+      },
+      "grep": {
+        "description": "文本搜索",
+        "parameters": [
+          {"flag": "_pattern", "label": "模式", "type": "string", "required": true},
+          {"flag": "_file", "label": "文件/目录", "type": "string", "placeholder": "可选"},
+          {"flag": "-r", "label": "递归", "type": "checkbox", "default": false},
+          {"flag": "-i", "label": "忽略大小写", "type": "checkbox", "default": true},
+          {"flag": "-n", "label": "显示行号", "type": "checkbox", "default": false},
+          {"flag": "-v", "label": "反向匹配", "type": "checkbox", "default": false},
+          {"flag": "-E", "label": "扩展正则", "type": "checkbox", "default": false}
+        ]
+      },
+      "find": {
+        "description": "查找文件",
+        "parameters": [
+          {"flag": "_path", "label": "路径", "type": "string", "default": "."},
+          {"flag": "-name", "label": "名称模式", "type": "string", "placeholder": "如 *.log"},
+          {"flag": "-type", "label": "类型", "type": "combo", "options": ["", "f", "d", "l"], "default": "f"},
+          {"flag": "-size", "label": "大小", "type": "string", "placeholder": "如 +10M"}
+        ]
+      },
+      "chmod": {
+        "description": "修改权限",
+        "parameters": [
+          {"flag": "_mode", "label": "权限", "type": "string", "required": true, "placeholder": "如 755 或 u+x"},
+          {"flag": "_file", "label": "文件", "type": "string", "required": true},
+          {"flag": "-R", "label": "递归", "type": "checkbox", "default": false}
+        ]
+      },
+      "chown": {
+        "description": "修改属主",
+        "parameters": [
+          {"flag": "_owner", "label": "属主:属组", "type": "string", "required": true, "placeholder": "如 user:group"},
+          {"flag": "_file", "label": "文件", "type": "string", "required": true},
+          {"flag": "-R", "label": "递归", "type": "checkbox", "default": false}
+        ]
+      },
+      "tar": {
+        "description": "打包/解包",
+        "parameters": [
+          {"flag": "_action", "label": "操作", "type": "combo", "editable": true, "options": ["-c", "-x", "-t"], "default": "-c"},
+          {"flag": "-z", "label": "gzip 压缩", "type": "checkbox", "default": true},
+          {"flag": "-v", "label": "详细", "type": "checkbox", "default": true},
+          {"flag": "-f", "label": "归档文件", "type": "string", "required": true, "placeholder": "如 backup.tar.gz"},
+          {"flag": "_source", "label": "源路径", "type": "string", "required": true}
+        ]
+      },
+      "df": {
+        "description": "磁盘使用",
+        "parameters": [
+          {"flag": "-h", "label": "人类可读", "type": "checkbox", "default": true}
+        ]
+      },
+      "du": {
+        "description": "目录大小",
+        "parameters": [
+          {"flag": "-sh", "label": "汇总人类可读", "type": "checkbox", "default": true},
+          {"flag": "_path", "label": "路径", "type": "string", "default": "."}
+        ]
+      },
+      "ps": {
+        "description": "进程快照",
+        "parameters": [
+          {"flag": "_options", "label": "选项", "type": "string", "default": "aux", "placeholder": "如 aux、-ef"}
+        ]
+      },
+      "top": {
+        "description": "实时进程",
+        "parameters": []
+      },
+      "kill": {
+        "description": "结束进程",
+        "parameters": [
+          {"flag": "_pid", "label": "PID", "type": "int", "required": true},
+          {"flag": "-9", "label": "强制结束", "type": "checkbox", "default": false}
+        ]
+      },
+      "systemctl": {
+        "description": "Systemd 服务",
+        "parameters": [
+          {"flag": "_action", "label": "操作", "type": "combo", "options": ["start", "stop", "restart", "status", "enable", "disable"], "default": "status"},
+          {"flag": "_service", "label": "服务名", "type": "string", "required": true}
+        ]
+      },
+      "apt": {
+        "description": "软件包管理",
+        "parameters": [
+          {"flag": "_action", "label": "操作", "type": "combo", "options": ["install", "remove", "update", "upgrade", "search"], "default": "install"},
+          {"flag": "_package", "label": "软件包", "type": "string", "placeholder": "如 curl"},
+          {"flag": "-y", "label": "自动确认", "type": "checkbox", "default": true}
+        ]
+      },
+      "ssh": {
+        "description": "远程连接",
+        "parameters": [
+          {"flag": "_host", "label": "用户@主机", "type": "string", "required": true, "placeholder": "如 root@192.168.1.10"},
+          {"flag": "-p", "label": "端口", "type": "int", "default": "22"},
+          {"flag": "-i", "label": "密钥文件", "type": "file_open", "placeholder": "可选"}
+        ]
+      },
+      "scp": {
+        "description": "远程复制",
+        "parameters": [
+          {"flag": "_src", "label": "源", "type": "string", "required": true, "placeholder": "如 file.txt 或 user@host:/path"},
+          {"flag": "_dst", "label": "目标", "type": "string", "required": true},
+          {"flag": "-r", "label": "递归", "type": "checkbox", "default": false}
+        ]
+      },
+      "curl": {
+        "description": "HTTP 请求",
+        "parameters": [
+          {"flag": "_url", "label": "URL", "type": "string", "required": true},
+          {"flag": "-X", "label": "方法", "type": "combo", "editable": true, "options": ["GET", "POST", "PUT", "DELETE"], "default": "GET"},
+          {"flag": "-H", "label": "请求头", "type": "string", "placeholder": "如 Authorization: Bearer xxx"},
+          {"flag": "-d", "label": "数据体", "type": "string", "placeholder": "POST 时填写"},
+          {"flag": "-o", "label": "输出文件", "type": "string", "placeholder": "可选"}
+        ]
+      },
+      "wget": {
+        "description": "下载",
+        "parameters": [
+          {"flag": "_url", "label": "URL", "type": "string", "required": true},
+          {"flag": "-O", "label": "输出文件名", "type": "string", "placeholder": "可选"}
+        ]
+      },
+      "ifconfig": {
+        "description": "网络接口",
+        "parameters": [
+          {"flag": "_interface", "label": "接口", "type": "string", "placeholder": "如 eth0"}
+        ]
+      },
+      "ip": {
+        "description": "IP 管理",
+        "parameters": [
+          {"flag": "_args", "label": "子命令", "type": "string", "default": "addr show", "placeholder": "如 addr show、link"}
+        ]
+      },
+      "uname": {
+        "description": "系统信息",
+        "parameters": [
+          {"flag": "-a", "label": "全部信息", "type": "checkbox", "default": true}
+        ]
+      },
+      "date": {
+        "description": "日期时间",
+        "parameters": [
+          {"flag": "_format", "label": "格式", "type": "string", "placeholder": "如 +%Y-%m-%d %H:%M"}
+        ]
+      },
+      "clear": {
+        "description": "清屏",
+        "parameters": []
+      },
+      "history": {
+        "description": "命令历史",
+        "parameters": [
+          {"flag": "_n", "label": "条数", "type": "int", "placeholder": "如 20"}
+        ]
+      },
+      "alias": {
+        "description": "命令别名",
+        "parameters": [
+          {"flag": "_name", "label": "别名", "type": "string", "required": true},
+          {"flag": "_cmd", "label": "命令", "type": "string", "required": true, "placeholder": "如 'ls -la'"}
+        ]
+      }
+    }
+  },
+  "python": {
+    "description": "Python 解释器",
+    "executable": "python",
+    "parameters": [
+      {"flag": "_script", "label": "脚本文件", "type": "file_open", "placeholder": "运行脚本时选择"},
+      {"flag": "-m", "label": "以模块运行", "type": "string", "placeholder": "如 pip、venv、http.server"},
+      {"flag": "-c", "label": "内联代码", "type": "string", "placeholder": "如 print(1+1)"},
+      {"flag": "-u", "label": "无缓冲输出", "type": "checkbox", "default": false},
+      {"flag": "-V", "label": "显示版本", "type": "checkbox", "default": false},
+      {"flag": "_args", "label": "附加参数", "type": "string", "placeholder": "如 install numpy"}
+    ]
+  }
+}

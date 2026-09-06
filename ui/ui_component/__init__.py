@@ -6,6 +6,7 @@ OCTools/ui/ui_component/__init__.py
 既有组件：
   - titlebar_component.py   标题栏（CustomTitleBar）
   - button_component.py     按钮（开关 / 图标按钮 handle）
+  - combo_component.py      下拉选择（Combo / DescComboBox 右侧淡色描述）
   - split_window.py         上下/左右分栏（_Pane）
   - split_titlebar.py       分栏标题栏
   - left_sidebar.py         左侧边栏

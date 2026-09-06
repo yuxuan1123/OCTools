@@ -57,6 +57,31 @@ def _nav_align() -> str:
     return C.section("sidebar").get("button", {}).get("alignment", "left")
 
 
+def _tinted_icon(name: str, color: str) -> str:
+    """把 currentColor SVG 模板着色后写入 ui/styles/_gen/，返回绝对路径。
+
+    QSS 的 image:url() 不支持 currentColor（会渲染成黑色，深色主题下不可见），
+    因此按当前主题色生成着色副本再引用。失败时回退原文件路径。
+    """
+    src = os.path.join(C.using_dir(), name)
+    try:
+        with open(src, "r", encoding="utf-8") as f:
+            content = f.read()
+        tinted = content.replace("currentColor", color)
+    except Exception:
+        return src.replace("\\", "/")
+    gen_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           "styles", "_gen")
+    out = os.path.join(gen_dir, name.replace(".svg", ".tinted.svg"))
+    try:
+        os.makedirs(gen_dir, exist_ok=True)
+        with open(out, "w", encoding="utf-8") as f:
+            f.write(tinted)
+        return out.replace("\\", "/")
+    except Exception:
+        return src.replace("\\", "/")
+
+
 def _qss() -> str:
     """根据 JSON 配置构建全局样式表"""
     monofam = f"{C.raw('fonts', 'mono_family')}, {C.raw('fonts', 'mono_fallback')}, monospace"
@@ -65,6 +90,9 @@ def _qss() -> str:
     radio_icon = os.path.join(C.using_dir(), "square-rounded-check.svg").replace("\\", "/")
     square_icon = os.path.join(C.using_dir(), "square.svg").replace("\\", "/")
     square_rounded_icon = os.path.join(C.using_dir(), "square-rounded.svg").replace("\\", "/")
+    # 下拉箭头：主题色 chevron（收起向下 / 展开向上）
+    chevron_down = _tinted_icon("chevron-down.svg", _c('text_light'))
+    chevron_up = _tinted_icon("chevron-up.svg", _c('text_light'))
     return f"""
 /* ══════════ 全局 ══════════ */
 * {{
@@ -301,11 +329,13 @@ QComboBox::drop-down {{
     width: {_s('combo_dropdown_w')}px;
 }}
 QComboBox::down-arrow {{
-    image: none;
-    border-left: {_s('combo_arrow_l_border')}px solid transparent;
-    border-right: {_s('combo_arrow_l_border')}px solid transparent;
-    border-top: {_s('combo_arrow_t_border')}px solid {_c('text_light')};
+    image: url({chevron_down});
+    width: {_s('combo_arrow_size')}px;
+    height: {_s('combo_arrow_size')}px;
     margin-right: {_s('combo_arrow_margin_r')}px;
+}}
+QComboBox::down-arrow:on {{
+    image: url({chevron_up});
 }}
 QComboBox QAbstractItemView {{
     background: {_c('card')};

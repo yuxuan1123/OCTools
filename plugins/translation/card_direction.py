@@ -6,9 +6,10 @@ OCTools/ui/tabs/translation/card_direction.py
 对应原文 _build_ui 中「卡片 1：翻译方向」整段。
 """
 
+from ui.ui_component.combo_component import Combo
 from PySide6.QtCore import QSize
 from PySide6.QtWidgets import (
-    QWidget, QHBoxLayout, QLabel, QComboBox, QPushButton,
+    QWidget, QHBoxLayout, QLabel, QPushButton,
 )
 
 from ui import icon_res
@@ -37,7 +38,7 @@ def build_direction_card(parent, **ctx):
     d_lab = QLabel("方向:", dir_row)
     d_lab.setObjectName("fieldLabel")
     d_lay.addWidget(d_lab)
-    page.direction_combo = QComboBox(dir_row)
+    page.direction_combo = Combo(dir_row)
     page.direction_combo.addItems(
         [TRANSLATOR.DIRECTION_LABELS[d] for d in TRANSLATOR.DIRECTION_ORDER])
     # 默认「自动检测」
@@ -60,7 +61,7 @@ def build_direction_card(parent, **ctx):
     eg_lab = QLabel("翻译引擎:", eng_row)
     eg_lab.setObjectName("fieldLabel")
     eg_lay.addWidget(eg_lab)
-    page.tr_engine_combo = QComboBox(eng_row)
+    page.tr_engine_combo = Combo(eng_row)
     page.tr_engine_combo.addItems([TR_ENGINE_LABELS[e] for e in TR_ENGINE_ORDER])
     page.tr_engine_combo.currentIndexChanged.connect(page._on_tr_engine_selected)
     page.tr_engine_combo.setMinimumWidth(C.size("combo_min_w_240"))

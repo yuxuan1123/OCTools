@@ -1,6 +1,7 @@
 """
 tab_terminal.py — 嵌入式终端模拟器（支持 cmd / PowerShell）
 """
+from ui.ui_component.combo_component import Combo
 import sys
 import os
 
@@ -8,7 +9,7 @@ from PySide6.QtCore import Qt, QTimer, QProcess, QTranslator, QLibraryInfo
 from PySide6.QtGui import QFont, QTextCursor
 from PySide6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
-    QLabel, QLineEdit, QComboBox, QPlainTextEdit, QGroupBox, QFrame,
+    QLabel, QLineEdit, QPlainTextEdit, QGroupBox, QFrame,
     QCheckBox, QMessageBox,
 )
 
@@ -51,7 +52,7 @@ class TabTerminal(QWidget):
 
         # ── Shell 选择与控制区 ──
         control_layout = QHBoxLayout()
-        self.shell_combo = QComboBox()
+        self.shell_combo = Combo()
         self.shell_combo.addItems(["cmd", "PowerShell"])
         self.shell_combo.setObjectName("shellCombo")
         self.shell_combo.setFixedWidth(140)

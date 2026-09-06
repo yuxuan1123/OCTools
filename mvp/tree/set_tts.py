@@ -11,14 +11,14 @@ TTS 语音参数设置窗口（PySide6 版，txt / md → 音频）
 点「确定」写回调用方持有的 TtsConfig 对象。
 """
 
+from ui.ui_component.combo_component import Combo
 import os
 
 from PySide6.QtCore import Qt, QSize
 from ui import icon_res
 from PySide6.QtGui import QGuiApplication, QCursor
 from PySide6.QtWidgets import (
-    QHBoxLayout, QFormLayout, QLabel, QComboBox,
-    QLineEdit, QSpinBox, QCheckBox, QSlider, QPushButton,
+    QHBoxLayout, QFormLayout, QLabel, QLineEdit, QSpinBox, QCheckBox, QSlider, QPushButton,
     QStackedWidget, QWidget, QFileDialog, QMessageBox,
 )
 
@@ -59,7 +59,7 @@ class SetTts(OptionsDialogBase):
         lab = QLabel("语音引擎:", eng_row)
         lab.setObjectName("fieldLabel")
         e_lay.addWidget(lab)
-        self._engine_combo = QComboBox(eng_row)
+        self._engine_combo = Combo(eng_row)
         self._engine_combo.addItems([ENGINE_LABELS[e] for e in ENGINE_ORDER])
         try:
             self._engine_combo.setCurrentIndex(ENGINE_ORDER.index(config.engine))
@@ -81,7 +81,7 @@ class SetTts(OptionsDialogBase):
         p_lab = QLabel("预设:", preset_row)
         p_lab.setObjectName("fieldLabel")
         p_lay.addWidget(p_lab)
-        self._preset_combo = QComboBox(preset_row)
+        self._preset_combo = Combo(preset_row)
         self._preset_combo.setMinimumWidth(170)
         p_lay.addWidget(self._preset_combo, 1)
         for text, ic, cmd, obj in (
@@ -148,7 +148,7 @@ class SetTts(OptionsDialogBase):
         fr_edge = QWidget()
         edge_form = make_form(fr_edge)
         fr_edge.setLayout(edge_form)
-        self._edge_voice = QComboBox(fr_edge)
+        self._edge_voice = Combo(fr_edge)
         self._edge_voice.setEditable(True)
         voices = list(EDGE_ZH_VOICES)
         cur_voice = config.edge_voice or "zh-CN-XiaoxiaoNeural"
@@ -170,7 +170,7 @@ class SetTts(OptionsDialogBase):
         fr_kokoro = QWidget()
         kokoro_form = make_form(fr_kokoro)
         fr_kokoro.setLayout(kokoro_form)
-        self._kokoro_lang = QComboBox(fr_kokoro)
+        self._kokoro_lang = Combo(fr_kokoro)
         self._kokoro_lang.addItems([f"{c}（{lbl}）" for c, lbl in KOKORO_LANGS])
         try:
             self._kokoro_lang.setCurrentIndex([c for c, _ in KOKORO_LANGS].index(config.kokoro_lang))
@@ -178,7 +178,7 @@ class SetTts(OptionsDialogBase):
             self._kokoro_lang.setCurrentIndex(0)
         kokoro_form.addRow("语言:", self._kokoro_lang)
 
-        self._kokoro_voice = QComboBox(fr_kokoro)
+        self._kokoro_voice = Combo(fr_kokoro)
         self._kokoro_voice.setEditable(True)
         kvoices = list(list_kokoro_voices())
         kcur = config.kokoro_voice or "zf_xiaoxiao"
@@ -215,7 +215,7 @@ class SetTts(OptionsDialogBase):
         moss_form = make_form(fr_moss)
         fr_moss.setLayout(moss_form)
 
-        self._moss_model = QComboBox(fr_moss)
+        self._moss_model = Combo(fr_moss)
         self._moss_model.setEditable(True)
         models = list(list_moss_models())
         mcur = config.moss_model_dir or ""

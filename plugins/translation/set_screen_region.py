@@ -10,11 +10,11 @@ OCTools/ui/options/set_screen_region.py
   - 命名预设：保存 / 加载 / 删除 / 导出 / 导入（方便多套区域配置间切换）
 """
 
+from ui.ui_component.combo_component import Combo
 import os
 
 from PySide6.QtWidgets import (
-    QHBoxLayout, QFormLayout, QLabel, QComboBox,
-    QCheckBox, QPushButton, QWidget, QColorDialog, QMessageBox, QInputDialog,
+    QHBoxLayout, QFormLayout, QLabel, QCheckBox, QPushButton, QWidget, QColorDialog, QMessageBox, QInputDialog,
     QFileDialog,
 )
 from PySide6.QtCore import Qt, QSize
@@ -46,7 +46,7 @@ class SetScreenRegion(OptionsDialogBase):
         c1.addLayout(form)
 
         # 边框颜色
-        self._color_combo = QComboBox(card1)
+        self._color_combo = Combo(card1)
         cur = str(config.border_color or "#3B82F6")
         idx = 0
         for i, (label, val) in enumerate(BORDER_COLOR_PRESETS):
@@ -169,7 +169,7 @@ class SetScreenRegion(OptionsDialogBase):
         lab = QLabel("预设:", row)
         lab.setObjectName("fieldLabel")
         r_lay.addWidget(lab)
-        self._preset_combo = QComboBox(row)
+        self._preset_combo = Combo(row)
         self._preset_combo.setMinimumWidth(180)
         r_lay.addWidget(self._preset_combo, 1)
 

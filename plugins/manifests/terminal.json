@@ -12,7 +12,9 @@
         ],
         "set": [],
         "other": [
-            "__init__.py"
+            "__init__.py",
+            "visual_dialog.py",
+            "commands.json"
         ]
     }
 }

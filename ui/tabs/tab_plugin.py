@@ -28,6 +28,7 @@ UI 加载模式自动判定（写入 manifest 的 ui_mode）：
 config/ui_config.json 读取（CONFIG 单例）。
 """
 
+from ui.ui_component.combo_component import Combo
 import ast
 import importlib
 import json
@@ -40,7 +41,7 @@ from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit,
     QFileDialog, QScrollArea, QFrame, QMessageBox, QToolButton,
-    QComboBox, QProgressBar, QPlainTextEdit,
+    QProgressBar, QPlainTextEdit,
 )
 
 from config.ui_config import CONFIG as C
@@ -592,7 +593,7 @@ class TabPlugin(QWidget):
             toggle2.clicked.connect(lambda _=False, k=key: self._on_toggle(k))
             ctrl.addWidget(toggle2)
 
-            mode_combo = QComboBox()
+            mode_combo = Combo()
             for label, _ in MODE_ITEMS:
                 mode_combo.addItem(label)
             mode_combo.currentIndexChanged.connect(

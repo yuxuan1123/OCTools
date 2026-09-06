@@ -8,12 +8,12 @@ OCTools/ui/options/set_image_docx.py
 持有的 ImageDocxConfig 对象。
 """
 
+from ui.ui_component.combo_component import Combo
 from PySide6.QtCore import Qt, QSize
 from ui import icon_res
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
-    QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QComboBox,
-    QLineEdit, QSpinBox, QDoubleSpinBox, QCheckBox, QPushButton,
+    QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit, QSpinBox, QDoubleSpinBox, QCheckBox, QPushButton,
     QWidget, QColorDialog, QMessageBox,
 )
 
@@ -74,7 +74,7 @@ class SetImageDocx(OptionsDialogBase):
         p_lay = QHBoxLayout(preset_row)
         p_lay.setContentsMargins(0, 0, 0, 0)
         p_lay.setSpacing(C.size("widget_row_spacing"))
-        self._preset_combo = QComboBox(preset_row)
+        self._preset_combo = Combo(preset_row)
         p_lay.addWidget(self._preset_combo, 1)
         load_btn = QPushButton("加载", preset_row)
         load_btn.setIcon(icon_res.colored_icon("folder"))

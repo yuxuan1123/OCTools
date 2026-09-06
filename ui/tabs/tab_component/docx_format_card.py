@@ -14,9 +14,10 @@ MD → DOCX 排版卡片（紧凑头部栏）
     config_changed: 加载 / 保存预设后发出（携带 FormatConfig）
 """
 
+from ui.ui_component.combo_component import Combo
 from PySide6.QtCore import QSize, Signal
 from PySide6.QtWidgets import (
-    QLabel, QPushButton, QFrame, QComboBox, QHBoxLayout, QVBoxLayout,
+    QLabel, QPushButton, QFrame, QHBoxLayout, QVBoxLayout,
 )
 
 from config.format_config import FormatConfig
@@ -73,7 +74,7 @@ class DocxFormatCard(QFrame):
         h_lay.addSpacing(4)
 
         # 预设下拉（可编辑）：选择预设 / 输入新名称保存
-        self._preset_combo = QComboBox(header)
+        self._preset_combo = Combo(header)
         self._preset_combo.setObjectName("dxfPresetEdit")
         self._preset_combo.setEditable(True)
         self._preset_combo.setMinimumWidth(160)

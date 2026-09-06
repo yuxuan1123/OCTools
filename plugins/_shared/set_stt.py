@@ -12,13 +12,13 @@ STT 语音识别参数设置窗口（PySide6 版，音频 → TXT）
 点「确定」写回调用方持有的 SttConfig 对象。
 """
 
+from ui.ui_component.combo_component import Combo
 import os
 
 from PySide6.QtCore import Qt, QSize
 from ui import icon_res
 from PySide6.QtWidgets import (
-    QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QComboBox,
-    QLineEdit, QCheckBox, QPushButton, QWidget, QFileDialog,
+    QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit, QCheckBox, QPushButton, QWidget, QFileDialog,
 )
 
 from ui.options._base import OptionsDialogBase
@@ -61,7 +61,7 @@ class SetStt(OptionsDialogBase):
         form.addRow("模型目录:", model_row)
 
         # 识别设备
-        self._device_combo = QComboBox(card)
+        self._device_combo = Combo(card)
         self._device_combo.addItems([f"{code}（{label}）" for code, label in STT_DEVICE_LABELS])
         try:
             self._device_combo.setCurrentIndex(
@@ -71,7 +71,7 @@ class SetStt(OptionsDialogBase):
         form.addRow("识别设备:", self._device_combo)
 
         # 识别语言
-        self._lang_combo = QComboBox(card)
+        self._lang_combo = Combo(card)
         self._lang_combo.addItems([f"{code}（{label}）" for code, label in STT_LANGUAGE_LABELS])
         try:
             self._lang_combo.setCurrentIndex(

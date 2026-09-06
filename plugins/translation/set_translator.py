@@ -11,13 +11,13 @@ OCTools/ui/options/set_translator.py
 点「确定」写回调用方持有的 TranslatorConfig 对象。
 """
 
+from ui.ui_component.combo_component import Combo
 import os
 
 from PySide6.QtCore import Qt, QSize
 from ui import icon_res
 from PySide6.QtWidgets import (
-    QHBoxLayout, QFormLayout, QLabel, QComboBox,
-    QLineEdit, QSpinBox, QDoubleSpinBox, QPushButton,
+    QHBoxLayout, QFormLayout, QLabel, QLineEdit, QSpinBox, QDoubleSpinBox, QPushButton,
     QStackedWidget, QWidget, QFileDialog, QCheckBox,
 )
 
@@ -60,7 +60,7 @@ class SetTranslator(OptionsDialogBase):
         lab = QLabel("翻译引擎:", eng_row)
         lab.setObjectName("fieldLabel")
         e_lay.addWidget(lab)
-        self._engine_combo = QComboBox(eng_row)
+        self._engine_combo = Combo(eng_row)
         self._engine_combo.addItems([ENGINE_LABELS[e] for e in ENGINE_ORDER])
         try:
             self._engine_combo.setCurrentIndex(ENGINE_ORDER.index(config.engine))
@@ -81,7 +81,7 @@ class SetTranslator(OptionsDialogBase):
         self._preload_chk = QCheckBox("后台预加载 OCR / 翻译模型", card2)
         self._preload_chk.setChecked(bool(getattr(config, "preload_models", True)))
         f2.addRow("", self._preload_chk)
-        self._preload_timing = QComboBox(card2)
+        self._preload_timing = Combo(card2)
         self._preload_timing.addItems(["主程序启动后（默认）", "进入翻译页时"])
         timing = getattr(config, "preload_timing", "startup")
         self._preload_timing.setCurrentIndex(0 if timing != "tab" else 1)
@@ -103,13 +103,13 @@ class SetTranslator(OptionsDialogBase):
         self._overlay_font.setValue(int(getattr(config, "overlay_font_size", 12) or 12))
         f3.addRow("悬浮窗字号:", self._overlay_font)
 
-        self._overlay_mode = QComboBox(card3)
+        self._overlay_mode = Combo(card3)
         self._overlay_mode.addItems(["双语（原文 + 译文）", "仅译文"])
         mode = getattr(config, "overlay_mode", "both")
         self._overlay_mode.setCurrentIndex(0 if mode != "trans" else 1)
         f3.addRow("显示模式:", self._overlay_mode)
 
-        self._bg_combo = QComboBox(card3)
+        self._bg_combo = Combo(card3)
         self._bg_items = [
             ("白色（默认）", "#FFFFFF"),
             ("透明", "transparent"),

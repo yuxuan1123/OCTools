@@ -20,6 +20,7 @@ MD → DOCX 格式控制面板（PySide6 版）
   config = dlg.get_config()
 """
 
+from ui.ui_component.combo_component import Combo
 import sys
 
 from PySide6.QtCore import Qt, QSize
@@ -27,7 +28,7 @@ from ui import icon_res
 from PySide6.QtGui import QColor, QFont
 from PySide6.QtWidgets import (
     QWidget, QDialog, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel,
-    QComboBox, QLineEdit, QDoubleSpinBox, QCheckBox, QRadioButton,
+    QLineEdit, QDoubleSpinBox, QCheckBox, QRadioButton,
     QButtonGroup, QToolButton, QScrollArea, QFrame, QPushButton,
     QFileDialog, QMessageBox, QInputDialog, QColorDialog, QSizePolicy,
 )
@@ -89,7 +90,7 @@ def _spin(parent, lo, hi, step=1.0, value=None, suffix="", decimals=None):
 
 def _combo(parent, values, current=None, editable=False):
     """标准 QComboBox；current 不在列表中时自动补入以保证显示"""
-    cb = QComboBox(parent)
+    cb = Combo(parent)
     cb.setEditable(editable)
     vals = list(values)
     if current and current not in vals:
@@ -218,7 +219,7 @@ class PageSetupSection(CollapsibleSection):
         # 纸张大小
         paper_items = [(f"{p.value} - {PaperSize.labels().get(p, p.value)}", p)
                        for p in PaperSize]
-        self._paper_combo = QComboBox(c)
+        self._paper_combo = Combo(c)
         for text, p in paper_items:
             self._paper_combo.addItem(text, p)
         cur_paper = self._config.page.paper_size
@@ -617,7 +618,7 @@ class PresetsSection(CollapsibleSection):
         c.setLayout(form)
 
         # 选择预设 + 按钮
-        self._preset_combo = QComboBox(c)
+        self._preset_combo = Combo(c)
         form.addRow("选择预设:", self._preset_combo)
 
         btn_row = _hbox()
