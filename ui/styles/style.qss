@@ -4,7 +4,7 @@
     font-family: Microsoft YaHei UI, Segoe UI, sans-serif;
 }
 QMainWindow, QDialog {
-    background: #ffffff;
+    background: #F3F5F9;
 }
 QWidget {
     color: #1F2430;
@@ -234,13 +234,13 @@ QComboBox::drop-down {
     width: 24px;
 }
 QComboBox::down-arrow {
-    image: url(d:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-down.tinted.svg);
+    image: url(D:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-down.tinted.svg);
     width: 16px;
     height: 16px;
     margin-right: 8px;
 }
 QComboBox::down-arrow:on {
-    image: url(d:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-up.tinted.svg);
+    image: url(D:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-up.tinted.svg);
 }
 QComboBox QAbstractItemView {
     background: #FFFFFF;
@@ -270,18 +270,18 @@ QCheckBox::indicator, QRadioButton::indicator {
     height: 18px;
 }
 QCheckBox::indicator {
-    image: url(d:/Project/PythonProject/OCTools/resources/icons/square.svg);
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square.svg);
 }
 QCheckBox::indicator:checked {
     background: #FFFFFF;
-    image: url(d:/Project/PythonProject/OCTools/resources/icons/square-check.svg);
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-check.svg);
 }
 QRadioButton::indicator {
-    image: url(d:/Project/PythonProject/OCTools/resources/icons/square-rounded.svg);
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-rounded.svg);
 }
 QRadioButton::indicator:checked {
     background: #FFFFFF;
-    image: url(d:/Project/PythonProject/OCTools/resources/icons/square-rounded-check.svg);
+    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-rounded-check.svg);
 }
 
 /* ══════════ 滑块（全局缩放等）══════════ */
