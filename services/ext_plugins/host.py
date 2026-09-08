@@ -28,9 +28,21 @@ import threading
 
 
 def _project_root() -> str:
-    """services/ext_plugins/host.py → 项目根目录。"""
+    """项目根目录。
+
+    - 优先取主进程注入的 MYAPP_HOME（process.start 统一设置，
+      源码模式=项目根，打包后=exe 目录）；
+    - 兜底按 host.py 位置上推两级；打包后 host.py 落在
+      <exe>/_internal/services/ext_plugins/，需再剥掉 _internal 层。
+    """
+    env_root = os.environ.get("MYAPP_HOME", "")
+    if env_root and os.path.isdir(os.path.join(env_root, "plugins")):
+        return env_root
     here = os.path.dirname(os.path.abspath(__file__))
-    return os.path.dirname(os.path.dirname(here))
+    root = os.path.dirname(os.path.dirname(here))
+    if os.path.basename(root) == "_internal":
+        root = os.path.dirname(root)
+    return root
 
 
 def load_manifest(plugin_id: str, root: str) -> dict:
@@ -95,6 +107,12 @@ def main():
     root = _project_root()
     if root not in sys.path:
         sys.path.insert(0, root)
+
+    # embeddable Python 的 ._pth 隔离模式会忽略 PYTHONPATH，
+    # 这里手动把 process.py 注入的 deps 目录加回 sys.path
+    for _dep in filter(None, os.environ.get("PYTHONPATH", "").split(os.pathsep)):
+        if os.path.isdir(_dep) and _dep not in sys.path:
+            sys.path.insert(0, _dep)
 
     instance = None
     try:

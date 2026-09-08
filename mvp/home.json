@@ -1,0 +1,8 @@
+{
+    "name": "首页",
+    "class_name": "TabHome",
+    "module_path": "ui.tabs.tab_home",
+    "order": 0,
+    "settings_count": 0,
+    "settings": []
+}

@@ -4,7 +4,7 @@
     font-family: Microsoft YaHei UI, Segoe UI, sans-serif;
 }
 QMainWindow, QDialog {
-    background: #F3F5F9;
+    background: #ffffff;
 }
 QWidget {
     color: #1F2430;

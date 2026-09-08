@@ -1,0 +1,26 @@
+{
+    "name": "首页",
+    "class_name": "TabHome",
+    "module_path": "plugins.home.tab_home",
+    "ui_mode": "direct",
+    "order": 0,
+    "settings_count": 0,
+    "settings": [],
+    "files": {
+        "tab": [
+            "tab_home.py"
+        ],
+        "set": [],
+        "other": [
+            "README.md",
+            "__init__.py",
+            "__main__.py",
+            "constants.py",
+            "format_utils.py",
+            "greeting.py",
+            "home_state.json",
+            "state.py",
+            "styles.py"
+        ]
+    }
+}
