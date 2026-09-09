@@ -18,13 +18,22 @@ _PROBE_CMD = (
 # 排除 vEthernet (WSL)、Loopback 等虚拟网卡，优先取真实物理网卡
 # 通过 stdin 传入，避免嵌套 shell 调用时 $_ 被吞掉
 _CURRENT_IP_CMD = (
+    # 优先检测名为 AAAA 的已连接适配器
+    '$target = Get-NetAdapter -Name "AAAA" -ErrorAction SilentlyContinue '
+    '| Where-Object { $_.Status -eq "Up" }; '
+    'if ($target) { '
+        '$alias = $target.Name; '
+        '$ip = (Get-NetIPAddress -InterfaceAlias $alias -AddressFamily IPv4 '
+               '-ErrorAction SilentlyContinue).IPAddress; '
+        'if ($ip) { $alias + "|" + $ip; exit } '
+    '}; '
+    # 回退：原有逻辑（排除虚拟网卡）
     '$cs = Get-NetIPConfiguration -ErrorAction SilentlyContinue;'
     '$hit = $cs | Where-Object { $_.InterfaceAlias -notlike "vEthernet*"'
     ' -and $_.InterfaceAlias -notlike "Loopback*" -and $_.IPv4Address }'
     ' | Select-Object -First 1;'
     'if ($hit) { $hit.InterfaceAlias + "|" + $hit.IPv4Address.IPAddress }'
 )
-
 
 def probe_state(timeout: int = 6) -> str:
     """阻塞探测当前网络加速状态，返回 'on' / 'off' / 'unknown'。
