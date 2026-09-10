@@ -12,10 +12,18 @@ playwright Python 包通过 collect_submodules 收集；浏览器二进制由 ru
 """
 
 import os
-from PyInstaller.utils.hooks import collect_submodules
+from PyInstaller.utils.hooks import (
+    collect_submodules, collect_dynamic_libs, collect_data_files, collect_all,
+)
 
 # 项目根目录（spec 文件在 scripts/ 下，上跳一层）
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(SPEC)))
+
+# Opus-MT 轻量翻译引擎（ctranslate2 含原生 .dll + 数据包，
+# sentencepiece 含 _sentencepiece.pyd）：translation 插件是 direct 模式，
+# 在冻结主进程内运行、无法运行时 pip 自装，必须在此全量收集
+_ct2_bin, _ct2_data, _ct2_hidden = collect_all('ctranslate2')
+_spm_bin, _spm_data, _spm_hidden = collect_all('sentencepiece')
 
 
 def _walk_pkg_modules(pkg_dir: str) -> list:
@@ -53,7 +61,7 @@ block_cipher = None
 a = Analysis(
     [os.path.join(_ROOT, 'main.py')],
     pathex=[_ROOT],
-    binaries=[],
+    binaries=(collect_dynamic_libs('llama_cpp') + _ct2_bin + _spm_bin),
     datas=[
         (os.path.join(_ROOT, 'resources'), 'resources'),
         (os.path.join(_ROOT, 'config', 'ui_config.json'), 'config'),
@@ -61,13 +69,23 @@ a = Analysis(
         # 插件子进程宿主脚本：manager.HOST_PY 用 __file__ 推导路径，
         # embedded python 需要真实源文件（不能在 PYZ 里）
         (os.path.join(_ROOT, 'services', 'ext_plugins', 'host.py'), os.path.join('services', 'ext_plugins')),
-    ],
+        # llama_cpp 的 native 库目录：llama_cpp.py 第 25 行 __file__/lib
+        # 在 frozen 模式下指向 _internal/llama_cpp/lib，
+        # 缺这个目录会报 [WinError 3] 系统找不到指定的路径
+        (os.path.join(_ROOT, '.venv', 'Lib', 'site-packages', 'llama_cpp', 'lib'),
+         os.path.join('llama_cpp', 'lib')),
+    ] + _ct2_data + _spm_data,
     hiddenimports=[
         'PySide6.QtSvg',
         'PySide6.QtSvgWidgets',
         'PySide6.QtPrintSupport',
         'PySide6.QtMultimedia',
+        'llama_cpp',
+        'ctranslate2',
+        'sentencepiece',
     ] + collect_submodules('playwright')
+      + collect_submodules('llama_cpp')
+      + _ct2_hidden + _spm_hidden
       # 项目内包全量模块：动态导入的 tab / 插件运行时依赖的 app 模块
       # （main_window 按 manifest 用 importlib.import_module 加载，
       #   插件源码也 import ui.* / config.* / core.*，静态分析覆盖不到）

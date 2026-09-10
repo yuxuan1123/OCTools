@@ -192,6 +192,34 @@ _HY_LLM = None
 _HY_LLM_KEY = None
 
 
+def _cpu_supports_avx() -> bool:
+    """检测 CPU 是否支持 AVX 指令集。
+
+    llama-cpp-python 官方预编译 CPU wheel 的 ggml-cpu.dll 以 AVX 为基线，
+    在无 AVX 的老 CPU（如 Westmere 及更早）上加载会在原生线程池中触发
+    0xc000001d（STATUS_ILLEGAL_INSTRUCTION），且异常发生在 native 线程、
+    Python 无法捕获，表现为翻译永久卡死。必须在加载 DLL 前拦截。
+    """
+    import sys
+    if sys.platform != "win32":
+        return True   # 非 Windows 不做阻断（wheel 分发链不同）
+    try:
+        import ctypes
+        # PF_AVX_INSTRUCTIONS_AVAILABLE = 39（Win7 SP1+）
+        return bool(ctypes.windll.kernel32.IsProcessorFeaturePresent(39))
+    except Exception:
+        return True   # 检测本身失败时保持原行为，不误伤
+
+
+def _ensure_cpu_for_hy():
+    """Hy-MT2 运行前的 CPU 能力门槛检查（不满足直接给可操作的中文报错）"""
+    if not _cpu_supports_avx():
+        raise RuntimeError(
+            "当前 CPU 不支持 AVX 指令集，无法运行 Hy-MT2 本地大模型"
+            "（llama-cpp-python 预编译库要求 AVX 及以上指令集）。\n"
+            "请在「设置 → 翻译引擎」中切换为「Opus-MT（轻量）」。")
+
+
 def _ensure_hy(cfg: TranslatorConfig):
     """创建/复用 Hy-MT2 模型（按 模型路径+上下文参数 缓存）"""
     global _HY_LLM, _HY_LLM_KEY
@@ -199,6 +227,7 @@ def _ensure_hy(cfg: TranslatorConfig):
            int(cfg.hy_n_threads), int(cfg.hy_n_gpu_layers))
     if _HY_LLM is not None and _HY_LLM_KEY == key:
         return _HY_LLM
+    _ensure_cpu_for_hy()
     if not os.path.exists(cfg.hy_model_path):
         raise RuntimeError(f"Hy-MT 模型文件不存在: {cfg.hy_model_path}")
     try:
@@ -325,6 +354,10 @@ def translate(text: str, direction: str = "auto", log=None, config=None) -> str:
 
     hy_target = "中文" if direction == "en2zh" else "英文"
     eng_label = ENGINE_LABELS.get(cfg.engine, cfg.engine)
+    # Hy 引擎先做 CPU 能力门槛检查：不支持 AVX 时直接抛清晰错误，
+    # 避免进入段落后被段落级 except 吞掉、或原生库加载导致线程挂死
+    if cfg.engine == "hy":
+        _ensure_cpu_for_hy()
     paras = _split_paragraphs(text)
     parts = []
     for i, para in enumerate(paras):

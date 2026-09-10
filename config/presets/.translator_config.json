@@ -1,5 +1,5 @@
 {
-  "engine": "hy",
+  "engine": "opusmt",
   "hy_model_path": "D:\\AI_Model\\hy_mt\\Hy-MT2-1.8B-Q4_K_M.gguf",
   "hy_n_ctx": 2048,
   "hy_n_threads": 4,

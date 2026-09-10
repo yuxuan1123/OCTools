@@ -4,7 +4,7 @@
     font-family: Microsoft YaHei UI, Segoe UI, sans-serif;
 }
 QMainWindow, QDialog {
-    background: #F3F5F9;
+    background: #ffffff;
 }
 QWidget {
     color: #1F2430;
@@ -113,7 +113,7 @@ QPushButton:disabled {
 
 QPushButton#primary {
     background: #4F6EF7;
-    color: #FFFFFF;
+    color: #1F2430;
     border: none;
     min-height: 34px;
 }
@@ -130,7 +130,7 @@ QPushButton#primary:disabled {
 
 QPushButton#secondary {
     background: #10B981;
-    color: #FFFFFF;
+    color: #1F2430;
     border: none;
     min-height: 34px;
 }
@@ -140,7 +140,7 @@ QPushButton#secondary:hover {
 
 QPushButton#danger {
     background: #EF4444;
-    color: #FFFFFF;
+    color: #1F2430;
     border: none;
     min-height: 34px;
 }
@@ -234,13 +234,13 @@ QComboBox::drop-down {
     width: 24px;
 }
 QComboBox::down-arrow {
-    image: url(D:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-down.tinted.svg);
+    image: url(d:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-down.tinted.svg);
     width: 16px;
     height: 16px;
     margin-right: 8px;
 }
 QComboBox::down-arrow:on {
-    image: url(D:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-up.tinted.svg);
+    image: url(d:/Project/PythonProject/OCTools/ui/styles/_gen/chevron-up.tinted.svg);
 }
 QComboBox QAbstractItemView {
     background: #FFFFFF;
@@ -270,18 +270,18 @@ QCheckBox::indicator, QRadioButton::indicator {
     height: 18px;
 }
 QCheckBox::indicator {
-    image: url(D:/Project/PythonProject/OCTools/resources/icons/square.svg);
+    image: url(d:/Project/PythonProject/OCTools/resources/icons/square.svg);
 }
 QCheckBox::indicator:checked {
     background: #FFFFFF;
-    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-check.svg);
+    image: url(d:/Project/PythonProject/OCTools/resources/icons/square-check.svg);
 }
 QRadioButton::indicator {
-    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-rounded.svg);
+    image: url(d:/Project/PythonProject/OCTools/resources/icons/square-rounded.svg);
 }
 QRadioButton::indicator:checked {
     background: #FFFFFF;
-    image: url(D:/Project/PythonProject/OCTools/resources/icons/square-rounded-check.svg);
+    image: url(d:/Project/PythonProject/OCTools/resources/icons/square-rounded-check.svg);
 }
 
 /* ══════════ 滑块（全局缩放等）══════════ */
@@ -473,7 +473,7 @@ QLineEdit#dxfPresetEdit:focus {
 }
 QToolButton#dxfToggleBtn {
     background: #4F6EF7;
-    color: #FFFFFF;
+    color: #1F2430;
     border: none;
     border-radius: 7px;
     padding: 0px 12px;
@@ -506,19 +506,19 @@ QLabel#sectionTitle {
 
 /* ══════════ 插件加载状态徽章（tab_plugin） ══════════ */
 QLabel#badge[ok="1"] {
-    color: #FFFFFF;
+    color: #1F2430;
     background: ;
     border-radius: 8px;
     padding: 4px 12px;
 }
 QLabel#badge[ok="0"] {
-    color: #FFFFFF;
+    color: #1F2430;
     background: #EF4444;
     border-radius: 8px;
     padding: 4px 12px;
 }
 QLabel#badge[ok="2"] {
-    color: #FFFFFF;
+    color: #1F2430;
     background: #64748B;
     border-radius: 8px;
     padding: 4px 12px;
@@ -526,19 +526,19 @@ QLabel#badge[ok="2"] {
 
 /* 插件 UI 加载模式徽章（plugin_ext / tab_plugin）：direct 灰 / desc 蓝 / window 紫 */
 QLabel#badge[mode="direct"] {
-    color: #FFFFFF;
+    color: #1F2430;
     background: #64748B;
     border-radius: 8px;
     padding: 4px 12px;
 }
 QLabel#badge[mode="desc"] {
-    color: #FFFFFF;
+    color: #1F2430;
     background: #2563EB;
     border-radius: 8px;
     padding: 4px 12px;
 }
 QLabel#badge[mode="window"] {
-    color: #FFFFFF;
+    color: #1F2430;
     background: #8B5CF6;
     border-radius: 8px;
     padding: 4px 12px;

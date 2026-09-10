@@ -18,7 +18,9 @@
             "constants.py",
             "format_utils.py",
             "greeting.py",
+            "home.bat",
             "home_state.json",
+            "net.ps1",
             "state.py",
             "styles.py"
         ]

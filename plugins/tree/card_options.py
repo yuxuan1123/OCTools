@@ -77,7 +77,7 @@ def btn_style() -> str:
 def primary_btn_style() -> str:
     return (
         f"QPushButton {{ background: {C.color('primary')};"
-        f" color: {C.color('white')}; border: none;"
+        f" color: {C.color('text')}; border: none;"
         f" border-radius: {C.size('radius_btn')}px;"
         f" padding: {C.size('btn_padding_v')}px {C.size('btn_padding_h')}px;"
         f" font-weight: {C.font('btn_weight')}; }}"

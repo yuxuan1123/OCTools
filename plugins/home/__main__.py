@@ -1,4 +1,4 @@
-"""独立运行入口：python -m home"""
+"""独立运行入口：python -m mvp.home"""
 
 import sys
 

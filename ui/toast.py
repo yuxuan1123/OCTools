@@ -22,7 +22,7 @@ def show_toast(parent, message, duration_ms=1500, kind="success"):
         "warn":    "toast_warning",
     }.get(kind, "toast_success")
     bg = CONFIG.color(bg_key) or "#10B981"          # 背景色
-    text_color = CONFIG.color("toast_text") or "#FFFFFF"  # 文字色
+    text_color = CONFIG.color("toast_text") or "#1F2430"  # 文字色
 
     toast = QLabel(message, parent)
     toast.setObjectName("toast_" + kind)  # 保留 objectName（不影响显示）

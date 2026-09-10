@@ -208,7 +208,7 @@ QPushButton:disabled {{
 
 QPushButton#primary {{
     background: {_c('primary')};
-    color: {_c('white')};
+    color: {_c('text')};
     border: none;
     min-height: {_s('btn_h')}px;
 }}
@@ -225,7 +225,7 @@ QPushButton#primary:disabled {{
 
 QPushButton#secondary {{
     background: {_c('secondary')};
-    color: {_c('white')};
+    color: {_c('text')};
     border: none;
     min-height: {_s('btn_h')}px;
 }}
@@ -235,7 +235,7 @@ QPushButton#secondary:hover {{
 
 QPushButton#danger {{
     background: {_c('danger')};
-    color: {_c('white')};
+    color: {_c('text')};
     border: none;
     min-height: {_s('btn_h')}px;
 }}
@@ -568,7 +568,7 @@ QLineEdit#dxfPresetEdit:focus {{
 }}
 QToolButton#dxfToggleBtn {{
     background: {_c('primary')};
-    color: {_c('white')};
+    color: {_c('text')};
     border: none;
     border-radius: {_s('radius_dxf_btn')}px;
     padding: {_s('dxf_btn_padding_v')}px {_s('dxf_btn_padding_h')}px;
@@ -601,19 +601,19 @@ QLabel#sectionTitle {{
 
 /* ══════════ 插件加载状态徽章（tab_plugin） ══════════ */
 QLabel#badge[ok="1"] {{
-    color: {_c('white')};
+    color: {_c('text')};
     background: {_c('success')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
 }}
 QLabel#badge[ok="0"] {{
-    color: {_c('white')};
+    color: {_c('text')};
     background: {_c('danger')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
 }}
 QLabel#badge[ok="2"] {{
-    color: {_c('white')};
+    color: {_c('text')};
     background: {_c('text_light')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
@@ -621,19 +621,19 @@ QLabel#badge[ok="2"] {{
 
 /* 插件 UI 加载模式徽章（plugin_ext / tab_plugin）：direct 灰 / desc 蓝 / window 紫 */
 QLabel#badge[mode="direct"] {{
-    color: {_c('white')};
+    color: {_c('text')};
     background: {_c('text_light')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
 }}
 QLabel#badge[mode="desc"] {{
-    color: {_c('white')};
+    color: {_c('text')};
     background: {_c('card_icon_blue')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;
 }}
 QLabel#badge[mode="window"] {{
-    color: {_c('white')};
+    color: {_c('text')};
     background: {_c('purple')};
     border-radius: {_s('radius_btn')}px;
     padding: {_s('badge_padding_v')}px {_s('badge_padding_h')}px;

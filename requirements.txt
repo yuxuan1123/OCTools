@@ -57,6 +57,10 @@ llama-cpp-python==0.3.35
 huggingface_hub==1.27.0
 hf-xet==1.6.0
 
+# 翻译 / Opus-MT 轻量引擎（CTranslate2 int8，老 CPU 无 AVX 也可运行）
+ctranslate2==4.8.2
+sentencepiece==0.2.2
+
 # AI 平台 SDK 
 modelscope==1.39.1
 modelscope-hub==0.2.0

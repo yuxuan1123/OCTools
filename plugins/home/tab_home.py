@@ -191,7 +191,6 @@ class TabHome(QWidget):
         ok, err = net_service.apply_action(turn_on)
         if ok:
             show_toast(self, f"正在{label}网络加速", duration_ms=2000, kind="info")
-            QTimer.singleShot(1500, self.net_card.refresh)
         else:
             show_toast(self, f"{label}失败：{err}", duration_ms=2000, kind="warn")
 

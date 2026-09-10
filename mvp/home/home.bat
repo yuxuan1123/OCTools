@@ -26,16 +26,16 @@ if %errorLevel% equ 0 (
 
 :: -------- 2. 安装场景B ----------
 echo [Step 2/3] Installing Scenario B (17:55 remind, 18:00 shutdown)...
-call :createReminderScript "18" "17:55" "18:00"
+call :createReminderScript "18" "17:55" "17:58"
 schtasks /create /tn "ShutdownReminder" /tr "\"%~dp0reminder_18.bat\"" /sc once /st 17:55 /f >nul 2>&1
-schtasks /create /tn "OneTimeShutdown" /tr "shutdown /s /f /t 120" /sc once /st 18:00 /f >nul 2>&1
+schtasks /create /tn "OneTimeShutdown" /tr "shutdown /s /f /t 120" /sc once /st 17:58 /f >nul 2>&1
 if %errorLevel% equ 0 (
     echo   Scenario B installed successfully.
 ) else (
     echo   Scenario B installation FAILED.
 )
 
-:: -------- 3. 打开飞书文档（无条件，不依赖飞书客户端）----------
+:: -------- 3. 打开飞书文档 ----------
 echo [Step 3/3] Opening Feishu docs in default browser...
 call :openFeishuDocs
 
@@ -58,23 +58,17 @@ set "SHUTDOWN_TIME=%~3"
 set "SCRIPT_PATH=%~dp0reminder_%TIME_LABEL%.bat"
 (
 echo @echo off
-echo title Shutdown Confirmation (%TIME_LABEL%)
+echo title Shutdown Confirmation %TIME_LABEL%
 echo cd /d "%~dp0"
-echo powershell -Command ^
-echo     $result = [System.Windows.Forms.MessageBox]::Show^(^
-echo         'Do you want to shut down the computer at %SHUTDOWN_TIME%?',^
-echo         'Shutdown Confirmation',^
-echo         [System.Windows.Forms.MessageBoxButtons]::YesNo,^
-echo         [System.Windows.Forms.MessageBoxIcon]::Question^
-echo     ^);^
-echo     if ^( $result -eq 'Yes' ^) {^
-echo         schtasks /create /tn "ShutdownAt%TIME_LABEL%" /tr "shutdown /s /f /t 60" /sc once /st %SHUTDOWN_TIME% /f ^>nul 2^>^&1^
-echo         if ^(^%errorlevel^% equ 0^) ^(^
-echo             msg * "Shutdown scheduled at %SHUTDOWN_TIME%. Cancel by: shutdown /a"^
-echo         ^) else ^(^
-echo             msg * "Failed to schedule shutdown."^
-echo         ^)^
-echo     ^}
+echo powershell -NoProfile -STA -Command "exit ^([System.Windows.Forms.MessageBox]::Show('Shut down the computer at %SHUTDOWN_TIME% ?','Shutdown Confirmation',4,32,0,331776^)^)"
+echo if not "%%errorlevel%%"=="6" exit /b
+echo schtasks /create /tn "ShutdownAt%TIME_LABEL%" /tr "shutdown /s /f /t 60" /sc once /st %SHUTDOWN_TIME% /f
+echo if "%%errorlevel%%"=="0" ^(
+echo     powershell -NoProfile -STA -Command "[System.Windows.Forms.MessageBox]::Show('Shutdown scheduled at %SHUTDOWN_TIME%. To cancel run: shutdown /a','Shutdown Scheduled',0,331776]"
+echo ^) else ^(
+echo     powershell -NoProfile -STA -Command "[System.Windows.Forms.MessageBox]::Show('Failed to schedule shutdown.','Error',0,331776]"
+echo ^)
+echo exit /b
 ) > "%SCRIPT_PATH%"
 exit /b
 
